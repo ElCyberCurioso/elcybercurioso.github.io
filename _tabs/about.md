@@ -9,6 +9,8 @@ order: 5
   <button id="toggle-lang" class="lang-button">English</button>
 </div>
 
+<img src="/assets/img/profile2.jpg" alt="Desktop View" style="border-radius: 8px 8px 8px 8px;" width="250" height="160" loading="lazy">
+
 <div id="about-content"></div>
 
 {% raw %}
