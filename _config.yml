@@ -14,12 +14,12 @@ timezone: Europe/Madrid
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: El rincón de ElCyberCurioso # the main title
+title: Hacker's Den # the main title
 
 tagline: Notas y apuntes de Hacking # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
-  Blog personal de ElCyberCurioso con apuntes de hacking
+  Blog personal de ElCyberCurioso con apuntes de hacking y pentesting (Red Team)
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
@@ -88,7 +88,7 @@ pageviews:
 #     light — Use the light color scheme
 #     dark — Use the dark color scheme
 #
-theme_mode: # [ dark | light ]
+theme_mode: dark # [ dark | light ]
 
 # The CDN endpoint for media resources.
 # Notice that once it is assigned, the CDN url
