@@ -58,7 +58,7 @@ order: 5
       button.textContent = lang === "es" ? "English" : "Español";
     }
 
-    // cargar idioma al inicio
+    /* cargar idioma al inicio */
     await loadContent(currentLang);
 
     button.addEventListener("click", async () => {
@@ -66,7 +66,7 @@ order: 5
       localStorage.setItem("lang", currentLang);
       await loadContent(currentLang);
 
-      // animación al hacer clic
+      /* animación al hacer clic */
       button.style.transform = "scale(0.9)";
       setTimeout(() => (button.style.transform = "scale(1)"), 150);
     });
