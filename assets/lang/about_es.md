@@ -5,7 +5,9 @@ title: "👾 Sobre mí"
 
 ## 👋​ Presentación
 
-Hola — me llamo Sebastián Adrián Crăciun, y soy un entusiasta de la ciberseguridad y un hacker ético apasionado por entender cómo funcionan (y donde fallan) los sistemas.
+Hola — me llamo Sebastián Adrián Crăciun.
+
+Soy un entusiasta de la ciberseguridad y un hacker ético apasionado por entender cómo funcionan (y donde fallan) los sistemas.
 
 Me especializo en seguridad ofensiva, investigación de vulnerabilidades y en diseñar arquitecturas seguras desde la práctica.
 
@@ -25,7 +27,7 @@ Ayudar a organizaciones a endurecer sus defensas pensando como un atacante — d
 - **eJPTv3** – INE Security (Junior Penetration Tester)  
 - **ICCA** – INE Security (Certified Cloud Associate)  
 
-Sigo explorando nuevas metodologías y herramientas tanto en Red Team como en Blue Team.
+Sigo explorando nuevas metodologías y herramientas tanto en **Red Team** como en **Blue Team**.
 
 ## 🧰 Áreas de especialidad
 

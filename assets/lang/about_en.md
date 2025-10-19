@@ -5,52 +5,57 @@ title: "👾 About me"
 
 ## 👋​ Presentation
 
-Hey there — I’m a cybersecurity enthusiast and ethical hacker passionate about understanding how systems *really* work (and how they fail).  
+Hello — my name is Sebastián Adrián Crăciun.
 
-My focus is on offensive security, vulnerability research, and building secure-by-design architectures.
+I am a cybersecurity enthusiast and ethical hacker passionate about understanding how systems work (and where they fail).
 
-Over the past few years, I’ve immersed myself in penetration testing, web application security, and exploit development.
+I specialize in offensive security, vulnerability research, and designing secure architectures from a practical perspective.
 
-I believe that true expertise in cybersecurity comes from curiosity, continuous learning, and a hands-on approach.
+Over the past few years, I have been practicing web application pentesting, network exploitation, and proof-of-concept development.
+
+I believe that true expertise comes from curiosity, continuous practice, and hands-on learning.
 
 ## 🎯 My Mission
 
-To help organizations strengthen their defenses by thinking like an attacker — responsibly, methodically, and ethically.  
-I aim to transform complex technical findings into actionable insights that improve security posture.
+Helping organizations strengthen their defenses by thinking like an attacker—responsibly, methodically, and ethically. I transform complex technical findings into actionable recommendations that improve security posture.
 
 
 ## 🧠 Certifications & Learning Path
 
 - **eWPTXv3** – INE Security (Web Application Penetration Testing eXtreme)  
 - **eCPPTv2** – INE Security (Certified Professional Penetration Tester)  
-- **OSCP** – Offensive Security Certified Professional  
-- **CompTIA Security+** *(or other relevant certs)*  
+- **eJPTv3** – INE Security (Junior Penetration Tester)  
+- **ICCA** – INE Security (Certified Cloud Associate)  
 
 I’m constantly exploring new methodologies and tools within both **Red Team** and **Blue Team** disciplines.
 
 
 ## 🧰 Areas of Expertise
 
-- Web Application & API Penetration Testing  
-- Network Security & Exploitation  
-- Vulnerability Research & CVE Analysis  
-- Scripting & Automation (Python, Bash, Go)  
-- Cloud Security (AWS / Azure)  
-- Threat Modeling & Secure Development Lifecycle (SDL)
+- Web application and API pentesting
+- Network analysis and exploitation
+- Vulnerability research and CVE analysis
+- Scripting and automation (Python, Bash, Go)
+- Cloud security (AWS / Azure / GCM)
+- Threat modeling and Secure Development Lifecycle (SDL)
 
 ## 💬 Philosophy
 
-Security isn’t about paranoia — it’s about awareness.  
-Every exploit teaches something new about how humans and machines interact.  
-Breaking things (ethically) is just another way to understand how to build them better.
+Security isn’t **paranoia**:
+- It is _raising awareness_.
+- It is _prevention_.
+- It is _ensuring safety_.
+
+Every exploit teaches us something about the interaction between humans and machines.
+Breaking systems (ethically) is a powerful way to learn how to build them better.
 
 ## 🔗 Let’s Connect
 
-If you’re looking for someone who blends technical rigor with creative problem-solving, let’s talk.  
-I’m open to collaborations, security research, and opportunities to grow within the infosec community.
+If you are looking for someone who combines technical rigor with creative thinking, please contact me.
+I am open to collaborations, security research, and opportunities to join professional teams.
 
-📫 **Contact:** [youremail@example.com]  
-💼 **LinkedIn:** [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)  
-🐙 **GitHub:** [github.com/yourhandle](https://github.com/yourhandle)
+📫 **Contact:** sebatiancraciun635@gmail.com  
+💼 **LinkedIn:** [linkedin.com/in/sebastian-adrian-craciun-6164439a](https://linkedin.com/in/sebastian-adrian-craciun-6164439a){:target="_blank"}  
+🐙 **GitHub:** [github.com/elcybercurioso](https://github.com/elcybercurioso){:target="_blank"}
 
 > *“Hack the planet, but patch your conscience.”*
