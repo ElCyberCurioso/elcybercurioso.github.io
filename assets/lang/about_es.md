@@ -1,9 +1,9 @@
 ---
 layout: none
-title: "👾 Sobre mí"
+title: "Sobre mí"
 ---
 
-## 👋​ Presentación
+##  Presentación
 
 Hola — me llamo Sebastián Adrián Crăciun.
 
@@ -15,12 +15,12 @@ A lo largo de los últimos años he estado practicado pentesting de aplicaciones
 
 Creo que la verdadera pericia nace de la curiosidad, la práctica continua y el aprendizaje con las manos en la masa.
 
-## 🎯 Mi misión
+## Mi misión
 
 Ayudar a organizaciones a endurecer sus defensas pensando como un atacante — de forma responsable, metódica y ética. Transformo hallazgos técnicos complejos en recomendaciones accionables que mejoran la postura de seguridad.
 
 
-## 🧠 Certificaciones relevantes
+## Certificaciones relevantes
 
 - **eWPTXv3** – INE Security (Web Application Penetration Testing eXtreme)  
 - **eCPPTv2** – INE Security (Certified Professional Penetration Tester)  
@@ -29,7 +29,7 @@ Ayudar a organizaciones a endurecer sus defensas pensando como un atacante — d
 
 Sigo explorando nuevas metodologías y herramientas tanto en **Red Team** como en **Blue Team**.
 
-## 🧰 Áreas de especialidad
+## Áreas de especialidad
 
 - Pentesting de aplicaciones web y APIs
 - Análisis y explotación de redes
@@ -38,7 +38,7 @@ Sigo explorando nuevas metodologías y herramientas tanto en **Red Team** como e
 - Seguridad en la nube (AWS / Azure / GCP)
 - Modelado de amenazas y Secure Development Lifecycle (SDL)
 
-## 💬 Filosofía
+## Filosofía
 
 La seguridad no es **paranoia**: 
 - Es _concienciar_.
@@ -48,13 +48,13 @@ La seguridad no es **paranoia**:
 Cada exploit nos enseña algo sobre la interacción entre humanos y máquinas.
 Romper sistemas (de forma ética) es una forma poderosa de aprender a construirlos mejor.
 
-## 🔗 Conecta conmigo
+## Conecta conmigo
 
 Si buscas a alguien que combine rigor técnico con pensamiento creativo, contáctame. 
 Estoy abierto a colaboraciones, investigación en seguridad y oportunidades para integrarme en equipos profesionales.
 
-📫 **Contact:** sebatiancraciun635@gmail.com  
-💼 **LinkedIn:** [linkedin.com/in/sebastian-adrian-craciun-6164439a](https://linkedin.com/in/sebastian-adrian-craciun-6164439a){:target="_blank"}  
-🐙 **GitHub:** [github.com/elcybercurioso](https://github.com/elcybercurioso){:target="_blank"}
+- **Contact:** sebatiancraciun635@gmail.com  
+- **LinkedIn:** [linkedin.com/in/sebastian-adrian-craciun-6164439a](https://linkedin.com/in/sebastian-adrian-craciun-6164439a){:target="_blank"}  
+- **GitHub:** [github.com/elcybercurioso](https://github.com/elcybercurioso){:target="_blank"}
 
 >*“Hack the planet, but patch your conscience.”*
