@@ -35,7 +35,7 @@ Sigo explorando nuevas metodologías y herramientas tanto en **Red Team** como e
 - Análisis y explotación de redes
 - Investigación de vulnerabilidades y análisis de CVEs
 - Scripting y automatización (Python, Bash, Go)
-- Seguridad en la nube (AWS / Azure / GCM)
+- Seguridad en la nube (AWS / Azure / GCP)
 - Modelado de amenazas y Secure Development Lifecycle (SDL)
 
 ## 💬 Filosofía
