@@ -53,7 +53,7 @@ Breaking systems (ethically) is a powerful way to learn how to build them better
 If you are looking for someone who combines technical rigor with creative thinking, please contact me.
 I am open to collaborations, security research, and opportunities to join professional teams.
 
-- **Contact:** sebatiancraciun635@gmail.com  
+- **Contact:** elcybercurioso@gmail.com  
 - **LinkedIn:** [linkedin.com/in/sebastian-adrian-craciun-6164439a](https://linkedin.com/in/sebastian-adrian-craciun-6164439a){:target="_blank"}  
 - **GitHub:** [github.com/elcybercurioso](https://github.com/elcybercurioso){:target="_blank"}
 

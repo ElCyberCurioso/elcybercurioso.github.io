@@ -53,7 +53,7 @@ Romper sistemas (de forma ética) es una forma poderosa de aprender a construirl
 Si buscas a alguien que combine rigor técnico con pensamiento creativo, contáctame. 
 Estoy abierto a colaboraciones, investigación en seguridad y oportunidades para integrarme en equipos profesionales.
 
-- **Contact:** sebatiancraciun635@gmail.com  
+- **Contact:** elcybercurioso@gmail.com  
 - **LinkedIn:** [linkedin.com/in/sebastian-adrian-craciun-6164439a](https://linkedin.com/in/sebastian-adrian-craciun-6164439a){:target="_blank"}  
 - **GitHub:** [github.com/elcybercurioso](https://github.com/elcybercurioso){:target="_blank"}
 
