@@ -227,3 +227,15 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+webp:
+  enabled: true
+  quality: 75
+  img_dir: ["/assets/img","/assets/img/achievements"]
+  nested: true
+  formats: [".jpeg", ".jpg", ".png", ".tiff"]
+  gifs: [".gif"]
+  regenerate: false
+  webp_path: nil
+  exclude: []
+  append_ext: false
