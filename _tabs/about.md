@@ -13,7 +13,7 @@ image:
   <button id="toggle-lang" class="lang-button">English</button>
 </div>
 
-<img src="/assets/img/profile2.webp" alt="Desktop View" style="border-radius: 8px 8px 8px 8px;" width="250" height="160" loading="lazy">
+<img class="image" src="/assets/img/profile2.webp" alt="Desktop View" width="250" height="160" loading="lazy">
 
 <div id="about-content"></div>
 
@@ -33,7 +33,7 @@ image:
     border-radius: 25px;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   }
 
@@ -45,6 +45,11 @@ image:
   .lang-button:active {
     transform: scale(0.95);
     background-color: #005a9e; /* color al hacer clic */
+  }
+
+  .image {
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.6);
   }
 </style>
 
