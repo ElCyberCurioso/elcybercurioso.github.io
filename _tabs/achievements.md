@@ -86,7 +86,7 @@ order: 4
 
 
 - __Fecha de obtención__: 03/09/2025
-- __Ver certificación__: [INE Security](https://hack4u.io/check-certificate/){:target="_blank"}
+- __Ver certificación__: [Hack4U](https://hack4u.io/check-certificate/){:target="_blank"}
 - __ID de la credencial__: 1324-9096-5305-2883
 - __Conocimientos certificados__: 
   - Programación en Python aplicada a pentesting: sintaxis, funciones, módulos y buenas prácticas.
@@ -102,7 +102,7 @@ order: 4
 
 
 - __Fecha de obtención__: 16/09/2025
-- __Ver certificación__: [INE Security](https://hack4u.io/check-certificate/){:target="_blank"}
+- __Ver certificación__: [Hack4U](https://hack4u.io/check-certificate/){:target="_blank"}
 - __ID de la credencial__: 2886-8730-2883-6290
 - __Conocimientos certificados__: 
   - Dominio del hacking web con 51 horas de práctica real.
