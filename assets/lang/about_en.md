@@ -5,7 +5,7 @@ title: "About me"
 
 ## Presentation
 
-Hello — my name is Sebastián Adrián Crăciun.
+Hello — my name is Sebastian Adrian Crăciun.
 
 I am a cybersecurity enthusiast and ethical hacker passionate about understanding how systems work (and where they fail).
 

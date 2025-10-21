@@ -5,7 +5,7 @@ title: "Sobre mí"
 
 ##  Presentación
 
-Hola — me llamo Sebastián Adrián Crăciun.
+Hola — me llamo Sebastian Adrian Crăciun.
 
 Soy un entusiasta de la ciberseguridad y un hacker ético apasionado por entender cómo funcionan (y donde fallan) los sistemas.
 
