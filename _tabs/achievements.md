@@ -1,6 +1,6 @@
 ---
 title: Achievements
-icon: fas fa-passport
+icon: fas fa-award
 media_subpath: "/assets/img/achievements"
 image:
   path: certEJPT.webp
@@ -23,7 +23,7 @@ image:
 image:
   path: certiEWPTX.webp
   lqip: certiEWPTX-min-reduced.webp
-order: 4
+order: 5
 ---
 
 {% raw %}

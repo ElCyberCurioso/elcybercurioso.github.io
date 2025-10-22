@@ -231,7 +231,7 @@ jekyll-archives:
 webp:
   enabled: true
   quality: 85
-  img_dir: ["/assets/img","/assets/img/achievements","/assets/img/welcome-page"]
+  img_dir: ["/assets/img","/assets/img/achievements/","/assets/img/welcome-page/","/assets/img/posts/"]
   nested: true
   formats: [".jpeg", ".jpg", ".png", ".tiff"]
   gifs: [".gif"]
