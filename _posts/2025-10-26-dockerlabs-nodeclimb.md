@@ -1,5 +1,6 @@
 ---
 title: DockerLabs - NodeClimb
+summary: "Write-up del laboratorio NodeClimb de DockerLabs"
 author: elcybercurioso
 date: 2025-10-26 13:00
 categories: [Post, DockerLabs]
