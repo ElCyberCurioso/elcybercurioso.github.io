@@ -1,13 +1,14 @@
 ---
 title: DockerLabs - Library
+summary: "Write-up del laboratorio Library de DockerLabs"
 author: elcybercurioso
 date: 2025-10-27 13:00
 categories: [Post, DockerLabs]
-tags: [fácil, ]
+tags: [fácil, information leakage, brute force, sudo, file permissions]
 media_subpath: "/assets/img/posts/dockerlabs_library"
 image:
   path: main.webp
-published: false
+published: true
 ---
 
 ## nmap
@@ -167,7 +168,7 @@ c*****@5b1158daff63:~$ ls -la /opt/script.py
 -r-xr--r-- 1 c***** root 272 May  7  2024 /opt/script.py
 ```
 
-Sin embargo, el permiso de ejecución sobre un fichero permite no solo la ejecución, sino también el borrado del mismo:
+Sin embargo, el permiso de ejecución sobre un fichero permite no solo la ejecución en sí, sino también el borrado del mismo:
 
 ```
 c*****@5b1158daff63:~$ rm /opt/script.py
@@ -176,7 +177,7 @@ c*****@5b1158daff63:~$ cat /opt/script.py
 cat: /opt/script.py: No such file or directory
 ```
 
-Dado que el permiso apunta a un directorio en el cual tenemos permisos para poder crear fichero, podemos crear uno que se llame igual que el anterior, pero con el contenido que le indiquemos:
+Dado que el permiso apunta a un directorio en el cual tenemos permisos para poder crear ficheros (`/opt`), podemos crear uno nuevo que se llame igual que el anterior, pero con el contenido que le indiquemos nosotros:
 
 ```bash
 c*****@5b1158daff63:/opt$ touch /opt/script.py
@@ -187,7 +188,7 @@ drwxr-xr-x 1 root   root   4096 Oct 27 00:02 ..
 -rw-rw-r-- 1 c***** c*****    0 Oct 27 00:26 script.py
 ```
 
-Editamos el fichero con la instrucción que indicaban que podemos usar para obtener una consola:
+Editamos el nuevo fichero con la instrucción que indicaban que podemos usar para obtener una consola:
 
 ```bash
 c*****@5b1158daff63:/opt$ cat script.py 

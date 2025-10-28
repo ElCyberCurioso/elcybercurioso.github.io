@@ -1,25 +1,16 @@
 ---
 layout: post
-title: DockerLabs - Consolelog
+title: DockerLabs - ConsoleLog
+summary: "Write-up del laboratorio ConsoleLog de DockerLabs"
 author: elcybercurioso
 date: 2025-10-27 13:00
 categories: [Post, DockerLabs]
-tags: [fácil, ]
+tags: [fácil, node.js, ssh, privesc, sudo]
 media_subpath: "/assets/img/posts/dockerlabs_consolelog"
-summary: "Una guía práctica paso a paso para aprender a integrar un SIEM en un entorno de Active Directory local."
 image:
   path: main.webp
-published: false
+published: true
 ---
-
-## introducción
-
-En este laboratorio se practican temas como:
-
-- Filtración de información sensible
-- Reutilización de credenciales
-- Explotación de binarios con permisos SUDO
-
 
 ## nmap
 
@@ -118,17 +109,17 @@ Starting gobuster in directory enumeration mode
 /javascript           (Status: 301) [Size: 313] [--> http://172.17.0.2/javascript/]
 ```
 
-Nos encontramos con el recurso `backend`, en el que nos listan lo que es la carpeta del servicio desplegado en el puerto 3000 de la maquina:
+Nos encontramos con el recurso `backend`, en el que nos listan el contenido de la carpeta del servicio desplegado en el puerto 3000 de la maquina:
 
 ![Desktop View](/20251026162205.webp){: width="972" height="589" .shadow}
 
-En el fichero `server.js` encontramos una contraseña:
+Revisando el fichero `server.js`, encontramos una contraseña:
 
 ![Desktop View](/20251027005414.webp){: width="972" height="589" .shadow}
 
 ## explotación
 
-Dado que tenemos una contraseña (que suponemos que será de SSH), pero no el usuario, procedemos a tratar de obtenerlo por fuerza bruta:
+Probamos a ver si la contraseña pertenece a algún usuario por SSH empleando `hydra` para aplicar fuerza bruta:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Consolelog]
@@ -143,13 +134,13 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2025-10-26 15:43:
 [5000][ssh] host: 172.17.0.2   login: l****   password: lapa********************************
 ```
 
-Teniendo las credenciales, nos conectamos por SSH:
+Concluimos que la contraseña pertenece a cierto usuario por SSH, y nos conectamos con dichas credenciales:
 
 ![Desktop View](/20251027005115.webp){: width="972" height="589" .shadow}
 
 ## escalada de privilegios
 
-Comprobando los permisos SUDO, encontramos que el usuario puede ejecutar el binario `/usr/bin/nano` como el usuario `root`:
+Revisando los permisos SUDO del usuario obtenido, encontramos que puede ejecutar el binario `/usr/bin/nano` como el usuario `root`:
 
 ```bash
 l*****@dfebfa8554fa:~$ sudo -l

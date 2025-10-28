@@ -1,13 +1,14 @@
 ---
 title: DockerLabs - Psycho
+summary: "Write-up del laboratorio Psycho de DockerLabs"
 author: elcybercurioso
 date: 2025-10-27 13:00
 categories: [Post, DockerLabs]
-tags: [fácil, ]
+tags: [fácil, parameter bruteforce, directory path traversal, lfi, sudo, python library hijacking]
 media_subpath: "/assets/img/posts/dockerlabs_psycho"
 image:
   path: main.webp
-published: false
+published: true
 ---
 
 ## nmap
@@ -62,11 +63,11 @@ Nmap done: 1 IP address (1 host up) scanned in 7.02 seconds
 
 ## análisis
 
-Revisando la pagina principal del puerto 80, encontramos un error que salta a la vista al final de la misma:
+Revisando la pagina principal del puerto 80, encontramos un error que destaca al final de la misma:
 
 ![Desktop View](/20251027015538.webp){: width="972" height="589" .shadow}
 
-Posiblemente reaccione en base a si se le ha pasado un cierto parámetro a la URL. Por ello, buscamos si con alguna cadena responde de otra forma:
+Posiblemente reaccione en base a si se le ha pasado un cierto parámetro a la URL. Por ello, buscamos si con alguna cadena responde de otra manera:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Psycho]
@@ -94,9 +95,11 @@ En este caso, con el parámetro `secret` vemos que podemos llegar a leer fichero
 
 ## explotación
 
-Buscamos ficheros que nos puedan dar acceso al servidor, y encontramos que el usuario `vaxei` tiene en su directorio una clave privada, la cual podemos usar para acceder por SSH:
+Buscamos ficheros que nos puedan dar acceso al laboratorio, y encontramos que el usuario `vaxei` tiene en su directorio una clave privada, la cual podemos usar para acceder por SSH:
 
 ![Desktop View](/20251027125955.webp){: width="972" height="589" .shadow}
+
+Guardamos la clave `id_rsa` en un fichero, le damos permisos 600 (`rw-------`, lectura y escritura por parte del propietario del fichero únicamente), y nos conectamos:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Psycho]
@@ -115,6 +118,8 @@ Last login: Sat Aug 10 02:25:09 2024 from 172.17.0.1
 vaxei@88b8cebfc8cd:~$ whoami
 vaxei
 ```
+
+## escalada de privilegios
 
 Listando los permisos SUDO del usuario vemos que puede ejecutar `perl` con los permisos del usuario `luisillo`:
 
@@ -138,8 +143,6 @@ vaxei@88b8cebfc8cd:~$ sudo -u luisillo perl -e 'exec "/bin/bash";'
 luisillo@88b8cebfc8cd:/home/vaxei$ whoami
 luisillo
 ```
-
-## escalada de privilegios
 
 Revisamos los permisos SUDO de este usuario también, y vemos que en este caso, lo que puede hacer es ejecutar con `python` un cierto script:
 
@@ -223,7 +226,7 @@ Traceback (most recent call last):
 FileNotFoundError: [Errno 2] No such file or directory: 'echo Hello!'
 ```
 
-Sabemos que podemos llegar a listar el listado de ubicaciones donde se buscan las librerías que usa `python` al ejecutar un script:
+Sabemos que podemos llegar a ver el listado de ubicaciones donde se buscan las librerías que usa `python` al ejecutar un script de la siguiente manera:
 
 ```bash
 luisillo@88b8cebfc8cd:/opt$ python3 -c "import sys; print(sys.path)"

