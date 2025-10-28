@@ -175,7 +175,7 @@ a@94ac483a3277:/home$ cat /srv/ftp/hash_spencer.txt
 7c6a****************************
 ```
 
-Accedemos a [crackstation.net](crackstation.net) para ver si el hash pertenece a una contraseña conocida:
+Accedemos a [crackstation.net](https://crackstation.net) para ver si el hash pertenece a una contraseña conocida:
 
 ![Desktop View](/20251028000253.webp){: width="972" height="589" .shadow}
 
