@@ -110,6 +110,8 @@ toc: true
 include:
   - assets/lang
 
+future: true
+
 comments:
   # Global switch for the post-comment system. Keeping it empty means disabled.
   provider: giscus # [disqus | utterances | giscus]
