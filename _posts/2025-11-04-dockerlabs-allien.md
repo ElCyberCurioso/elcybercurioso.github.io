@@ -555,7 +555,7 @@ User www-data may run the following commands on 4d8fa296af6e:
     (ALL) NOPASSWD: /usr/sbin/service
 ```
 
- En [GTFOBins](![Desktop View](/20251103112029.webp){: width="972" height="589" .shadow}) encontramos que podemos obtener una consola como `root` si empleamos el siguiente comando:
+ En [GTFOBins](https://gtfobins.github.io/gtfobins/service/#sudo){: width="972" height="589" .shadow}) encontramos que podemos obtener una consola como `root` si empleamos el siguiente comando:
 
 ![Desktop View](/20251103112017.webp){: width="972" height="589" .shadow}
 
