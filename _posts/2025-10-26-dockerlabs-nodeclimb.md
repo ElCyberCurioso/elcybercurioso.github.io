@@ -149,11 +149,7 @@ Teniendo el hash, sacamos la contraseña con `john`:
 └─$ john -w=/usr/share/wordlists/seclists/Passwords/xato-net-10-million-passwords-100000.txt hash
 Using default input encoding: UTF-8
 Loaded 1 password hash (PKZIP [32/64])
-Will run 8 OpenMP threads
-Press 'q' or Ctrl-C to abort, almost any other key for status
 p********        (secretitopicaron.zip/password.txt)     
-1g 0:00:00:00 DONE (2025-10-26 12:40) 20.00g/s 327680p/s 327680c/s 327680C/s 123456..xaxaxa
-Use the "--show" option to display all of the cracked passwords reliably
 Session completed.
 ```
 

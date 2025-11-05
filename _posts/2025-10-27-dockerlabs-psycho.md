@@ -104,17 +104,6 @@ Guardamos la clave `id_rsa` en un fichero, le damos permisos 600 (`rw-------`, l
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Psycho]
 └─$ ssh -i id_rsa vaxei@172.17.0.2
-Welcome to Ubuntu 24.04 LTS (GNU/Linux 6.16.8+kali-amd64 x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/pro
-
-This system has been minimized by removing packages and content that are
-not required on a system that users do not log into.
-
-To restore this content, you can run the 'unminimize' command.
-Last login: Sat Aug 10 02:25:09 2024 from 172.17.0.1
 vaxei@88b8cebfc8cd:~$ whoami
 vaxei
 ```

