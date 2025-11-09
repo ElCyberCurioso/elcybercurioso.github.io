@@ -16,36 +16,14 @@ published: true
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs]
 └─$ nmap -p- -sS --min-rate 5000 -v -n -Pn 172.17.0.2 -oG allPorts
-Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-27 00:40 GMT
-Initiating ARP Ping Scan at 00:40
-Scanning 172.17.0.2 [1 port]
-Completed ARP Ping Scan at 00:40, 0.09s elapsed (1 total hosts)
-Initiating SYN Stealth Scan at 00:40
-Scanning 172.17.0.2 [65535 ports]
-Discovered open port 22/tcp on 172.17.0.2
-Discovered open port 80/tcp on 172.17.0.2
-Completed SYN Stealth Scan at 00:40, 10.21s elapsed (65535 total ports)
-Nmap scan report for 172.17.0.2
-Host is up (0.000056s latency).
-Not shown: 65533 closed tcp ports (reset)
 PORT   STATE SERVICE
 22/tcp open  ssh
 80/tcp open  http
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-
-Read data files from: /usr/share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 10.48 seconds
-           Raw packets sent: 65536 (2.884MB) | Rcvd: 65556 (2.626MB)
 ```
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs]
 └─$ nmap -sCV -p22,80 172.17.0.2                             
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-27 00:40 GMT
-Nmap scan report for consolelog.lab (172.17.0.2)
-Host is up (0.000059s latency).
-
 PORT   STATE SERVICE VERSION
 22/tcp open  ssh     OpenSSH 9.6p1 Ubuntu 3ubuntu13.4 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey: 
@@ -54,11 +32,6 @@ PORT   STATE SERVICE VERSION
 80/tcp open  http    Apache httpd 2.4.58 ((Ubuntu))
 |_http-server-header: Apache/2.4.58 (Ubuntu)
 |_http-title: 4You
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 7.02 seconds
 ```
 
 ## análisis

@@ -2,7 +2,7 @@
 title: DockerLabs - SecretJenkins
 summary: "Write-up del laboratorio SecretJenkins de DockerLabs"
 author: elcybercurioso
-date: 2025-11-04 20:32:53
+date: 2025-11-04
 categories: [Post, DockerLabs]
 tags: [fácil, jenkins, lfi, brute force, privesc, sudo]
 media_subpath: "/assets/img/posts/dockerlabs_secretjenkins"
@@ -16,51 +16,24 @@ published: true
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/SecretJenkins]
 └─$ nmap -p- -sS --min-rate 5000 -v -n -Pn 172.17.0.2 -oG allPorts
-Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-29 14:13 GMT
-Initiating ARP Ping Scan at 14:13
-Scanning 172.17.0.2 [1 port]
-Completed ARP Ping Scan at 14:13, 0.10s elapsed (1 total hosts)
-Initiating SYN Stealth Scan at 14:13
-Scanning 172.17.0.2 [65535 ports]
-Discovered open port 8080/tcp on 172.17.0.2
-Discovered open port 22/tcp on 172.17.0.2
-Completed SYN Stealth Scan at 14:13, 9.72s elapsed (65535 total ports)
-Nmap scan report for 172.17.0.2
-Host is up (0.000030s latency).
-Not shown: 65533 closed tcp ports (reset)
 PORT     STATE SERVICE
 22/tcp   open  ssh
 8080/tcp open  http-proxy
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-
-Read data files from: /usr/share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 10.01 seconds
-           Raw packets sent: 65536 (2.884MB) | Rcvd: 65536 (2.621MB)
 ```
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/SecretJenkins]
 └─$ nmap -sCV -p8080,22 172.17.0.2                                
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-29 14:13 GMT
-Nmap scan report for consolelog.lab (172.17.0.2)
-Host is up (0.000060s latency).
-
 PORT     STATE SERVICE VERSION
 22/tcp   open  ssh     OpenSSH 9.2p1 Debian 2+deb12u2 (protocol 2.0)
 | ssh-hostkey: 
 |   256 94:fb:28:59:7f:ae:02:c0:56:46:07:33:8c:ac:52:85 (ECDSA)
 |_  256 43:07:50:30:bb:28:b0:73:9b:7c:0c:4e:3f:c9:bf:02 (ED25519)
 8080/tcp open  http    Jetty 10.0.18
-|_http-title: Site doesn't have a title (text/html;charset=utf-8).
+|_http-title: Site doesn´t have a title (text/html;charset=utf-8).
 | http-robots.txt: 1 disallowed entry 
 |_/
 |_http-server-header: Jetty(10.0.18)
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 8.44 seconds
 ```
 
 ## análisis

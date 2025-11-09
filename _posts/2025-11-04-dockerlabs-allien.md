@@ -2,7 +2,7 @@
 title: DockerLabs - Allien
 summary: "Write-up del laboratorio Allien de DockerLabs"
 author: elcybercurioso
-date: 2025-11-04 20:35:06
+date: 2025-11-04
 categories: [Post, DockerLabs]
 tags: [fácil, php, smb, jwt, ssh, rce, privesc, sudo]
 media_subpath: "/assets/img/posts/dockerlabs_allien"
@@ -16,40 +16,16 @@ published: true
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Allien]
 └─$ nmap -p- -sS --min-rate 5000 -v -n -Pn 172.17.0.2 -oG allPorts
-Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-02 18:26 GMT
-Initiating ARP Ping Scan at 18:26
-Scanning 172.17.0.2 [1 port]
-Completed ARP Ping Scan at 18:26, 0.05s elapsed (1 total hosts)
-Initiating SYN Stealth Scan at 18:26
-Scanning 172.17.0.2 [65535 ports]
-Discovered open port 445/tcp on 172.17.0.2
-Discovered open port 139/tcp on 172.17.0.2
-Discovered open port 22/tcp on 172.17.0.2
-Discovered open port 80/tcp on 172.17.0.2
-Completed SYN Stealth Scan at 18:26, 0.57s elapsed (65535 total ports)
-Nmap scan report for 172.17.0.2
-Host is up (0.0000050s latency).
-Not shown: 65531 closed tcp ports (reset)
 PORT    STATE SERVICE
 22/tcp  open  ssh
 80/tcp  open  http
 139/tcp open  netbios-ssn
 445/tcp open  microsoft-ds
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-
-Read data files from: /usr/share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 0.82 seconds
-           Raw packets sent: 65536 (2.884MB) | Rcvd: 65536 (2.621MB)
 ```
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Allien]
 └─$ nmap -sCV -p22,80,139,445 172.17.0.2                          
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-02 18:26 GMT
-Nmap scan report for 172.17.0.2
-Host is up (0.000028s latency).
-
 PORT    STATE SERVICE     VERSION
 22/tcp  open  ssh         OpenSSH 9.6p1 Ubuntu 3ubuntu13.5 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey: 
@@ -60,8 +36,6 @@ PORT    STATE SERVICE     VERSION
 |_http-title: Login
 139/tcp open  netbios-ssn Samba smbd 4
 445/tcp open  netbios-ssn Samba smbd 4
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Host script results:
 |_nbstat: NetBIOS name: SAMBASERVER, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
@@ -71,9 +45,6 @@ Host script results:
 | smb2-time: 
 |   date: 2025-11-02T18:26:50
 |_  start_date: N/A
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 11.73 seconds
 ```
 
 ## análisis

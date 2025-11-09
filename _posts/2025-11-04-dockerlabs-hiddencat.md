@@ -2,7 +2,7 @@
 title: DockerLabs - HiddenCat
 summary: "Write-up del laboratorio HiddenCat de DockerLabs"
 author: elcybercurioso
-date: 2025-11-04 20:33:26
+date: 2025-11-04
 categories: [Post, DockerLabs]
 tags: [fácil, apache, brute force, suid, privesc]
 media_subpath: "/assets/img/posts/dockerlabs_hiddencat"
@@ -16,37 +16,15 @@ published: true
 ```bash
 ┌──(venv)─(root㉿kalilinux)-[/home/elcybercurioso/Desktop/DockerLabs/HiddenCat]
 └─# nmap -p- -sS --min-rate 5000 -n -Pn -v 172.17.0.2 -oG allPorts
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-02 14:02 GMT
-Initiating ARP Ping Scan at 14:02
-Scanning 172.17.0.2 [1 port]
-Completed ARP Ping Scan at 14:02, 0.07s elapsed (1 total hosts)
-Initiating SYN Stealth Scan at 14:02
-Scanning 172.17.0.2 [65535 ports]
-Discovered open port 8080/tcp on 172.17.0.2
-Discovered open port 22/tcp on 172.17.0.2
-Discovered open port 8009/tcp on 172.17.0.2
-Completed SYN Stealth Scan at 14:02, 0.57s elapsed (65535 total ports)
-Nmap scan report for 172.17.0.2
-Host is up (0.0000040s latency).
-Not shown: 65532 closed tcp ports (reset)
 PORT     STATE SERVICE
 22/tcp   open  ssh
 8009/tcp open  ajp13
 8080/tcp open  http-proxy
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-
-Read data files from: /usr/share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 0.86 seconds
-           Raw packets sent: 65536 (2.884MB) | Rcvd: 65536 (2.621MB)
 ```
 
 ```bash
 ┌──(venv)─(root㉿kalilinux)-[/home/elcybercurioso/Desktop/DockerLabs/HiddenCat]
 └─# nmap -sCV -p22,8009,8080 172.17.0.2                           
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-02 14:02 GMT
-Nmap scan report for 172.17.0.2
-Host is up (0.000028s latency).
-
 PORT     STATE SERVICE VERSION
 22/tcp   open  ssh     OpenSSH 7.9p1 Debian 10+deb10u4 (protocol 2.0)
 | ssh-hostkey: 
@@ -60,11 +38,6 @@ PORT     STATE SERVICE VERSION
 |_http-title: Apache Tomcat/9.0.30
 |_http-open-proxy: Proxy might be redirecting requests
 |_http-favicon: Apache Tomcat
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 7.64 seconds
 ```
 
 

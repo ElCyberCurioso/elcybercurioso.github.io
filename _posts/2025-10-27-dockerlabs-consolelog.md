@@ -17,38 +17,15 @@ published: true
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Consolelog]
 └─$ nmap -p- -sS --min-rate 5000 -v -n -Pn 172.17.0.2 -oG allPorts
-Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-26 15:03 GMT
-Initiating ARP Ping Scan at 15:03
-Scanning 172.17.0.2 [1 port]
-Completed ARP Ping Scan at 15:03, 0.09s elapsed (1 total hosts)
-Initiating SYN Stealth Scan at 15:03
-Scanning 172.17.0.2 [65535 ports]
-Discovered open port 80/tcp on 172.17.0.2
-Discovered open port 5000/tcp on 172.17.0.2
-Discovered open port 3000/tcp on 172.17.0.2
-Completed SYN Stealth Scan at 15:03, 9.88s elapsed (65535 total ports)
-Nmap scan report for 172.17.0.2
-Host is up (0.000030s latency).
-Not shown: 65532 closed tcp ports (reset)
 PORT     STATE SERVICE
 80/tcp   open  http
 3000/tcp open  ppp
 5000/tcp open  upnp
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-
-Read data files from: /usr/share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 10.17 seconds
-           Raw packets sent: 65536 (2.884MB) | Rcvd: 65536 (2.621MB)
 ```
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Consolelog]
 └─$ nmap -sCV -p80,3000,5000 172.17.0.2                           
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-26 15:03 GMT
-Nmap scan report for 172.17.0.2
-Host is up (0.000063s latency).
-
 PORT     STATE SERVICE VERSION
 80/tcp   open  http    Apache httpd 2.4.61 ((Debian))
 |_http-title: Mi Sitio
@@ -59,11 +36,6 @@ PORT     STATE SERVICE VERSION
 | ssh-hostkey: 
 |   256 f8:37:10:7e:16:a2:27:b8:3a:6e:2c:16:35:7d:14:fe (ECDSA)
 |_  256 cd:11:10:64:60:e8:bf:d9:a4:f4:8e:ae:3b:d8:e1:8d (ED25519)
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 12.37 seconds
 ```
 
 ## análisis

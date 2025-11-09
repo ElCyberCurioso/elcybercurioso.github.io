@@ -2,7 +2,7 @@
 title: DockerLabs - Bicho
 summary: "Write-up del laboratorio Bicho de DockerLabs"
 author: elcybercurioso
-date: 2025-11-04 20:37:34
+date: 2025-11-04
 categories: [Post, DockerLabs]
 tags: [fácil, wordpress, log poisoning, port forwarding, werkzeug, privesc, command injection]
 media_subpath: "/assets/img/posts/dockerlabs_bicho"
@@ -16,42 +16,17 @@ published: true
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Bicho]
 └─$ nmap -p- -sS --min-rate 5000 -v -n -Pn 172.17.0.2 -oG allPorts
-Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-03 22:14 GMT
-Initiating ARP Ping Scan at 22:14
-Scanning 172.17.0.2 [1 port]
-Completed ARP Ping Scan at 22:14, 0.09s elapsed (1 total hosts)
-Initiating SYN Stealth Scan at 22:14
-Scanning 172.17.0.2 [65535 ports]
-Discovered open port 80/tcp on 172.17.0.2
-Completed SYN Stealth Scan at 22:14, 0.64s elapsed (65535 total ports)
-Nmap scan report for 172.17.0.2
-Host is up (0.0000050s latency).
-Not shown: 65534 closed tcp ports (reset)
 PORT   STATE SERVICE
 80/tcp open  http
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-
-Read data files from: /usr/share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 0.93 seconds
-           Raw packets sent: 65536 (2.884MB) | Rcvd: 65536 (2.621MB)
 ```
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Bicho]
 └─$ nmap -sCV -p80 172.17.0.2                              
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-03 22:15 GMT
-Nmap scan report for gatekeeperhr.com (172.17.0.2)
-Host is up (0.000066s latency).
-
 PORT   STATE SERVICE VERSION
 80/tcp open  http    Apache httpd 2.4.58 ((Ubuntu))
 |_http-title: Did not follow redirect to http://bicho.dl
 |_http-server-header: Apache/2.4.58 (Ubuntu)
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 7.01 seconds
 ```
 
 ## análisis

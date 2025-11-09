@@ -16,36 +16,14 @@ published: true
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Nodeclimb]
 └─$ nmap -p- -sS --min-rate 5000 -v -n -Pn 172.17.0.2 -oG allPorts
-Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-26 12:31 GMT
-Initiating ARP Ping Scan at 12:31
-Scanning 172.17.0.2 [1 port]
-Completed ARP Ping Scan at 12:31, 0.09s elapsed (1 total hosts)
-Initiating SYN Stealth Scan at 12:31
-Scanning 172.17.0.2 [65535 ports]
-Discovered open port 22/tcp on 172.17.0.2
-Discovered open port 21/tcp on 172.17.0.2
-Completed SYN Stealth Scan at 12:31, 10.22s elapsed (65535 total ports)
-Nmap scan report for 172.17.0.2
-Host is up (0.000030s latency).
-Not shown: 65533 closed tcp ports (reset)
 PORT   STATE SERVICE
 21/tcp open  ftp
 22/tcp open  ssh
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-
-Read data files from: /usr/share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 10.51 seconds
-           Raw packets sent: 65536 (2.884MB) | Rcvd: 65536 (2.621MB)
 ```
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Nodeclimb]
 └─$ nmap -sCV -p21,22 172.17.0.2                                  
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-26 12:32 GMT
-Nmap scan report for 172.17.0.2
-Host is up (0.000072s latency).
-
 PORT   STATE SERVICE VERSION
 21/tcp open  ftp     vsftpd 3.0.3
 | ftp-syst: 
@@ -67,11 +45,6 @@ PORT   STATE SERVICE VERSION
 | ssh-hostkey: 
 |   256 cd:1f:3b:2d:c4:0b:99:03:e6:a3:5c:26:f5:4b:47:ae (ECDSA)
 |_  256 a0:d4:92:f6:9b:db:12:2b:77:b6:b1:58:e0:70:56:f0 (ED25519)
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 1.31 seconds
 ```
 
 ## explotación

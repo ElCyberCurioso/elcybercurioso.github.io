@@ -16,42 +16,17 @@ published: true
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Upload]
 └─$ nmap -p- -sS --min-rate 5000 -v -n -Pn 172.17.0.2 -oG allPorts
-Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-28 00:42 GMT
-Initiating ARP Ping Scan at 00:42
-Scanning 172.17.0.2 [1 port]
-Completed ARP Ping Scan at 00:42, 0.10s elapsed (1 total hosts)
-Initiating SYN Stealth Scan at 00:42
-Scanning 172.17.0.2 [65535 ports]
-Discovered open port 80/tcp on 172.17.0.2
-Completed SYN Stealth Scan at 00:42, 10.25s elapsed (65535 total ports)
-Nmap scan report for 172.17.0.2
-Host is up (0.000031s latency).
-Not shown: 65534 closed tcp ports (reset)
 PORT   STATE SERVICE
 80/tcp open  http
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-
-Read data files from: /usr/share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 10.53 seconds
-           Raw packets sent: 65536 (2.884MB) | Rcvd: 65539 (2.622MB)
 ```
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Upload]
 └─$ nmap -sCV -p80 172.17.0.2                           
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-28 00:42 GMT
-Nmap scan report for consolelog.lab (172.17.0.2)
-Host is up (0.000056s latency).
-
 PORT   STATE SERVICE VERSION
 80/tcp open  http    Apache httpd 2.4.52 ((Ubuntu))
 |_http-server-header: Apache/2.4.52 (Ubuntu)
 |_http-title: Upload here your file
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 6.91 seconds
 ```
 
 ## análisis

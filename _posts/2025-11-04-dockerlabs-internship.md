@@ -2,7 +2,7 @@
 title: DockerLabs - Internship
 summary: "Write-up del laboratorio Internship de DockerLabs"
 author: elcybercurioso
-date: 2025-11-04 20:36:40
+date: 2025-11-04
 categories: [Post, DockerLabs]
 tags: [fácil, sqli, credentials leaking, brute force, cron jobs, privesc, stenography]
 media_subpath: "/assets/img/posts/dockerlabs_internship"
@@ -16,36 +16,14 @@ published: true
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Internship]
 └─$ nmap -p- -sS --min-rate 5000 -v -n -Pn 172.17.0.2 -oG allPorts
-Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-03 17:11 GMT
-Initiating ARP Ping Scan at 17:11
-Scanning 172.17.0.2 [1 port]
-Completed ARP Ping Scan at 17:11, 0.07s elapsed (1 total hosts)
-Initiating SYN Stealth Scan at 17:11
-Scanning 172.17.0.2 [65535 ports]
-Discovered open port 22/tcp on 172.17.0.2
-Discovered open port 80/tcp on 172.17.0.2
-Completed SYN Stealth Scan at 17:11, 0.64s elapsed (65535 total ports)
-Nmap scan report for 172.17.0.2
-Host is up (0.0000040s latency).
-Not shown: 65533 closed tcp ports (reset)
 PORT   STATE SERVICE
 22/tcp open  ssh
 80/tcp open  http
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-
-Read data files from: /usr/share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 0.91 seconds
-           Raw packets sent: 65536 (2.884MB) | Rcvd: 65536 (2.621MB)
 ```
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Internship]
 └─$ nmap -sCV -p22,80 172.17.0.2                                  
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-03 17:11 GMT
-Nmap scan report for 172.17.0.2
-Host is up (0.000038s latency).
-
 PORT   STATE SERVICE VERSION
 22/tcp open  ssh     OpenSSH 9.2p1 Debian 2+deb12u4 (protocol 2.0)
 | ssh-hostkey: 
@@ -54,11 +32,6 @@ PORT   STATE SERVICE VERSION
 80/tcp open  http    Apache httpd 2.4.62 ((Debian))
 |_http-title: GateKeeper HR | Tu Portal de Recursos Humanos
 |_http-server-header: Apache/2.4.62 (Debian)
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 6.84 seconds
 ```
 
 ## análisis

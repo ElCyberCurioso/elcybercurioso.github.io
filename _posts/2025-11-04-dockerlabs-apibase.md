@@ -2,7 +2,7 @@
 title: DockerLabs - ApiBase
 summary: "Write-up del laboratorio ApiBase de DockerLabs"
 author: elcybercurioso
-date: 2025-11-04 20:37:10
+date: 2025-11-04
 categories: [Post, DockerLabs]
 tags: [fácil, api, brute force, privesc, credentials leaking]
 media_subpath: "/assets/img/posts/dockerlabs_apibase"
@@ -16,36 +16,14 @@ published: true
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ApiBase]
 └─$ nmap -p- -sS --min-rate 5000 -v -n -Pn 172.17.0.2 -oG allPorts
-Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-03 18:40 GMT
-Initiating ARP Ping Scan at 18:40
-Scanning 172.17.0.2 [1 port]
-Completed ARP Ping Scan at 18:40, 0.07s elapsed (1 total hosts)
-Initiating SYN Stealth Scan at 18:40
-Scanning 172.17.0.2 [65535 ports]
-Discovered open port 22/tcp on 172.17.0.2
-Discovered open port 5000/tcp on 172.17.0.2
-Completed SYN Stealth Scan at 18:40, 0.65s elapsed (65535 total ports)
-Nmap scan report for 172.17.0.2
-Host is up (0.0000050s latency).
-Not shown: 65533 closed tcp ports (reset)
 PORT     STATE SERVICE
 22/tcp   open  ssh
 5000/tcp open  upnp
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-
-Read data files from: /usr/share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 0.89 seconds
-           Raw packets sent: 65536 (2.884MB) | Rcvd: 65536 (2.621MB)
 ```
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ApiBase]
 └─$ nmap -sCV -p22,5000 172.17.0.2                              
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-03 18:40 GMT
-Nmap scan report for gatekeeperhr.com (172.17.0.2)
-Host is up (0.000049s latency).
-
 PORT     STATE SERVICE VERSION
 22/tcp   open  ssh     OpenSSH 8.4p1 Debian 5+deb11u4 (protocol 2.0)
 | ssh-hostkey: 
@@ -53,13 +31,8 @@ PORT     STATE SERVICE VERSION
 |   256 42:0c:71:44:7c:13:ba:8f:b7:82:35:f2:b3:f7:b9:ff (ECDSA)
 |_  256 85:95:6c:96:ac:a1:f0:3e:1e:0d:c1:c8:b0:6f:bb:1d (ED25519)
 5000/tcp open  http    Werkzeug httpd 1.0.1 (Python 3.9.2)
-|_http-title: Site doesn't have a title (application/json).
+|_http-title: Site doesn´t have a title (application/json).
 |_http-server-header: Werkzeug/1.0.1 Python/3.9.2
-MAC Address: 02:42:AC:11:00:02 (Unknown)
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 6.86 seconds
 ```
 
 ## análisis
