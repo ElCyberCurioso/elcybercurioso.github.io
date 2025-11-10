@@ -228,26 +228,26 @@ pspy64                                                                          
 Le damos permisos de ejecución, lo ejecutamos, e inmediatamente nos daremos cuenta de que cada segundo se ejecuta el script que hemos visto:
 
 ```bash
-2025/11/02 18:47:07 CMD: UID=0     PID=828573 | chmod u+s /bin/bash 
-2025/11/02 18:47:07 CMD: UID=0     PID=828574 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
-2025/11/02 18:47:07 CMD: UID=0     PID=828575 | /bin/bash /usr/local/bin/echo.sh 
-2025/11/02 18:47:07 CMD: UID=0     PID=828576 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
-2025/11/02 18:47:07 CMD: UID=0     PID=828577 | 
-2025/11/02 18:47:07 CMD: UID=0     PID=828578 | 
-2025/11/02 18:47:07 CMD: UID=0     PID=828579 | /bin/bash /usr/local/bin/echo.sh 
-2025/11/02 18:47:07 CMD: UID=0     PID=828580 | /bin/bash /usr/local/bin/echo.sh 
-2025/11/02 18:47:07 CMD: UID=0     PID=828581 | chmod u+s /bin/bash 
-2025/11/02 18:47:07 CMD: UID=0     PID=828582 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
-2025/11/02 18:47:07 CMD: UID=0     PID=828583 | 
-2025/11/02 18:47:07 CMD: UID=0     PID=828584 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
-2025/11/02 18:47:07 CMD: UID=0     PID=828585 | chmod u+s /bin/bash 
-2025/11/02 18:47:07 CMD: UID=0     PID=828586 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
-2025/11/02 18:47:07 CMD: UID=0     PID=828587 | 
-2025/11/02 18:47:07 CMD: UID=0     PID=828588 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
-2025/11/02 18:47:07 CMD: UID=0     PID=828589 | /bin/bash /usr/local/bin/echo.sh 
-2025/11/02 18:47:07 CMD: UID=0     PID=828590 | 
-2025/11/02 18:47:07 CMD: UID=0     PID=828591 | /bin/bash /usr/local/bin/echo.sh 
-2025/11/02 18:47:07 CMD: UID=0     PID=828592 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
+CMD: UID=0     PID=828573 | chmod u+s /bin/bash 
+CMD: UID=0     PID=828574 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
+CMD: UID=0     PID=828575 | /bin/bash /usr/local/bin/echo.sh 
+CMD: UID=0     PID=828576 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
+CMD: UID=0     PID=828577 | 
+CMD: UID=0     PID=828578 | 
+CMD: UID=0     PID=828579 | /bin/bash /usr/local/bin/echo.sh 
+CMD: UID=0     PID=828580 | /bin/bash /usr/local/bin/echo.sh 
+CMD: UID=0     PID=828581 | chmod u+s /bin/bash 
+CMD: UID=0     PID=828582 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
+CMD: UID=0     PID=828583 | 
+CMD: UID=0     PID=828584 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
+CMD: UID=0     PID=828585 | chmod u+s /bin/bash 
+CMD: UID=0     PID=828586 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
+CMD: UID=0     PID=828587 | 
+CMD: UID=0     PID=828588 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
+CMD: UID=0     PID=828589 | /bin/bash /usr/local/bin/echo.sh 
+CMD: UID=0     PID=828590 | 
+CMD: UID=0     PID=828591 | /bin/bash /usr/local/bin/echo.sh 
+CMD: UID=0     PID=828592 | /bin/sh -c service ssh start && service apache2 start && while true; do /bin/bash /usr/local/bin/echo.sh; done 
 ```
 
 Revisando los tiempos de creación nos indica que el fichero `message.txt` se está continuamente sobreescribiendo:

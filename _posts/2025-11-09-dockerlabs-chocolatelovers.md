@@ -164,17 +164,17 @@ chocolate@da63213afd70:~$ cat /opt/script.php
 Si nos traemos el binario `pspy64` a la máquina, le damos permisos de ejecución y lo ejecutamos, veremos que el usuario `root` está ejecutando el script que hemos visto antes en una tarea cron:
 
 ```bash
-2025/11/08 21:40:18 CMD: UID=0     PID=1      | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
-2025/11/08 21:40:21 CMD: UID=0     PID=783    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
-2025/11/08 21:40:21 CMD: UID=0     PID=784    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
-2025/11/08 21:40:26 CMD: UID=0     PID=785    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
-2025/11/08 21:40:26 CMD: UID=0     PID=786    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
-2025/11/08 21:40:31 CMD: UID=0     PID=787    | php /opt/script.php 
-2025/11/08 21:40:31 CMD: UID=0     PID=788    | 
-2025/11/08 21:40:36 CMD: UID=0     PID=789    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
-2025/11/08 21:40:36 CMD: UID=0     PID=790    | 
-2025/11/08 21:40:41 CMD: UID=0     PID=791    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
-2025/11/08 21:40:41 CMD: UID=0     PID=792    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
+CMD: UID=0     PID=1      | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
+CMD: UID=0     PID=783    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
+CMD: UID=0     PID=784    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
+CMD: UID=0     PID=785    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
+CMD: UID=0     PID=786    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
+CMD: UID=0     PID=787    | php /opt/script.php 
+CMD: UID=0     PID=788    | 
+CMD: UID=0     PID=789    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
+CMD: UID=0     PID=790    | 
+CMD: UID=0     PID=791    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
+CMD: UID=0     PID=792    | /bin/sh -c service apache2 start && while true; do php /opt/script.php; sleep 5; done 
 ```
 
 Sabiendo esto, dado que tenemos permisos para modificar el script, lo que podemos hacer es indicar una instrucción que nos permita escalar privilegios:
