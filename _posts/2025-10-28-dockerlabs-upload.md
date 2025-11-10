@@ -35,7 +35,7 @@ Comenzamos revisando lo que contiene la pagina principal del puerto 80 del labor
 
 ![Desktop View](/20251028014323.webp){: width="972" height="589" .shadow}
 
-## explotación
+## acceso incial (www-data)
 
 Tratamos de subir un fichero `.php` que, al pasarle el parámetro `?cmd`, podemos indicar un comando, y si la configuración lo permite, se ejecutará:
 
@@ -99,7 +99,7 @@ whoami
 www-data
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Revisamos los permisos SUDO del usuario `www-data`, y vemos que tiene asignado que puede ejecutar el binario `/usr/bin/env` como el usuario `root`:
 

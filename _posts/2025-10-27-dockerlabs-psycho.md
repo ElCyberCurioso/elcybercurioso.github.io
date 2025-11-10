@@ -66,7 +66,7 @@ En este caso, con el parámetro `secret` vemos que podemos llegar a leer fichero
 
 ![Desktop View](/20251027015621.webp){: width="972" height="589" .shadow}
 
-## explotación
+## acceso inicial (vaxei)
 
 Buscamos ficheros que nos puedan dar acceso al laboratorio, y encontramos que el usuario `vaxei` tiene en su directorio una clave privada, la cual podemos usar para acceder por SSH:
 
@@ -81,7 +81,7 @@ vaxei@88b8cebfc8cd:~$ whoami
 vaxei
 ```
 
-## escalada de privilegios
+## movimiento lateral (luisillo)
 
 Listando los permisos SUDO del usuario vemos que puede ejecutar `perl` con los permisos del usuario `luisillo`:
 
@@ -105,6 +105,8 @@ vaxei@88b8cebfc8cd:~$ sudo -u luisillo perl -e 'exec "/bin/bash";'
 luisillo@88b8cebfc8cd:/home/vaxei$ whoami
 luisillo
 ```
+
+## escalada de privilegios (root)
 
 Revisamos los permisos SUDO de este usuario también, y vemos que en este caso, lo que puede hacer es ejecutar con `python` un cierto script:
 

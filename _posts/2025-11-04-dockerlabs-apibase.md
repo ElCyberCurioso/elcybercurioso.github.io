@@ -51,7 +51,7 @@ Sin embargo, cuando vamos a comprobar nuestro usuario, vemos que para ello es ne
 
 ![Desktop View](/20251103194302.webp){: width="972" height="589" .shadow}
 
-## explotación
+## acceso inicial (pingu)
 
 Tratamos de obtener el parámetro por fuerza bruta con `wfuzz`:
 
@@ -113,7 +113,7 @@ pingu@ad346bb3cda2:~$ hostname -I
 172.17.0.2
 ```
 
-Comprobamos que en fichero `users.db` del directorio del usuario `pingu` el único que se muestra es este mismo:
+Comprobamos que en fichero `users.db` del directorio del usuario **pingu** el único que se muestra es este mismo:
 
 ```bash
 pingu@ad346bb3cda2:/home$ ls  
@@ -127,7 +127,7 @@ sqlite> select * from users;
 1|pingu|pi*********
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 En la carpeta del usuario `pingu` encontramos también un fichero con extensión `.pcap`, el cual si revisamos su contenido, encontramos lo que se podría interpretar como las credenciales del usuario `root`, por lo que las probamos para ver si es así:
 

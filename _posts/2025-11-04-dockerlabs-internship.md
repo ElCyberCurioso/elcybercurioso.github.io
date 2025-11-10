@@ -124,7 +124,7 @@ valentina
 alejandro
 ```
 
-## explotación
+## acceso inicial (pedro)
 
 Empleando `hydra` encontramos que la contraseña pertenece al usuario `pedro`:
 
@@ -153,6 +153,8 @@ pedro
 pedro@3bdad2818ad9:~$ hostname -I
 172.17.0.2
 ```
+
+
 
 En la carpeta principal encontramos la siguiente flag:
 
@@ -188,6 +190,8 @@ pedro@3bdad2818ad9:~$ cat fl4g.txt
 
                       ~ Sigue asi ~
 ```
+
+## movimiento lateral (valentina)
 
 Los usuarios a los cuales podemos apuntar (ya que son los que nos permitirían loguearnos) son los siguientes:
 
@@ -241,7 +245,7 @@ hostname -I
 172.17.0.2
 ```
 
-Debemos tratar la tty para tener una consola completamente funcional:
+Procedemos a tratar la tty para tener una consola completamente funcional:
 
 ```bash
 valentina@3bdad2818ad9:~$ script -c bash /dev/null
@@ -260,7 +264,7 @@ valentina@3bdad2818ad9:~$ export SHELL=bash
 valentina@3bdad2818ad9:~$ stty rows 48 columns 210
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 En el directorio de la usuaria vemos otra flag, y una imagen, la cual nos traemos a nuestra máquina para analizarla:
 

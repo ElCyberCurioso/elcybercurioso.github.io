@@ -72,7 +72,6 @@ _______________________________________________________________
 [i] Update completed.
 
 [+] URL: http://bicho.dl/ [172.17.0.2]
-[+] Started: Mon Nov  3 22:20:57 2025
 
 Interesting Finding(s):
 
@@ -81,78 +80,10 @@ Interesting Finding(s):
  | Found By: Headers (Passive Detection)
  | Confidence: 100%
 
-[+] XML-RPC seems to be enabled: http://bicho.dl/xmlrpc.php
- | Found By: Direct Access (Aggressive Detection)
- | Confidence: 100%
- | References:
- |  - http://codex.wordpress.org/XML-RPC_Pingback_API
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
- |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
- |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
-
-[+] WordPress readme found: http://bicho.dl/readme.html
- | Found By: Direct Access (Aggressive Detection)
- | Confidence: 100%
-
 [+] Debug Log found: http://bicho.dl/wp-content/debug.log
  | Found By: Direct Access (Aggressive Detection)
  | Confidence: 100%
  | Reference: https://codex.wordpress.org/Debugging_in_WordPress
-
-[+] Upload directory has listing enabled: http://bicho.dl/wp-content/uploads/
- | Found By: Direct Access (Aggressive Detection)
- | Confidence: 100%
-
-[+] The external WP-Cron seems to be enabled: http://bicho.dl/wp-cron.php
- | Found By: Direct Access (Aggressive Detection)
- | Confidence: 60%
- | References:
- |  - https://www.iplocation.net/defend-wordpress-from-ddos
- |  - https://github.com/wpscanteam/wpscan/issues/1299
-
-[+] WordPress version 6.6.2 identified (Insecure, released on 2024-09-10).
- | Found By: Rss Generator (Passive Detection)
- |  - http://bicho.dl/?feed=rss2, <generator>https://wordpress.org/?v=6.6.2</generator>
- |  - http://bicho.dl/?feed=comments-rss2, <generator>https://wordpress.org/?v=6.6.2</generator>
-
-[+] WordPress theme in use: bosa-travel-agency
- | Location: http://bicho.dl/wp-content/themes/bosa-travel-agency/
- | Last Updated: 2025-05-28T00:00:00.000Z
- | Readme: http://bicho.dl/wp-content/themes/bosa-travel-agency/readme.txt
- | [!] The version is out of date, the latest version is 1.0.1
- | Style URL: http://bicho.dl/wp-content/themes/bosa-travel-agency/style.css?ver=6.6.2
- | Style Name: Bosa Travel Agency
- | Style URI: https://bosathemes.com/bosa-travel-agency
- | Description: Bosa Travel Agency is multipurpose business theme. Bosa Travel Agency is beautiful, fast, lightweigh...
- | Author: Bosa Themes
- | Author URI: https://bosathemes.com
- |
- | Found By: Css Style In Homepage (Passive Detection)
- |
- | Version: 1.0.0 (80% confidence)
- | Found By: Style (Passive Detection)
- |  - http://bicho.dl/wp-content/themes/bosa-travel-agency/style.css?ver=6.6.2, Match: 'Version: 1.0.0'
-
-[+] Enumerating All Plugins (via Passive Methods)
-
-[i] No plugins Found.
-
-[+] Enumerating Config Backups (via Passive and Aggressive Methods)
- Checking Config Backups - Time: 00:00:00 <=========================================================================================> (137 / 137) 100.00% Time: 00:00:00
-
-[i] No Config Backups Found.
-
-[!] No WPScan API Token given, as a result vulnerability data has not been output.
-[!] You can get a free API token with 25 daily requests by registering at https://wpscan.com/register
-
-[+] Finished: Mon Nov  3 22:21:02 2025
-[+] Requests Done: 187
-[+] Cached Requests: 5
-[+] Data Sent: 44.1 KB
-[+] Data Received: 23.129 MB
-[+] Memory used: 275.371 MB
-[+] Elapsed time: 00:00:04
 ```
 
 Como estamos tratando con un WordPress, podemos intuir que tiene que tener una pantalla de login, la cual nos puede llegar a revelar usuarios existentes, como en este caso, que nos indica que el usuario `bicho` existe:
@@ -165,7 +96,7 @@ El reporte de `wpscan` indica que hay un fichero con extensión .log (`http://bi
 
 Nos damos cuenta de que parte de los datos de las peticiones enviadas al intentar iniciar sesión realizadas se ven reflejados en este fichero, dándonos la posibilidad de explotar un ataque de `Log Poisoning` (ataque que consiste en ejecutar comandos envenenando ficheros log para lograr ejecutar comandos).
 
-## explotación
+## acceso inicial (www-data)
 
 Por ello, procedemos a codificar en base64 la cadena que nos entablará una reverse shell:
 
@@ -231,6 +162,8 @@ www-data@92ea9e1ae4c3:/var/www/bicho.dl/wp-content$ export TERM=xterm
 www-data@92ea9e1ae4c3:/var/www/bicho.dl/wp-content$ export SHELL=bash
 www-data@92ea9e1ae4c3:/var/www/bicho.dl/wp-content$ stty rows 39 columns 169
 ```
+
+## movimiento lateral (app)
 
 Los usuarios del laboratorio a los que apuntaremos son los siguientes, los cuales tienen asignados una consola:
 
@@ -391,6 +324,8 @@ whoami
 app
 ```
 
+## movimiento lateral (wpuser)
+
 Revisando los permisos SUDO del usuario `app`, vemos que puede ejecutar el binario `/usr/local/bin/wp` como el usuario `wpuser`:
 
 ```bash
@@ -460,7 +395,7 @@ wpuser@92ea9e1ae4c3:~$ cat user.txt
 ab15****************************
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 En los permisos SUDO encontramos que el usuario `wpuser` puede ejecutar un script de Python con los permisos del usuario `root`:
 

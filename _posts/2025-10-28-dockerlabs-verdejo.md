@@ -46,9 +46,11 @@ Por ello, seguimos revisando el puerto 8089:
 
 ![Desktop View](/20251028004643.webp){: width="972" height="589" .shadow}
 
-Probamos a ver si es vulnerable a un ataque `SSTI` (Server Site Template Injection), y resulta que sí que lo es:
+Probamos a ver si es vulnerable a un ataque **SSTI** (Server Site Template Injection), y resulta que sí que lo es:
 
 ![Desktop View](/20251028004740.webp){: width="972" height="589" .shadow}
+
+## acceso inicial (verde)
 
 En [PayloadAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) podemos encontrar numerosos payloads que podemos ir probando hasta dar con algunos que nos valgan para cada caso.
 
@@ -71,8 +73,6 @@ Sin embargo, el siguiente payload nos interesa más, ya que nos permite ejecutar
 {% endraw %}
 
 ![Desktop View](/20251028005131.webp){: width="972" height="589" .shadow}
-
-## explotación
 
 Empleando el payload anterior que nos permite ejecutar comandos, obtenemos una reverse shell en la máquina:
 
@@ -116,7 +116,7 @@ verde@b2cec569817d:~$ export SHELL=bash
 verde@b2cec569817d:~$ stty rows 51 columns 211
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Revisamos los permisos SUDO del usuario `verde`, y vemos que puede ejecutar el binario `base64` como el usuario `root`:
 

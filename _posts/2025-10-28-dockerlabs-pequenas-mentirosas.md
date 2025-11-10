@@ -39,6 +39,8 @@ En la pagina inicial del puerto 80 de la maquina nos encontramos con el siguient
 
 ![Desktop View](/20251027234902.webp){: width="972" height="589" .shadow}
 
+## acceso inicial (a)
+
 Lo primero que intentamos es ver si a lo que se refieren con la pista es que debemos buscar un parámetro que, si le pasamos el carácter `a`, obtendríamos un resultado que nos permitiría seguir. Sin embargo, nos damos cuenta de que este no es el caso.
 
 Por ello, lo siguiente es ver si `a` se trata de un usuario o una contraseña de SSH, que en este caso encontramos que se trata de un usuario:
@@ -62,6 +64,8 @@ a@172.17.0.2's password:
 a@94ac483a3277:~$ whoami
 a
 ```
+
+## movimiento lateral (spencer)
 
 Buscamos los ficheros que somos capaces de leer con el usuario actual, filtrando por lo que no nos interesa. De esta manera, encontramos algunos ficheros interesantes en la carpeta `/srv/ftp`:
 
@@ -141,7 +145,7 @@ spencer@94ac483a3277:/home$ whoami
 spencer
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Revisamos los permisos SUDO del usuario `spencer`, y vemos que podemos ejecutar `python3` como el usuario `root`:
 

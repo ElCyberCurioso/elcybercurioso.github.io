@@ -34,35 +34,37 @@ PORT   STATE SERVICE VERSION
 |_http-server-header: Apache/2.4.62 (Debian)
 ```
 
-## explotación
+## explotación de laboratorios XSS
 
 En este laboratorio nos encontramos que lo primero que debemos completar son 4 sub-laboratorios que tratan distintos tipos de XXS (Cross-Site Scripting):
 
 ![Desktop View](/20251103151135.webp){: width="972" height="589" .shadow}
 
-### Laboratorio 1
+### sub-laboratorio 1
 
 El primer sub-laboratorio trata el caso de un XSS reflejado, donde lo que introduzcamos en un campo se ve reflejado en otro, haciendo que si no se ha sanitizado correctamente el input del usuario, de pueda acontecer este tipo de vulnerabilidades:
 
 ![Desktop View](/20251103152643.webp){: width="972" height="589" .shadow}
 
-### Laboratorio 2
+### sub-laboratorio 2
 
 El segundo sub-laboratorio aborda el caso de los XSS en los que el payload no es necesario que viaje en cada petición, ya que el servidor cuenta con una funcionalidad que guarda dicho payload en la página, haciendo que cualquier usuario que acceda a esta funcionalidad se vea afectado por esta vulnerabilidad:
 
 ![Desktop View](/20251103152747.webp){: width="972" height="589" .shadow}
 
-### Laboratorio 3
+### sub-laboratorio 3
 
 El tercer sub-laboratorio nos habla sobre los casos en los que, interceptando una solicitud, llegamos a poder modificar el valor indicado en los desplegables, haciendo que, si lo que hemos seleccionado se ve reflejado en la página, podemos llegar a explotar esta vulnerabilidad:
 
 ![Desktop View](/20251103152318.webp){: width="972" height="589" .shadow}
 
-### Laboratorio 4
+### sub-laboratorio 4
 
 El cuarto sub-laboratorio nos comenta que lo que indiquemos en la URL en el parámetro `?data=` se verá reflejado en la respuesta, haciendo que el payload viaje en la URL en las peticiones GET:
 
 ![Desktop View](/20251103152605.webp){: width="972" height="589" .shadow}
+
+## acceso inicial (balu)
 
 Tras completar los laboratorios, accedemos por SSH con las credenciales que nos facilitan:
 
@@ -80,7 +82,7 @@ balu@7e89bfc0249e:~$ hostname -I
 172.17.0.2 
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Una vez dentro, comprobamos que el binario `/usr/bin/env` tiene permisos SUID:
 

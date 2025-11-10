@@ -91,7 +91,7 @@ Siguiendo con el análisis, revisamos la funcionalidad de subida de ficheros, po
 
 ![Desktop View](/20251102172355.webp){: width="972" height="589" .shadow}
 
-## explotación
+## acceso inicial (www-data)
 
 Tratamos de subir un fichero que nos permita ejecutar comandos remotamente:
 
@@ -119,7 +119,12 @@ En la respuesta observamos que se ve reflejado el resultado del comando inyectad
 
 ![Desktop View](/20251102182727.webp){: width="972" height="589" .shadow}
 
-Sabiendo esto, obtenemos los usuarios del sistema mediante la lectura del fichero `/etc/passwd`:
+>Normalmente, en este momento, la idea sería conseguir una consola interactiva en la máquina, pero en mi caso he optado por seguir usando la página web para ejecutar comandos, lo cual es menos recomendable, ya que tenemos menos movilidad.
+{: .prompt-warning }
+
+## movimiento lateral (samara)
+
+Pudiendo ya ejecutar comandos de forma remota, obtenemos los usuarios del sistema mediante la lectura del fichero `/etc/passwd`:
 
 ![Desktop View](/20251102182900.webp){: width="972" height="589" .shadow}
 
@@ -162,7 +167,7 @@ samara@8d57fdfa7175:~$ cat user.txt
 030208**************************
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Tras revisar permisos SUDO y SUID, vemos que no van los tiros por ahí, por lo que revisamos los ficheros sobre los cuales tenemos permisos de escritura, donde vemos uno que llama la atención (`/usr/local/bin/echo.sh`):
 

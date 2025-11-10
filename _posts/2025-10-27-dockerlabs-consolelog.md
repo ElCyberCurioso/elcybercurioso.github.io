@@ -89,7 +89,7 @@ Revisando el fichero `server.js`, encontramos una contraseña:
 
 ![Desktop View](/20251027005414.webp){: width="972" height="589" .shadow}
 
-## explotación
+## acceso inicial
 
 Probamos a ver si la contraseña pertenece a algún usuario por SSH empleando `hydra` para aplicar fuerza bruta:
 
@@ -99,14 +99,14 @@ Probamos a ver si la contraseña pertenece a algún usuario por SSH empleando `h
 
 [DATA] max 64 tasks per 1 server, overall 64 tasks, 14344399 login tries (l:14344399/p:1), ~224132 tries per task
 [DATA] attacking ssh://172.17.0.2:5000/
-[5000][ssh] host: 172.17.0.2   login: l****   password: lapa********************************
+[5000][ssh] host: 172.17.0.2   login: l*****   password: lapa********************************
 ```
 
 Concluimos que la contraseña pertenece a cierto usuario por SSH, y nos conectamos con dichas credenciales:
 
 ![Desktop View](/20251027005115.webp){: width="972" height="589" .shadow}
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Revisando los permisos SUDO del usuario obtenido, encontramos que puede ejecutar el binario `/usr/bin/nano` como el usuario `root`:
 
@@ -115,7 +115,7 @@ l*****@dfebfa8554fa:~$ sudo -l
 Matching Defaults entries for l***** on dfebfa8554fa:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin, use_pty
 
-User l**** may run the following commands on dfebfa8554fa:
+User l***** may run the following commands on dfebfa8554fa:
     (ALL) NOPASSWD: /usr/bin/nano
 ```
 

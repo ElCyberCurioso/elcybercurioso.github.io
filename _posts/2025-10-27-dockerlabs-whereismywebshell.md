@@ -97,7 +97,7 @@ Filtered Requests: 6452
 Requests/sec.: 569.1495
 ```
 
-## explotación
+## acceso incial (www-data)
 
 Empleando el parámetro que hemos encontrado, podemos ejecutar comandos:
 
@@ -139,7 +139,7 @@ www-data@d4d4dbf1a2c0:~$ export SHELL=bash
 www-data@d4d4dbf1a2c0:~$ stty rows 51 columns 211
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Haciendo caso a la pista que nos dieron al principio, nos dirigimos a la carpeta `/tmp`, donde encontramos el fichero `.secret.txt`:
 

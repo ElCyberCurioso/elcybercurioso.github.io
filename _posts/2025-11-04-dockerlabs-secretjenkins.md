@@ -75,7 +75,7 @@ Pero, lo que podemos ver en la esquina derecha abajo es la versión de Jenkins d
 
 ![Desktop View](/20251029151927.webp){: width="320" height="180" .shadow}
 
-## explotación
+## acceso inicial (bobby)
 
 Buscamos vulnerabilidades que afecten a esta versión de Jenkins, y encontramos que es vulnerable a un LFI (Local File Inclusion):
 
@@ -146,7 +146,7 @@ bobby@25846cf524ab:~$ hostname -I
 172.17.0.2
 ```
 
-## escalada de privilegios
+## movimiento lateral (pinguinito)
 
 Vemos que el usuario `bobby` tiene en sus permisos SUDO el poder ejecutar `python3` como el usuario `pinguinito`:
 
@@ -174,6 +174,8 @@ bobby@25846cf524ab:~$ sudo -u pinguinito python3 -c 'import os; os.system("/bin/
 $ whoami
 pinguinito
 ```
+
+## escalada de privilegios (root)
 
 Al ir a comprobar los permisos SUDO de este usuario también, encontramos que puede ejecutar el comando `/usr/bin/python3 /opt/script.py` como el usuario `root`:
 

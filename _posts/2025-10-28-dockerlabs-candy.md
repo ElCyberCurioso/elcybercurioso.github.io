@@ -112,7 +112,7 @@ El que nos interesa es el que permite gestionar el sitio web:
 
 ![Desktop View](/20251027193138.webp){: width="972" height="589" .shadow}
 
-## explotación
+## acceso incial (www-data)
 
 Encontramos un recurso en [GitHub](https://github.com/0xNahim/CVE-2023-23752), el cual permite obtener información de las credenciales de las bbdd de ciertas versiones de `Joomla`:
 
@@ -196,6 +196,8 @@ zsh: suspended  nc -nlvp 4444
                                reset xtermwww-data@f558d5db82a1:/$ export TERM=xterm
 www-data@f558d5db82a1:/$ export SHELL=bash
 ```
+
+## movimiento lateral (luisillo)
 
 Revisamos los usuarios disponibles en la maquina a los que podamos apuntar para movernos lateralmente, pero el único usuario que cumple con estas condiciones es `luisillo`:
 
@@ -337,7 +339,7 @@ luisillo@f558d5db82a1:/home$ whoami
 luisillo
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Al ir a revisar los permisos SUDO, vemos que podemos ejecutar la utilidad `/bin/dd` como cualquier usuario:
 

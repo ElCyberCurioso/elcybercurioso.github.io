@@ -47,7 +47,7 @@ PORT   STATE SERVICE VERSION
 |_  256 a0:d4:92:f6:9b:db:12:2b:77:b6:b1:58:e0:70:56:f0 (ED25519)
 ```
 
-## explotación
+## acceso inicial (mario)
 
 Del escaneo de puertos encontramos que podemos conectarnos de manera anónima al servidor FTP con el usuario `anonymous`, y sin indicar contraseña:
 
@@ -84,27 +84,8 @@ Tratamos de abrirlo para descomprimir su contenido, pero vemos que nos pida una 
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Nodeclimb]
 └─$ 7z x secretitopicaron.zip 
 
-7-Zip 25.01 (x64) : Copyright (c) 1999-2025 Igor Pavlov : 2025-08-03
- 64-bit locale=en_GB.UTF-8 Threads:128 OPEN_MAX:1024, ASM
-
-Scanning the drive for archives:
-1 file, 242 bytes (1 KiB)
-
-Extracting archive: secretitopicaron.zip
---
-Path = secretitopicaron.zip
-Type = zip
-Physical Size = 242
-
-    
 Enter password (will not be echoed):
 ERROR: Wrong password : password.txt
-                   
-Sub items Errors: 1
-
-Archives with Errors: 1
-
-Sub items Errors: 1
 ```
 
 Podemos obtener el hash del comprimido .zip para sacar la contraseña por fuerza bruta. Para ello emplearemos la herramienta `zip2john`:
@@ -131,30 +112,6 @@ Volvemos a abrir el comprimido, pero ahora indicamos la contraseña obtenida:
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Nodeclimb]
 └─$ 7z x secretitopicaron.zip                                                                    
-
-7-Zip 25.01 (x64) : Copyright (c) 1999-2025 Igor Pavlov : 2025-08-03
- 64-bit locale=en_GB.UTF-8 Threads:128 OPEN_MAX:1024, ASM
-
-Scanning the drive for archives:
-1 file, 242 bytes (1 KiB)
-
-Extracting archive: secretitopicaron.zip
---
-Path = secretitopicaron.zip
-Type = zip
-Physical Size = 242
-
-    
-Would you like to replace the existing file:
-  Path:     ./password.txt
-  Size:     0 bytes
-  Modified: 2024-07-05 09:32:05
-with the file from archive:
-  Path:     password.txt
-  Size:     40 bytes (1 KiB)
-  Modified: 2024-07-05 09:32:05
-? (Y)es / (N)o / (A)lways / (S)kip all / A(u)to rename all / (Q)uit? Y
-
                    
 Enter password (will not be echoed):
 Everything is Ok
@@ -179,7 +136,7 @@ Dentro hay unas credenciales, las cuales resultan ser para acceder por SSH a la 
 mario:laKon***************************
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Tras acceder, vemos que los permisos SUDO del usuario permiten ejecutar con `node` el script que se encuentra en la ubicación `/home/mario/script.js`:
 
@@ -218,6 +175,8 @@ mario@c7c3692488dd:~$ sudo /usr/bin/node /home/mario/script.js
 # whoami
 root
 ```
+
+Y hasta aquí la resolución de la máquina!
 
 <a href="https://www.buymeacoffee.com/elcybercurioso" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy+me+a+coffee&emoji=&slug=elcybercurioso&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" alt="buymecoffee_icon" /></a>
 

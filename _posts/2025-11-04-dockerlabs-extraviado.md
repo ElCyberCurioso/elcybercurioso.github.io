@@ -40,7 +40,9 @@ Comenzamos revisando la página principal del servidor web, la cual, al final, h
 
 ![Desktop View](/20251103171828.webp){: width="972" height="589" .shadow}
 
- Tras decodificarlos, vemos que se trata de lo que parecen ser unas credenciales:
+## acceso inicial (daniela)
+
+Tras decodificarlos, vemos que se trata de lo que parecen ser unas credenciales:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Extraviado]
@@ -64,6 +66,8 @@ daniela
 daniela@52a31b3d730e:~$ hostname -I
 172.17.0.2
 ```
+
+## movimiento lateral (diego)
 
 En el directorio principal de la usuaria `daniela` encontramos una carpeta, que a su vez contiene un fichero:
 
@@ -93,7 +97,7 @@ diego@52a31b3d730e:/home/daniela$ whoami
 diego
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Tras acceder como el usuario `diego`, vemos que en su carpeta de usuario hay un fichero llamado `pass`, pero no contiene la contraseña del usuario `root`:
 

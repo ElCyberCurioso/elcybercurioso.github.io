@@ -96,7 +96,7 @@ Al acceder, vemos que la version de Grafana es la 8.3.0:
 
 ![Desktop View](/20251027212017.webp){: width="972" height="589" .shadow}
 
-## explotación
+## acceso inicial (freddy)
 
 Encontramos que la version de Grafana es vulnerable a un ataque `Directory Path Traversal` (movernos dentro de la maquina, pero con expresiones que indicamos en las peticiones al servidor web) y `Arbitrary File Read` (recuperar el contenido de ficheros del sistema):
 
@@ -177,7 +177,7 @@ freddy@172.17.0.2's password:
 freddy
 ```
 
-## escalada de privilegios
+## escalada de privilegios (root)
 
 Revisando los permisos SUDO del usuario `freddy`, vemos que puede ejecutar el script `/opt/maintenance.py` con permisos `root`:
 
