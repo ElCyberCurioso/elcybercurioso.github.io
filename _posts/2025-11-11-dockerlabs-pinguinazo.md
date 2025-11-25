@@ -2,7 +2,7 @@
 title: DockerLabs - Pinguinazo
 summary: "Write-up del laboratorio Pinguinazo de DockerLabs"
 author: elcybercurioso
-date: 2025-11-11 21:20:36
+date: 2025-11-11
 categories: [Post, DockerLabs]
 tags: [fácil, ssti, rce, sudo, java]
 media_subpath: "/assets/img/posts/dockerlabs_pinguinazo"

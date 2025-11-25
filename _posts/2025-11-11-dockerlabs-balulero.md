@@ -2,7 +2,7 @@
 title: DockerLabs - Balulero
 summary: "Write-up del laboratorio Balulero de DockerLabs"
 author: elcybercurioso
-date: 2025-11-11 21:20:05
+date: 2025-11-11
 categories: [Post, DockerLabs]
 tags: [fácil, brute force, git, credentials leaking, sudo, file permissions]
 media_subpath: "/assets/img/posts/dockerlabs_balulero"

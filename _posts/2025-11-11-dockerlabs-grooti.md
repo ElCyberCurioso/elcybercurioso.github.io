@@ -2,7 +2,7 @@
 title: DockerLabs - Grooti
 summary: "Write-up del laboratorio Grooti de DockerLabs"
 author: elcybercurioso
-date: 2025-11-11 21:20:21
+date: 2025-11-11
 categories: [Post, DockerLabs]
 tags: [fácil, credentials leaking, private resource leaking, brute force, file permissions, ]
 media_subpath: "/assets/img/posts/dockerlabs_grooti"

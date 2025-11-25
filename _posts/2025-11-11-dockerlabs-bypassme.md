@@ -2,7 +2,7 @@
 title: DockerLabs - Bypassme
 summary: "Write-up del laboratorio Bypassme de DockerLabs"
 author: elcybercurioso
-date: 2025-11-11 21:19:44
+date: 2025-11-11
 categories: [Post, DockerLabs]
 tags: [fácil, sqli, credentials leaking, socket exploiting, file permissions]
 media_subpath: "/assets/img/posts/dockerlabs_bypassme"

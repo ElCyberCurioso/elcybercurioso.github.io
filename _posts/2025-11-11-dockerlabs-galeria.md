@@ -2,7 +2,7 @@
 title: DockerLabs - Galeria
 summary: "Write-up del laboratorio Galeria de DockerLabs"
 author: elcybercurioso
-date: 2025-11-11 21:20:54
+date: 2025-11-11
 categories: [Post, DockerLabs]
 tags: [fácil, insecure file upload, sudo, library hijacking]
 media_subpath: "/assets/img/posts/dockerlabs_galeria"
