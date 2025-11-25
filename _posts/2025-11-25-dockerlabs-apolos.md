@@ -150,7 +150,7 @@ Table: productos
 +----+-------+-----------------------+----------------------+---------+------------+-------------------------------------+-------------------+
 ```
 
-Las credenciales hasheadas las tratamos de crackear empleando herramientas online como [crackstation.net](http://crackstation.net), la cual genera el hash de las cadenas que indicamos, y lo compara con un listado que tiene de millones de contraseñas:
+Las credenciales hasheadas las tratamos de crackear empleando herramientas online como [crackstation.net](https://crackstation.net), la cual genera el hash de las cadenas que indicamos, y lo compara con un listado que tiene de millones de contraseñas:
 
 ![Desktop View](/20251116220518.webp){: width="972" height="589" .shadow}
 
