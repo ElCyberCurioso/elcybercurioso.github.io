@@ -50,7 +50,7 @@ jobs:
       - name: Decrypt markdown posts
         run: npm run decrypt-markdown
         env:
-          PASSWORD_WELCOME: ${{ secrets.PASSWORD_WELCOME }}
+          PASSWORD_PLANTILLA: ${{ secrets.PASSWORD_PLANTILLA }}
           # Añade aquí TODOS los secrets de tus posts encriptados
           # PASSWORD_VENENO: ${{ secrets.PASSWORD_VENENO }}
           # PASSWORD_OTRO_POST: ${{ secrets.PASSWORD_OTRO_POST }}
@@ -69,7 +69,7 @@ jobs:
       - name: Encrypt HTML posts
         run: npm run encrypt-posts
         env:
-          PASSWORD_WELCOME: ${{ secrets.PASSWORD_WELCOME }}
+          PASSWORD_PLANTILLA: ${{ secrets.PASSWORD_PLANTILLA }}
           # Usa los mismos secrets que arriba
           # PASSWORD_VENENO: ${{ secrets.PASSWORD_VENENO }}
           # PASSWORD_OTRO_POST: ${{ secrets.PASSWORD_OTRO_POST }}
