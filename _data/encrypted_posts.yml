@@ -12,7 +12,9 @@
 #     secret: PASSWORD_VENENO
 
 encrypted_posts:
-  - post: 2025-10-19-welcome
-    secret: PASSWORD_WELCOME
+  # - post: 2025-10-19-welcome
+  #  secret: PASSWORD_WELCOME
   # - post: 2025-11-25-dockerlabs-veneno
-  #    secret: PASSWORD_VENENO
+  #   secret: PASSWORD_VENENO
+  - post: 2025-10-22-plantilla
+    secret: PASSWORD_PLANTILLA

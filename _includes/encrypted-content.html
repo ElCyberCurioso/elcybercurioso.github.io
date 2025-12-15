@@ -360,6 +360,34 @@
           contentWrapper.classList.add('decrypted');
           contentWrapper.classList.remove('blurred-content');
           
+          // Activate lazy-loaded images and remove loading attributes
+          const allImages = contentWrapper.querySelectorAll('img');
+          allImages.forEach(img => {
+            // If image has data-src, replace it with src
+            if (img.hasAttribute('data-src')) {
+              img.src = img.getAttribute('data-src');
+              img.removeAttribute('data-src');
+            }
+            // Remove all lazy loading related attributes
+            img.removeAttribute('data-lqip');
+            img.removeAttribute('loading');
+          });
+          
+          // Remove shimmer effect from image containers
+          const shimmerElements = contentWrapper.querySelectorAll('.shimmer');
+          shimmerElements.forEach(el => {
+            el.classList.remove('shimmer');
+          });
+          
+          // Reinitialize GLightbox for popup images if available
+          if (typeof GLightbox !== 'undefined') {
+            setTimeout(() => {
+              GLightbox({
+                selector: '.popup'
+              });
+            }, 100);
+          }
+          
           // Remove modal with animation
           modal.classList.add('hiding');
           setTimeout(() => {
