@@ -27,4 +27,5 @@ _sass/vendors
 assets/js/dist
 
 # Backup files from encryption/decryption
+*.md.backup
 *.backup

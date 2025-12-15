@@ -209,9 +209,8 @@ Sí, si usas contraseñas fuertes (32+ caracteres aleatorios). El contenido usa 
 
 ## 📚 Más Información
 
-- **[WORKFLOW_GUIDE.md](WORKFLOW_GUIDE.md)** - Documentación completa del flujo
-- **[ENCRYPTION_GUIDE.md](ENCRYPTION_GUIDE.md)** - Guía de encriptación
-- **[DEPLOY_GUIDE.md](DEPLOY_GUIDE.md)** - Deploy manual alternativo
+- **[WORKFLOW_GUIDE.md](WORKFLOW_GUIDE.md)** - Documentación completa del flujo CI/CD
+- **[ENCRYPTION_GUIDE.md](ENCRYPTION_GUIDE.md)** - Guía detallada de encriptación
 
 ---
 

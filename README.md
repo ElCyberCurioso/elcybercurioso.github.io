@@ -8,7 +8,7 @@ Blog personal de ElCyberCurioso con apuntes de hacking y pentesting (Red Team). 
 ## ✨ Características
 
 - 📝 Blog de ciberseguridad y hacking ético
-- 🔐 **Sistema de encriptación de posts** con StatiCrypt
+- 🔐 **Sistema de encriptación de posts** con AES-256 (CryptoJS)
 - 🎨 Diseño moderno y responsive
 - 🌙 Modo oscuro/claro
 - 💬 Sistema de comentarios con Giscus
@@ -114,8 +114,7 @@ git push
 
 **Opciones Alternativas:**
 
-1. **Deploy Manual**: Para máximo control → [DEPLOY_GUIDE.md](DEPLOY_GUIDE.md)
-2. **Sin encriptación**: Push directo, despliega automáticamente
+- **Sin encriptación**: Push directo a `main`, despliega automáticamente con GitHub Actions
 
 ## 📝 Comandos Útiles
 
@@ -144,9 +143,9 @@ npm run deploy             # Deploy manual (opcional)
 
 ## 📖 Documentación Completa
 
-- **[WORKFLOW_GUIDE.md](WORKFLOW_GUIDE.md)** - Flujo completo de trabajo
+- **[WORKFLOW_GUIDE.md](WORKFLOW_GUIDE.md)** - Flujo completo de trabajo con CI/CD
 - **[ENCRYPTION_GUIDE.md](ENCRYPTION_GUIDE.md)** - Guía de encriptación detallada
-- **[DEPLOY_GUIDE.md](DEPLOY_GUIDE.md)** - Deploy manual alternativo
+- **[QUICK_START.md](QUICK_START.md)** - Guía rápida de inicio
 - [Documentación del tema Chirpy](https://github.com/cotes2020/jekyll-theme-chirpy/wiki)
 
 ## Contributing

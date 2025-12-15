@@ -7,8 +7,7 @@
     "decrypt-markdown": "node scripts/decrypt-markdown.js",
     "encrypt-posts": "node scripts/encrypt-posts-v2.js",
     "list-posts": "node scripts/list-posts.js",
-    "generate-password": "node scripts/generate-password.js",
-    "deploy": "node scripts/deploy.js"
+    "generate-password": "node scripts/generate-password.js"
   },
   "keywords": [
     "jekyll",
@@ -19,10 +18,8 @@
   "author": "ElCyberCurioso",
   "license": "MIT",
   "dependencies": {
-    "staticrypt": "^3.3.3",
-    "js-yaml": "^4.1.0",
+    "crypto-js": "^4.2.0",
     "glob": "^10.3.10",
-    "crypto-js": "^4.2.0"
+    "js-yaml": "^4.1.0"
   }
 }
-

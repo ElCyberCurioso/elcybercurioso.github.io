@@ -261,8 +261,10 @@ En GitHub Actions, verifica que:
 ## 📦 Archivos del sistema
 
 - **`_data/encrypted_posts.yml`**: Configuración de posts y sus secrets
-- **`templates/password_template.html`**: Template personalizado del modal
-- **`scripts/encrypt-posts.js`**: Script de encriptación
+- **`_includes/encrypted-content.html`**: Template personalizado del modal de encriptación
+- **`scripts/encrypt-posts-v2.js`**: Script de encriptación de HTML
+- **`scripts/encrypt-markdown.js`**: Script de encriptación de markdown (local)
+- **`scripts/decrypt-markdown.js`**: Script de desencriptación de markdown (local)
 - **`scripts/list-posts.js`**: Utilidad para listar posts
 - **`scripts/generate-password.js`**: Generador de contraseñas
 - **`package.json`**: Dependencias y comandos
@@ -385,9 +387,10 @@ npm run encrypt-posts      # Encriptar posts (requiere variables de entorno)
 
 ## 📚 Referencias
 
-- [StatiCrypt en GitHub](https://github.com/robinmoisson/staticrypt)
+- [CryptoJS en GitHub](https://github.com/brix/crypto-js)
 - [Documentación de Jekyll](https://jekyllrb.com/docs/)
 - [GitHub Actions Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
+- [AES-256 Encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
 - [Tema Chirpy](https://github.com/cotes2020/jekyll-theme-chirpy/)
 
 ---
@@ -395,9 +398,9 @@ npm run encrypt-posts      # Encriptar posts (requiere variables de entorno)
 ## 🎨 Personalización del Modal
 
 Si quieres personalizar el aspecto del modal, edita:
-- **`templates/password_template.html`**: HTML y CSS del modal
+- **`_includes/encrypted-content.html`**: HTML, CSS y JavaScript del modal
 - **Colores**: Variables CSS en la sección `:root` y `@media (prefers-color-scheme: dark)`
-- **Textos**: Modificar el HTML directamente o las opciones en `scripts/encrypt-posts.js`
+- **Textos**: Modificar el HTML directamente en el archivo de include
 
 ---
 
