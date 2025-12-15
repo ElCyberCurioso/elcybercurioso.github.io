@@ -1,0 +1,18 @@
+# Lista de posts a encriptar con contraseñas individuales
+# Cada post tiene su propio secret en GitHub
+#
+# Formato:
+#   - post: nombre-del-post (sin .md)
+#     secret: NOMBRE_DEL_SECRET_EN_GITHUB
+# 
+# Ejemplo:
+#   - post: 2025-10-19-welcome
+#     secret: PASSWORD_WELCOME
+#   - post: 2025-11-25-dockerlabs-veneno
+#     secret: PASSWORD_VENENO
+
+encrypted_posts:
+  - post: 2025-10-19-welcome
+    secret: PASSWORD_WELCOME
+  # - post: 2025-11-25-dockerlabs-veneno
+  #    secret: PASSWORD_VENENO
