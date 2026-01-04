@@ -4,8 +4,6 @@ author: elcybercurioso
 date: 2025-10-22 13:00
 categories: [Template]
 tags: [template]
-pin: true
-published: false
 image:
   path: /assets/img/posts/htb_lock/htb_hercules.webp
 ---

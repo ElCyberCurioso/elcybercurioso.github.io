@@ -1,0 +1,422 @@
+<!-- Encrypted Post Wrapper -->
+<div id="encrypted-post-wrapper">
+  <!-- Modal Overlay -->
+  <div class="encrypted-modal-overlay" id="encrypted-modal">
+    <div class="encrypted-modal-container">
+      <div class="encrypted-modal-icon">🔒</div>
+      <h2 class="encrypted-modal-title">Contenido Protegido</h2>
+      <p class="encrypted-modal-description">Este post está encriptado. Ingresa la contraseña para acceder al contenido.</p>
+      
+      <form class="encrypted-modal-form" id="encrypted-form">
+        <div class="encrypted-input-wrapper">
+          <input 
+            type="password" 
+            class="encrypted-input" 
+            id="encrypted-password"
+            placeholder="Contraseña"
+            autocomplete="off"
+            autofocus
+          >
+          <button type="button" class="encrypted-toggle" id="toggle-visibility" title="Mostrar contraseña">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path class="eye-open" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="encrypted-error" id="encrypted-error" style="display: none;">
+          ❌ Contraseña incorrecta. Inténtalo de nuevo.
+        </div>
+        
+        <button type="submit" class="encrypted-button" id="encrypted-submit">
+          Desbloquear
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Encrypted Content (hidden) -->
+  <div id="encrypted-payload" style="display: none;">{{ include.encrypted_content }}</div>
+  
+  <!-- Actual Post Content (initially hidden and blurred) -->
+  <div id="post-content-wrapper" class="blurred-content">
+    <div class="encrypted-placeholder">
+      <div class="encrypted-placeholder-icon">🔒</div>
+      <h2>Contenido Encriptado</h2>
+      <p>Este contenido está protegido. Desbloquéalo para verlo.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Modal Overlay */
+  .encrypted-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Modal Container */
+  .encrypted-modal-container {
+    background: var(--main-bg, #ffffff);
+    color: var(--text-color, #333333);
+    border-radius: 16px;
+    padding: 2.5rem;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    animation: slideIn 0.4s ease;
+    position: relative;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Dark mode support */
+  [data-mode="dark"] .encrypted-modal-container {
+    background: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #404040;
+  }
+
+  /* Modal Icon */
+  .encrypted-modal-icon {
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* Modal Title */
+  .encrypted-modal-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--heading-color, #333);
+  }
+
+  [data-mode="dark"] .encrypted-modal-title {
+    color: #e0e0e0;
+  }
+
+  /* Modal Description */
+  .encrypted-modal-description {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+    font-size: 0.95rem;
+  }
+
+  /* Form */
+  .encrypted-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Input Wrapper */
+  .encrypted-input-wrapper {
+    position: relative;
+  }
+
+  /* Input Field */
+  .encrypted-input {
+    width: 100%;
+    padding: 0.875rem 3rem 0.875rem 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--border-color, #e0e0e0);
+    border-radius: 8px;
+    background: var(--input-bg, #f5f5f5);
+    color: var(--text-color, #333);
+    transition: all 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+  }
+
+  .encrypted-input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+  }
+
+  [data-mode="dark"] .encrypted-input {
+    background: #2a2a2a;
+    border-color: #404040;
+    color: #e0e0e0;
+  }
+
+  /* Toggle Button */
+  .encrypted-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    color: var(--text-muted, #666);
+  }
+
+  .encrypted-toggle:hover {
+    opacity: 1;
+  }
+
+  [data-mode="dark"] .encrypted-toggle {
+    color: #a0a0a0;
+  }
+
+  /* Error Message */
+  .encrypted-error {
+    padding: 0.875rem 1rem;
+    background: #ffebee;
+    border: 1px solid #ef5350;
+    border-radius: 8px;
+    color: #c62828;
+    font-size: 0.9rem;
+    text-align: center;
+    animation: shake 0.4s ease;
+  }
+
+  [data-mode="dark"] .encrypted-error {
+    background: #4a1616;
+    border-color: #c62828;
+    color: #ff8a80;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+  }
+
+  /* Submit Button */
+  .encrypted-button {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .encrypted-button:hover {
+    background: #45a049;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+
+  .encrypted-button:active {
+    transform: translateY(0);
+  }
+
+  .encrypted-button.loading {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .encrypted-button.loading::after {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 8px;
+    border: 2px solid white;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Blurred Content */
+  .blurred-content {
+    filter: blur(10px);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Placeholder */
+  .encrypted-placeholder {
+    text-align: center;
+    padding: 4rem 2rem;
+    opacity: 0.5;
+  }
+
+  .encrypted-placeholder-icon {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+  }
+
+  .encrypted-placeholder h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Success state - remove blur and modal */
+  #post-content-wrapper.decrypted {
+    filter: none;
+    pointer-events: auto;
+    user-select: auto;
+    animation: unblur 0.5s ease;
+  }
+
+  @keyframes unblur {
+    from { filter: blur(10px); }
+    to { filter: none; }
+  }
+
+  .encrypted-modal-overlay.hiding {
+    animation: fadeOut 0.3s ease forwards;
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script>
+  (function() {
+    const form = document.getElementById('encrypted-form');
+    const input = document.getElementById('encrypted-password');
+    const button = document.getElementById('encrypted-submit');
+    const error = document.getElementById('encrypted-error');
+    const modal = document.getElementById('encrypted-modal');
+    const toggle = document.getElementById('toggle-visibility');
+    const contentWrapper = document.getElementById('post-content-wrapper');
+    const encryptedPayload = document.getElementById('encrypted-payload').textContent.trim();
+
+    // Toggle password visibility
+    toggle.addEventListener('click', function() {
+      const type = input.type === 'password' ? 'text' : 'password';
+      input.type = type;
+    });
+
+    // Form submission
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const password = input.value.trim();
+      if (!password) return;
+
+      // Hide error
+      error.style.display = 'none';
+      
+      // Show loading state
+      button.classList.add('loading');
+      button.textContent = 'Desencriptando';
+
+      // Small delay for UX
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      try {
+        // Attempt decryption using CryptoJS
+        const decrypted = CryptoJS.AES.decrypt(encryptedPayload, password);
+        const decryptedText = decrypted.toString(CryptoJS.enc.Utf8);
+        
+        if (decryptedText && decryptedText.length > 0) {
+          // Success! Show content
+          contentWrapper.innerHTML = decryptedText;
+          contentWrapper.classList.add('decrypted');
+          contentWrapper.classList.remove('blurred-content');
+          
+          // Activate lazy-loaded images and remove loading attributes
+          const allImages = contentWrapper.querySelectorAll('img');
+          allImages.forEach(img => {
+            // If image has data-src, replace it with src
+            if (img.hasAttribute('data-src')) {
+              img.src = img.getAttribute('data-src');
+              img.removeAttribute('data-src');
+            }
+            // Remove all lazy loading related attributes
+            img.removeAttribute('data-lqip');
+            img.removeAttribute('loading');
+          });
+          
+          // Remove shimmer effect from image containers
+          const shimmerElements = contentWrapper.querySelectorAll('.shimmer');
+          shimmerElements.forEach(el => {
+            el.classList.remove('shimmer');
+          });
+          
+          // Reinitialize GLightbox for popup images if available
+          if (typeof GLightbox !== 'undefined') {
+            setTimeout(() => {
+              GLightbox({
+                selector: '.popup'
+              });
+            }, 100);
+          }
+          
+          // Remove modal with animation
+          modal.classList.add('hiding');
+          setTimeout(() => {
+            modal.remove();
+          }, 300);
+        } else {
+          // Wrong password
+          error.style.display = 'block';
+          button.classList.remove('loading');
+          button.textContent = 'Desbloquear';
+          input.value = '';
+          input.focus();
+        }
+      } catch (err) {
+        // Decryption error
+        error.style.display = 'block';
+        button.classList.remove('loading');
+        button.textContent = 'Desbloquear';
+        input.value = '';
+        input.focus();
+      }
+    });
+
+    // Enter key support
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        form.dispatchEvent(new Event('submit'));
+      }
+    });
+  })();
+</script>
+

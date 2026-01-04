@@ -39,6 +39,22 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Decrypt markdown posts
+        run: npm run decrypt-markdown
+        env:
+          PASSWORD_PLANTILLA: ${{ secrets.PASSWORD_PLANTILLA }}
+          # Añade aquí TODOS los secrets de tus posts encriptados
+          # PASSWORD_VENENO: ${{ secrets.PASSWORD_VENENO }}
+          # PASSWORD_OTRO_POST: ${{ secrets.PASSWORD_OTRO_POST }}
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -49,6 +65,14 @@ jobs:
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: "production"
+
+      - name: Encrypt HTML posts
+        run: npm run encrypt-posts
+        env:
+          PASSWORD_PLANTILLA: ${{ secrets.PASSWORD_PLANTILLA }}
+          # Usa los mismos secrets que arriba
+          # PASSWORD_VENENO: ${{ secrets.PASSWORD_VENENO }}
+          # PASSWORD_OTRO_POST: ${{ secrets.PASSWORD_OTRO_POST }}
 
       - name: Test site
         run: |
