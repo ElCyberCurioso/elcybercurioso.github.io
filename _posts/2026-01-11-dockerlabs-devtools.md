@@ -4,11 +4,10 @@ summary: "Write-up del laboratorio Devtools de DockerLabs"
 author: elcybercurioso
 date: 2026-01-11
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, credentials leaking, brute force, sudo]
 media_subpath: "/assets/img/posts/dockerlabs_devtools"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -49,7 +48,7 @@ En cierto punto, habla de la pestaña `Network`, por lo que probamos a ver a que
 
 ![Desktop View](/20260105205306.webp){: width="972" height="589" .shadow}
 
-Entre ello encontramos un script que procedemos a revisar:
+Encontramos que se está llamando al script `backupp.js`, el cual procedemos a revisar:
 
 ![Desktop View](/20260105204707.webp){: width="972" height="589" .shadow}
 
@@ -111,7 +110,7 @@ carlos@14389feb7454:~$ cat nota.txt
 Backup en data.bak dentro del directorio de root
 ```
 
-Dado que podemos leer el contenido de los ficheros del sistema con permisos `root` con la utilidad **xxd**, revisamos el contenido del fichero `/root/data.bak` que nos han indicado, donde nos encontramos lo que parecen ser unas credenciales:
+Dado que podemos leer el contenido de los ficheros del sistema con permisos `root` con la utilidad **xxd** (permisos SUDO), revisamos el contenido del fichero `/root/data.bak` que nos han indicado, donde nos encontramos lo que parecen ser unas credenciales:
 
 ```bash
 carlos@14389feb7454:~$ sudo /usr/bin/xxd /root/data.bak
@@ -127,7 +126,7 @@ root@14389feb7454:/home/carlos# whoami
 root
 ```
 
-Y de esta manera, se obtiene acceso privilegiado en la máquina Devtools!
+Y de esta manera, se obtiene acceso privilegiado en la máquina `Devtools`!
 
 <a href="https://www.buymeacoffee.com/elcybercurioso" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy+me+a+coffee&emoji=&slug=elcybercurioso&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" alt="buymecoffee_icon" /></a>
 

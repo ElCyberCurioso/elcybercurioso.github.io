@@ -4,11 +4,10 @@ summary: "Write-up del laboratorio 0xc0ffee de DockerLabs"
 author: elcybercurioso
 date: 2026-01-11
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, credentials leaking, rce, sudo, permissions abuse]
 media_subpath: "/assets/img/posts/dockerlabs_0xc0ffee"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -86,11 +85,11 @@ Vemos que nos permite indicar un nombre de fichero, y la configuración que quer
 
 ![Desktop View](/20260107180810.webp){: width="972" height="589" .shadow}
 
-Tras darle a `Apply Configuration`, vemos que se crea el fichero que hemos indicado en el directorio principal del puerto 7777 de la máquina:
+Tras darle a `Apply Configuration`, podemos comprobar que se crea el fichero que hemos indicado dentro del directorio principal del servidor alojado en el puerto 7777 de la máquina:
 
 ![Desktop View](/20260107181048.webp){: width="700" height="460" .shadow}
 
-Comprobamos que el contenido es el mismo que nosotros hemos definido:
+Verificamos que el contenido es el mismo que nosotros hemos definido:
 
 ![Desktop View](/20260107181115.webp){: width="270" height="140" .shadow}
 
@@ -195,7 +194,7 @@ drwxr-xr-x 1 root     root      4096 Aug 29  2024 ..
 drwxr-xr-x 2 root     root      4096 Aug 29  2024 secret
 ```
 
-Al intentar leer el contenido del fichero `code`, veremos que se trata de un binario, ya que no es legible:
+Al intentar leer el contenido del fichero `code`, veremos que no es legible:
 
 ```bash
 www-data@5bde31420ac0:/home/codebad$ cat code 
@@ -233,7 +232,7 @@ codebad
 
 ## movimiento lateral (metadata)
 
-Revisando los permisos del usuario `codebad`, encontramos que puede ejecutar el binario `/home/codebad/code` que vimos anteriormente, pero con los permisos del usuario `metadata`:
+Revisando los permisos del usuario `codebad`, encontramos que puede ejecutar el fichero `/home/codebad/code` que vimos anteriormente (podemos confirmar que se trata de un binario), pero con los permisos del usuario `metadata`:
 
 ```bash
 codebad@5bde31420ac0:~$ sudo -l
@@ -244,14 +243,21 @@ User codebad may run the following commands on 5bde31420ac0:
     (metadata : metadata) NOPASSWD: /home/codebad/code
 ```
 
-Lo primero que podemos revisar es la carpeta principal del usuario `metadata`, la cual contiene la primera flag, y un fichero `pass.txt` (que posiblemente contenga alguna contraseña):
+Al ejecutar el binario, veremos que se trata de una copia de la utilidad `/bin/ls`:
+
+```bash
+codebad@5bde31420ac0:~$ sudo -u metadata /home/codebad/code id
+/bin/ls: cannot access 'id': No such file or directory
+```
+
+Teniendo claro con que binario estamos tratando, lo primero que podemos revisar es la carpeta principal del usuario `metadata`, la cual contiene la primera flag, y un fichero `pass.txt` (que posiblemente contenga alguna contraseña):
 
 ```bash
 codebad@5bde31420ac0:~$ sudo -u metadata /home/codebad/code /home/metadata/
 pass.txt  user.txt
 ```
 
-Pero ya que sabemos que el binario `/home/codebad/code` es una copia del binario `/usr/bin/ls`, pero con los permisos del usuario `metadata`, lo que haremos será buscar carpetas cuyo grupo sea `metadata`, donde destaca `/usr/local/bin`:
+Lo que haremos a continuación será buscar carpetas cuyo grupo sea `metadata`, donde destaca `/usr/local/bin`:
 
 ```bash
 codebad@5bde31420ac0:~$ find / -group metadata 2>/dev/null

@@ -4,11 +4,10 @@ summary: "Write-up del laboratorio Usersearch de DockerLabs"
 author: elcybercurioso
 date: 2026-01-11
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, sqli, credentials leaking, sudo, permissions abuse]
 media_subpath: "/assets/img/posts/dockerlabs_usersearch"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -37,7 +36,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 ## análisis
 
-En primer lugar, dejaremos en segundo plano la búsqueda de recursos en el servidor con **gobuster**:
+Comenzaremos dejando en segundo plano la búsqueda de recursos en el servidor con **gobuster** mientras revisamos la página web:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Usersearch]
@@ -62,7 +61,7 @@ Starting gobuster in directory enumeration mode
 /index.php            (Status: 200) [Size: 855]
 ```
 
-Ahora vamos a acceder a la pantalla principal del puerto 80 de la máquina, donde encontramos una funcionalidad que permite buscar usuarios:
+Accedemos a la página web, donde encontramos una funcionalidad que permite buscar usuarios:
 
 ![Desktop View](/20260105214407.webp){: width="972" height="589" .shadow}
 
@@ -78,7 +77,7 @@ Para comprobar si esta funcionalidad es vulnerable a un **SQLi** (SQL Injection)
 
 Dado que es vulnerable, vemos que nos ha devuelto varios usuarios diferentes junto con sus contraseñas.
 
-Como hemos visto que el puerto 22 está habilitado en la máquina, probaremos a conectarnos con las credenciales obtenidas, y vemos que obtenemos acceso como el usuario `kvzlx`:
+Como hemos visto que el puerto 22 (SSH) está habilitado en la máquina, probaremos a conectarnos con las credenciales obtenidas, y vemos que obtenemos acceso como el usuario `kvzlx`:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Usersearch]
@@ -126,7 +125,9 @@ kvzlx@08f08da7af80:~$ ls -la /home/kvzlx/system_info.py
 -rwxr-xr-x 1 root root 191 May 29  2024 /home/kvzlx/system_info.py
 ```
 
-Sin embargo, se encuentra dentro del directorio del usuario `kvzlx` (con el cual estamos conectados actualmente a la máquina). Teniendo esto en cuenta, lo que podemos hacer es borrarlo y volver a crearlo con el mismo nombre, ya que los permisos de la carpeta prevalecen sobre los del propio script:
+Sin embargo, se encuentra dentro del directorio personal del usuario `kvzlx` (con el cual estamos conectados actualmente a la máquina).
+
+Teniendo esto en cuenta, lo que podemos hacer es borrar el script y volver a crearlo con el mismo nombre, ya que los permisos de la carpeta lo permiten:
 
 ```bash
 kvzlx@08f08da7af80:~$ rm /home/kvzlx/system_info.py
@@ -162,7 +163,7 @@ root@08f08da7af80:/home/kvzlx# whoami
 root
 ```
 
-Y aquí acaba la resolución de la máquina **Usersearch**!
+Y aquí acaba la resolución de la máquina `Usersearch`!
 
 <a href="https://www.buymeacoffee.com/elcybercurioso" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy+me+a+coffee&emoji=&slug=elcybercurioso&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" alt="buymecoffee_icon" /></a>
 

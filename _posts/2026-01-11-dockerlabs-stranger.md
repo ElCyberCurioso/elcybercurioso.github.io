@@ -4,11 +4,10 @@ summary: "Write-up del laboratorio Stranger de DockerLabs"
 author: elcybercurioso
 date: 2026-01-11
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, text decryption, brute force, sudo]
 media_subpath: "/assets/img/posts/dockerlabs_stranger"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -111,7 +110,7 @@ Nos descargamos el fichero `/private.txt`, y vemos que se trata de texto codific
 private.txt: data
 ```
 
-En el recurso `/secret.html` encontramos el siguiente mensaje, donde indican que el usuario `admin` es válido para FTP en la máquina, pero debemos encontrar la contraseña (la cual se encuentra dentro del fichero `rockyou.txt`):
+En el recurso `/secret.html` encontramos el siguiente mensaje, donde indican que el usuario `admin` es válido por FTP en la máquina, pero debemos encontrar la contraseña (la cual se encuentra dentro del fichero `rockyou.txt`):
 
 ![Desktop View](/20260108185555.webp){: width="700" height="460" .shadow}
 
@@ -178,7 +177,7 @@ Lo que hemos encontrado hasta ahora es:
 - Una palabra clave, la cual nos la indicaban en una de las entradas del blog.
 - Una clave privada encontrada en el servidor FTP.
 
-Con esto lo que podemos intentar desencriptar la cadena codificada, y para ello usaremos la herramienta [CyberChef.io](https://cyberchef.io) (para evitar que el contenido de la cadena codificada se vea afectado, optamos por convertirlo a Base64, siendo la decodificación el primer paso que debemos hacer al tratar de desencriptar la cadena):
+En este punto tenemos lo necesario para desencriptar la cadena codificada, y para ello usaremos la herramienta [CyberChef.io](https://cyberchef.io) (para evitar que el contenido de la cadena codificada se vea afectado, optamos por convertirlo a Base64, siendo la decodificación el primer paso que debemos hacer al tratar de desencriptar la cadena):
 
 ![Desktop View](/20260108191018.webp){: width="972" height="589" .shadow}
 

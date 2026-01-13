@@ -4,11 +4,10 @@ summary: "Write-up del laboratorio Hidden de DockerLabs"
 author: elcybercurioso
 date: 2026-01-11
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, subdomain enumeration, arbitrary file upload, rce, brute force, sudo, ]
 media_subpath: "/assets/img/posts/dockerlabs_hidden"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -36,7 +35,7 @@ Comenzamos revisando la página principal del servidor web, el cual vemos que no
 
 ![Desktop View](/20260107142305.webp){: width="972" height="589" .shadow}
 
-Para que nos resuelva correctamente el dominio, debemos modificar el fichero `/etc/passwd` de nuestra máquina, añadiendo la siguiente línea:
+Para que nos resuelva correctamente el dominio, debemos modificar el fichero `/etc/hosts` de nuestra máquina, añadiendo la siguiente línea:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Hidden]
@@ -48,7 +47,7 @@ Si volvemos a recargar la página, ahora veremos que se nos cargan correctamente
 
 ![Desktop View](/20260107142533.webp){: width="972" height="589" .shadow}
 
-Mientras investigamos la página web, dejaremos con **gobuster** una búsqueda por fuerza bruta de recursos disponibles:
+Mientras investigamos la página web, dejaremos con **gobuster** una búsqueda por fuerza bruta de recursos disponibles en el servidor:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Hidden]
@@ -140,12 +139,12 @@ Para poder probar esta funcionalidad con mayor facilidad, interceptaremos la pet
 
 ![Desktop View](/20260107144603.webp){: width="972" height="589" .shadow}
 
-Lo que probaremos en estos casos será:
+Lo que es conveniente probar cuando nos encontremos con funcionalidades que permitan subir ficheros es:
 - Cambiar la extensión del fichero por otra que PHP permita la ejecución del script ([Lista de extensiones válidas](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Upload%20Insecure%20Files/Extension%20PHP/extensions.lst))
 - Modificar la cabecera `Content-Type`.
-- Agregar [magic numbers](https://en.wikipedia.org/wiki/List_of_file_signatures) de ficheros que el servidor acepta.
+- Agregar [magic numbers](https://en.wikipedia.org/wiki/List_of_file_signatures) de ficheros que el servidor acepte.
 - Reducir el tamaño del contenido del script.
-- Reformular script para evitar bloqueos de palabras clave.
+- Reformular el script para evitar bloqueos de palabras clave.
 
 Para el este caso, cambiando la extensión del script es suficiente para que el servidor lo acepte:
 
@@ -201,8 +200,6 @@ Tras ejecutar el comando, deberíamos haber obtenido una consola donde nos habí
 └─$ nc -nlvp 4444  
 listening on [any] 4444 ...
 connect to [172.17.0.1] from (UNKNOWN) [172.17.0.2] 54490
-bash: cannot set terminal process group (23): Inappropriate ioctl for device
-bash: no job control in this shell
 www-data@bae61b258357:/var/www/dev.hidden.lab/uploads$ whoami
 whoami
 www-data
@@ -211,7 +208,7 @@ hostname -I
 172.17.0.2
 ```
 
-Para poder operar con mayor facilidad, lo que haremos es tratar la TTY:
+Para poder operar con mayor facilidad, lo que haremos será tratar la TTY:
 
 ```bash
 www-data@bae61b258357:/var/www/dev.hidden.lab/uploads$ script -c bash /dev/null
@@ -373,7 +370,7 @@ User bobby may run the following commands on bae61b258357:
     (root) NOPASSWD: /usr/bin/find
 ```
 
-Volvemos a consultar en [GTFOBins](), donde nos indican que podemos invocar una consola como otro usuario si tenemos permisos SUDO sobre el binario `find` ejecutando el siguiente comando:
+Volvemos a consultar en [GTFOBins](https://gtfobins.github.io/gtfobins/find/#sudo), donde nos indican que podemos invocar una consola como otro usuario si tenemos permisos SUDO sobre el binario `find` ejecutando el siguiente comando:
 
 ![Desktop View](/20260107160013.webp){: width="972" height="589" .shadow}
 
