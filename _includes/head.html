@@ -101,6 +101,21 @@
 
   <script src="{{ '/assets/js/dist/theme.min.js' | relative_url }}"></script>
 
+  <!-- Set dark mode as default -->
+  <script>
+    (function() {
+      const modeKey = 'mode';
+      const darkMode = 'dark';
+      const lightMode = 'light';
+      
+      // Si no hay preferencia guardada, establecer modo oscuro por defecto
+      if (!localStorage.getItem(modeKey)) {
+        localStorage.setItem(modeKey, darkMode);
+        document.documentElement.setAttribute('data-mode', darkMode);
+      }
+    })();
+  </script>
+
   {% include js-selector.html lang=lang %}
 
   {% if jekyll.environment == 'production' %}
