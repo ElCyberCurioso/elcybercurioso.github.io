@@ -4,7 +4,7 @@ summary: "Write-up del laboratorio Database de DockerLabs"
 author: elcybercurioso
 date: 2026-02-03 12:53:48
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, sqli, smb, brute force, ssh, credentials leaking, sudo, java, keepass, php, env]
 media_subpath: "/assets/img/posts/dockerlabs_database"
 image:
   path: main.webp
@@ -99,7 +99,7 @@ admin' or 1=1;-- -
 
 Después de analizar la página a la que accedemos tras saltarnos el panel de autenticación, no vemos nada más, por lo que seguiremos analizando la máquina.
 
-En el análisis de puertos abierto vimos que el servicio de SMB está desplegado, por lo que trataremos de obtener más información con **crackmapexec** (o **nxc**, que es la nueva versión, ya que el proyecto de **crackmapexec** ha dejado de recibir actualizaciones):
+En el análisis de `nmap` vimos que el servicio de SMB está desplegado, por lo que trataremos de obtener más información con **crackmapexec** (o **nxc**, que es la nueva versión, ya que el proyecto de **crackmapexec** ha dejado de recibir actualizaciones):
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Database]
@@ -158,7 +158,11 @@ S-1-22-1-1001 Unix User\augustus (Local User)
 S-1-22-1-1002 Unix User\bob (Local User)
 ```
 
-Mientras seguimos revisando la máquina, dejaremos en segundo **hydra** tratando de obtener las contraseñas de los usuarios `dylan`, `augustus` y `bob` por SSH empleando fuerza bruta. Casi de inmediato nos encuentra la contraseña del usuario `augustus`:
+## acceso inicial (augustus)
+
+### por fuerza bruta
+
+Mientras seguimos revisando la máquina, dejaremos en segundo plano **hydra** tratando de obtener las contraseñas de los usuarios `dylan`, `augustus` y `bob` por SSH empleando fuerza bruta. Casi de inmediato nos encuentra la contraseña del usuario `augustus`:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Database]
@@ -186,7 +190,9 @@ augustus@3eea2836f91c:~$ hostname -I
 172.17.0.2
 ```
 
-Otra manera de obtener la contraseña del usuario `augustus` es probando el formulario de acceso de la página web alojada en el puerto 80 de la máquina víctima para ver si es vulnerable a un ataque **SQLi** (SQL Injection).
+### por SQLi 
+
+Otra manera de obtener la contraseña del usuario `augustus` es aprovecharnos de que el panel de autenticación de la página web alojada en el puerto 80 de la máquina víctima es vulnerable a un ataque **SQLi** (SQL Injection), y aprovecharnos de ello para exfiltrar información.
 
 Comenzaremos por interceptar una petición de login con **Burp Suite** (método POST) y la guardamos en un fichero:
 
@@ -307,8 +313,6 @@ Table: users
 | **************** | dylan    |
 +------------------+----------+
 ```
-
-## acceso inicial (augustus)
 
 De esta manera, habremos obtenido la contraseña del usuario `dylan`, pero en este caso es la de SMB:
 

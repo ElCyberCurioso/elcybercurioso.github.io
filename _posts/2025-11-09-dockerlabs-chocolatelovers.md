@@ -4,7 +4,7 @@ summary: "Write-up del laboratorio ChocolateLovers de DockerLabs"
 author: elcybercurioso
 date: 2025-11-09
 categories: [Post, DockerLabs]
-tags: [fácil, information leaking, weak credentials, file upload, rce, sudo, process snooping, cron, cms]
+tags: [fácil, information leaking, weak credentials, file upload, rce, sudo, process snooping, cron jobs, cms]
 media_subpath: "/assets/img/posts/dockerlabs_chocolatelovers"
 image:
   path: main.webp

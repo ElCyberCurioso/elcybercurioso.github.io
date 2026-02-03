@@ -4,7 +4,7 @@ summary: "Write-up del laboratorio Herebash de DockerLabs"
 author: elcybercurioso
 date: 2026-02-03 12:54:00
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, stenography, brute force, credentials leaking, http method override]
 media_subpath: "/assets/img/posts/dockerlabs_herebash"
 image:
   path: main.webp
@@ -109,7 +109,7 @@ Viendo que no acepta el método `GET`, probamos con el método `POST`, pero la r
 Método no permitido
 ```
 
-La pista nos hablaba sobre un nombre y un método, por lo que probamos a ver si el script acepta el método `PUT`, y vemos que en este caso nos devuelve una cadena:
+La pista nos hablaba sobre un nombre y un método, por lo que probamos a ver si el script acepta otros métodos, como, por ejemplo, el método `PUT`, y vemos que en este caso nos devuelve una cadena:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Herebash]
@@ -159,7 +159,7 @@ Enter passphrase:
 steghide: could not extract any data with that passphrase!
 ```
 
-Usaremos **steghide** para buscar por fuerza bruta la clave para extraer lo que está oculto dentro de la imagen, que tras un tiempo vemos que lo encuentra y nos extrae el fichero, el cual es un comprimido `.zip`:
+Usaremos **stegseek** para buscar por fuerza bruta la clave para extraer lo que está oculto dentro de la imagen, que tras un tiempo vemos que lo encuentra y nos extrae el fichero, el cual es un comprimido `.zip`:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Herebash]
@@ -361,7 +361,7 @@ for directorio in busca*; do
 done
 ```
 
-Como sabemos el contenido que van a tener todos los ficheros que modifica el script, podemos obviarlos, y así obtener solo el contenido de los ficheros que no tengan dicho contenido, para que de esta manera obtener finalmente la contraseña del usuario `pedro`:
+Como sabemos el contenido que van a tener todos los ficheros que modifica el script, podemos obviarlos, y así obtener solo el contenido de los ficheros que no tengan dicho contenido, para poder, de esta manera, obtener finalmente la contraseña del usuario `pedro`:
 
 ```bash
 rosa@1ff04139c4f0:~/-$ find . -type f | xargs cat | grep -v "xxxxxx:xxxxxx"

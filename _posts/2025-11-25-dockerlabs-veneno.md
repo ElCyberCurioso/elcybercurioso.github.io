@@ -4,7 +4,7 @@ summary: "Write-up del laboratorio Veneno de DockerLabs"
 author: elcybercurioso
 date: 2025-11-25
 categories: [Post, DockerLabs]
-tags: [medio, lfi, log poisoning, credentials leaking, steghide]
+tags: [medio, lfi, log poisoning, credentials leaking, stenography]
 media_subpath: "/assets/img/posts/dockerlabs_veneno"
 image:
   path: main.webp

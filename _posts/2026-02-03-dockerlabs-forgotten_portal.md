@@ -4,7 +4,7 @@ summary: "Write-up del laboratorio Forgotten_Portal de DockerLabs"
 author: elcybercurioso
 date: 2026-02-03 12:53:36
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, information leaking, arbitrary file upload, php, rce, credentials leaking, sudo, tar]
 media_subpath: "/assets/img/posts/dockerlabs_forgotten_portal"
 image:
   path: main.webp
@@ -82,7 +82,7 @@ Vemos que accedemos a una página que cuenta con una funcionalidad de subida de 
 
 ![Desktop View](/20260122010103.webp){: width="972" height="589" .shadow}
 
-Como nos indican que permiten la subida de script en PHP, procedemos a subir el siguiente script, el cual nos permite ejecutar comandos de forma remota:
+Como nos indican que permiten la subida de script en PHP, procedemos a subir el siguiente script, el cual nos permite ejecutar comandos de forma remota (**RCE**):
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Forgotten_Portal]

