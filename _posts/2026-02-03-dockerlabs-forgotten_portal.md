@@ -8,7 +8,6 @@ tags: []
 media_subpath: "/assets/img/posts/dockerlabs_forgotten_portal"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -39,7 +38,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Comenzamos revisando la página web alojada en el puerto 80 de la máquina:
 
-![Desktop View](/20260122005806.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260122005806.webp){: width="750" height="490" .shadow}
 
 Mientras analizamos la página web, dejaremos **gobuster** corriendo en segundo plano buscando por fuerza bruta recursos en el servidor:
 
@@ -97,7 +96,7 @@ Y vemos que efectivamente permiten la subida sin problema de scripts en PHP:
 
 Uno de los recursos que nos devolvió **gobuster** es `/uploads`, el cual si ahora accedemos, veremos el script que acabamos de subir:
 
-![Desktop View](/20260122010448.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260122010448.webp){: width="600" height="420" .shadow}
 
 Accedemos al script, y vemos que podemos ejecutar comandos de forma remota (**RCE**):
 

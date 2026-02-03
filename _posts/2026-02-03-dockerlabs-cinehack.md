@@ -8,7 +8,6 @@ tags: []
 media_subpath: "/assets/img/posts/dockerlabs_cinehack"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -158,7 +157,7 @@ Interceptamos la petición que se realiza al cargar la página, donde vemos que 
 
 Si dejamos correr la petición después de hacer la modificación, veremos en el navegador que nos salta una ventana emergente, confirmando la vulnerabilidad XSS:
 
-![Desktop View](/20260121220308.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260121220308.webp){: width="600" height="420" .shadow}
 
 ## acceso inicial (www-data)
 
@@ -203,7 +202,7 @@ Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 
 Creamos la reserva, indicando la IP de nuestra máquina, y el script que hemos generado:
 
-![Desktop View](/20260122000445.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260122000445.webp){: width="550" height="290" .shadow}
 
 Dado que todavía no conocemos donde se está subiendo el script (ya que con **gobuster** no encontramos ninguna carpeta donde pueda estar), podemos generar un listado de posibles rutas a partir del texto que hay en la página web empleando herramientas como **cewl**:
 
@@ -274,7 +273,7 @@ Finished
 
 Al acceder, vemos que se trata de un directorio, el cual contiene un script en PHP. Si tratamos de abrirlo, veremos que se queda cargando sin llegar a finalizar:
 
-![Desktop View](/20260121225033.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260121225033.webp){: width="600" height="420" .shadow}
 
 Por el tamaño que tiene, podemos confirmar que no es nuestro script.
 
@@ -293,7 +292,7 @@ Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 
 Si volvemos a recargar la carpeta `/andrewgarfield`, veremos que está subido nuestro script:
 
-![Desktop View](/20260121235137.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260121235137.webp){: width="600" height="420" .shadow}
 
 Nos pondremos en escucha con **nc**, ejecutaremos nuestro script y habremos obtenido la consola remota:
 

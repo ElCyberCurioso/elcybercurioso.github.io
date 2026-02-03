@@ -8,7 +8,6 @@ tags: []
 media_subpath: "/assets/img/posts/dockerlabs_seeker"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -161,7 +160,7 @@ Starting gobuster in directory enumeration mode
 
 Al revisarlo, veremos que contiene un listado de las cadenas decodificadas que se muestran en el historial de la página:
 
-![Desktop View](/20260115205136.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260115205136.webp){: width="600" height="420" .shadow}
 
 Tras no encontrar nada que nos permita seguir avanzando con lo que hemos visto hasta ahora, seguimos analizando la máquina, en este caso, buscando más subdominios, donde encontramos `admin.crosswords.5eek3r.dl`:
 
@@ -214,7 +213,7 @@ Dado que tenemos permisos para subir ficheros, trataremos de subir el siguiente 
 
 Vemos que al intentar subir el script, se muestra el siguiente mensaje:
 
-![Desktop View](/20260115210537.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260115210537.webp){: width="550" height="390" .shadow}
 
 Para poder hacer pruebas, interceptamos la petición de subida de ficheros con **Burp Suite** y la enviamos al **Repeater**:
 

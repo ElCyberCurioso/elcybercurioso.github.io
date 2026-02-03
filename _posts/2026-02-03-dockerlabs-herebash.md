@@ -8,7 +8,6 @@ tags: []
 media_subpath: "/assets/img/posts/dockerlabs_herebash"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -82,7 +81,7 @@ Aquí vemos que nos dan una pista de hacia donde debemos enfocar nuestra búsque
 
 Si vamos al recurso `/spongebob` (que es la carpeta donde se aloja la página anterior) encontramos que podemos acceder, y nos lista una serie de ficheros y una carpeta:
 
-![Desktop View](/20260122204620.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260122204620.webp){: width="600" height="420" .shadow}
 
 Seguimos revisando los recursos que encontramos con **gobuster**, ya que la pista que dan todavía no encaja con nada de lo que hemos encontrado hasta ahora.
 
@@ -90,7 +89,7 @@ Seguimos revisando los recursos que encontramos con **gobuster**, ya que la pist
 
 Si accedemos al recurso `/scripts` vemos que se listan una serie de ficheros y directorios:
 
-![Desktop View](/20260128132202.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260128132202.webp){: width="600" height="420" .shadow}
 
 ### put.php
 
@@ -124,7 +123,7 @@ Seguimos revisando el recurso `/upload`, ya que la cadena que nos devuelve no no
 
 Dentro de la carpeta `/upload` vemos una imagen:
 
-![Desktop View](/20260128132847.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260128132847.webp){: width="600" height="420" .shadow}
 
 Nos la bajamos para analizarla:
 

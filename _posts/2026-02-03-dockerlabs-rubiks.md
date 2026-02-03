@@ -8,7 +8,6 @@ tags: []
 media_subpath: "/assets/img/posts/dockerlabs_rubiks"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -97,7 +96,7 @@ Una de las que destacan es `Consola`, la cual podemos intuir que nos permitiría
 
 Sin embargo, vemos que no encuentra el script `myconsole.php`:
 
-![Desktop View](/20260114004720.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260114004720.webp){: width="600" height="420" .shadow}
 
 Ya que no podemos hacer mucho con respecto a esta funcionalidad, seguiremos investigando la máquina.
 

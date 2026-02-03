@@ -8,7 +8,6 @@ tags: []
 media_subpath: "/assets/img/posts/dockerlabs_database"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -88,7 +87,7 @@ Finished
 
 Tratamos de ver si el panel es vulnerable a inyecciones SQL empleando payloads básicos:
 
-![Desktop View](/20260122131836.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260122131836.webp){: width="600" height="420" .shadow}
 
 Y vemos que con la siguiente cadena accedemos sin problema:
 
@@ -465,7 +464,7 @@ XXXX-XX-XX XX:XX:XX (23.4 MB/s) - ‘Database.kdbx’ saved [2030/2030]
 
 Si lo tratamos de abrir con **KeePass** (que en Linux se instala con el siguiente comando: `sudo apt install keepass2`), veremos que nos pide una contraseña, la cual no sabemos todavía cual puede ser:
 
-![Desktop View](/20260122190348.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260122190348.webp){: width="600" height="420" .shadow}
 
 Probamos a ver si la contraseña es la misma que la del usuario `augustus` por SSH, y resulta ser esa:
 
@@ -485,7 +484,7 @@ Session completed.
 
 Dentro de **KeePass**, si copiamos la contraseña del único registro disponible, veremos que lo que obtenemos realmente es un hash:
 
-![Desktop View](/20260122191613.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260122191613.webp){: width="600" height="420" .shadow}
 
 Pasamos el hash por alguna herramienta que nos compare el hash con otros hashes y nos diga si la contraseña ya es conocida, y veremos que se trata de la misma contraseña con la que abrimos el fichero `Database.kdbx`:
 

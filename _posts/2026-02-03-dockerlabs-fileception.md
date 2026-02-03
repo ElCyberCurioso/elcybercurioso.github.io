@@ -8,7 +8,6 @@ tags: []
 media_subpath: "/assets/img/posts/dockerlabs_fileception"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -216,7 +215,7 @@ La abrimos para verla, y es la siguiente:
 └─$ xdg-open hello_peter.jpg
 ```
 
-![Desktop View](/20260120170948.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260120170948.webp){: width="550" height="390" .shadow}
 
 Revisamos los metadatos de la imagen, pero no vemos nada sospechoso:
 

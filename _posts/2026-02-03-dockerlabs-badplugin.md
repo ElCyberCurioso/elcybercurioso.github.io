@@ -8,7 +8,6 @@ tags: []
 media_subpath: "/assets/img/posts/dockerlabs_badplugin"
 image:
   path: main.webp
-published: false
 ---
 
 ## nmap
@@ -189,7 +188,7 @@ Lo siguiente será acceder a la edición de ficheros de los plugins, donde indic
 
 Si se ha guardado correctamente, nos lo indicará con el siguiente mensaje:
 
-![Desktop View](/20260129230809.webp){: width="972" height="589" .shadow}
+![Desktop View](/20260129230809.webp){: width="450" height="210" .shadow}
 
 Para obtener la consola remota, ahora deberemos ponernos en escucha con **nc**:
 
