@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.appendChild(tooltip);
 
     let termsData = [];
+    // Mapa plano: palabra clave (minúsculas) -> objeto de definición
+    let termsMap = {};
 
     // Función para escapar caracteres especiales en Regex
     function escapeRegExp(string) {
@@ -74,8 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const manualElements = document.querySelectorAll(WIKI_CONFIG.manualSelector);
         manualElements.forEach(el => {
             // Intentar obtener el término desde el atributo data o el texto
-            const termKey = el.getAttribute('data-term') || el.textContent.trim();
-            const termData = termsData.find(t => t.term.toLowerCase() === termKey.toLowerCase());
+            const termKey = (el.getAttribute('data-term') || el.textContent.trim()).toLowerCase();
+            const termData = termsMap[termKey];
             
             if (termData) {
                 attachEvents(el, termData);
@@ -84,23 +86,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     el.classList.add('wiki-term');
                 }
             } else {
-                console.warn(`Wiki Tooltip: No se encontró definición para "${termKey}"`);
+                // Intento fallback: buscar en termsData directamente si no está en el mapa (por si acaso)
+                const fallback = termsData.find(t => t.term.toLowerCase() === termKey);
+                if (fallback) {
+                    attachEvents(el, fallback);
+                    if (!el.classList.contains('wiki-term')) el.classList.add('wiki-term');
+                } else {
+                    console.warn(`Wiki Tooltip: No se encontró definición para "${termKey}"`);
+                }
             }
         });
     }
 
     // Procesar el texto automáticamente
     function processTextNodes(rootNode) {
+        // Selector CSS de elementos excluidos
+        const EXCLUDED_SELECTORS = 'h1, h2, h3, h4, h5, h6, a, button, textarea, input, select, pre, code, script, style, .wiki-term';
+
         const walker = document.createTreeWalker(
             rootNode,
             NodeFilter.SHOW_TEXT,
             {
                 acceptNode: function(node) {
-                    // Ignorar scripts, estilos, y ya procesados
-                    if (['SCRIPT', 'STYLE', 'A', 'TEXTAREA', 'INPUT'].includes(node.parentNode.nodeName)) {
-                        return NodeFilter.FILTER_REJECT;
-                    }
-                    if (node.parentNode.classList.contains('wiki-term')) {
+                    // Verificar si algún ancestro coincide con los selectores excluidos
+                    if (node.parentElement && node.parentElement.closest(EXCLUDED_SELECTORS)) {
                         return NodeFilter.FILTER_REJECT;
                     }
                     return NodeFilter.FILTER_ACCEPT;
@@ -112,16 +121,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const nodesToReplace = [];
         let node;
 
+        // Preparar lista de claves de búsqueda ordenadas por longitud
+        const searchKeys = Object.keys(termsMap).sort((a, b) => b.length - a.length);
+        if (searchKeys.length === 0) return;
+
+        // Construir regex gigante
+        const pattern = searchKeys.map(k => escapeRegExp(k)).join('|');
+        const regex = new RegExp(`\\b(${pattern})\\b`, 'gi');
+
         while (node = walker.nextNode()) {
             let text = node.nodeValue;
-            
-            // Ordenamos por longitud inversa para matchear frases largas primero
-            termsData.sort((a, b) => b.term.length - a.term.length);
-
-            // Construimos un regex combinado: (\bTerm1\b|\bTerm2\b|...)
-            const pattern = termsData.map(t => escapeRegExp(t.term)).join('|');
-            const regex = new RegExp(`\\b(${pattern})\\b`, 'gi');
-
             if (regex.test(text)) {
                 nodesToReplace.push({ node: node, regex: regex });
             }
@@ -142,11 +151,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const foundTermText = match[0];
                 const termLower = foundTermText.toLowerCase();
-                const termData = termsData.find(t => t.term.toLowerCase() === termLower);
+                const termData = termsMap[termLower];
 
                 if (termData) {
                     const span = document.createElement('span');
-                    span.className = 'wiki-term'; // Usar la misma clase para estilos
+                    span.className = 'wiki-term';
                     span.textContent = foundTermText;
                     
                     attachEvents(span, termData);
@@ -171,6 +180,20 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             termsData = data;
             
+            // Construir el mapa de términos y alias
+            termsMap = {};
+            termsData.forEach(item => {
+                // Mapear término principal
+                termsMap[item.term.toLowerCase()] = item;
+                
+                // Mapear alias si existen
+                if (item.aliases && Array.isArray(item.aliases)) {
+                    item.aliases.forEach(alias => {
+                        termsMap[alias.toLowerCase()] = item;
+                    });
+                }
+            });
+
             // 1. Procesar manuales siempre
             processManualTerms();
 

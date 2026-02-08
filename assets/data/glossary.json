@@ -97,7 +97,11 @@
   {
     "term": "Ciberseguridad",
     "description": "La práctica de defender las computadoras, los servidores, los dispositivos móviles, los sistemas electrónicos, las redes y los datos de ataques maliciosos.",
-    "url": "https://elcybercurioso.github.io/posts/dockerlabs-intro/"
+    "url": "https://elcybercurioso.github.io/posts/dockerlabs-intro/",
+    "aliases": [
+      "Seguridad Informática",
+      "InfoSec"
+    ]
   },
   {
     "term": "Command And Control",
@@ -605,7 +609,15 @@
     "url": "https://www.cloudflare.com/learning/network-layer/what-is-a-subnet/"
   },
   {
+    "term": "SUID",
+    "description": "Bit especial en el campo de permisos de archivos que permite a un usuario ejecutar un archivo con los privilegios del propietario del archivo, no del usuario que lo ejecuta.",
+    "url": "https://en.wikipedia.org/wiki/Setuid"
+  },
+  {
     "term": "Sudoers Misconfiguration",
+    "aliases": [
+      "sudo"
+    ],
     "description": "Configuración insegura del archivo sudoers que permite ejecutar comandos privilegiados sin control adecuado.",
     "url": "https://www.sudo.ws/docs/man/sudoers.man/"
   },
