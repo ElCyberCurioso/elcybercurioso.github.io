@@ -2,87 +2,142 @@
   {
     "term": "Active Directory",
     "description": "Servicio de directorio de Microsoft utilizado para la gestión de identidades y accesos en redes Windows.",
-    "url": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview"
+    "url": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview",
+    "aliases": [
+      "AD",
+      "Directorio Activo"
+    ]
   },
   {
     "term": "AES",
     "description": "Advanced Encryption Standard, algoritmo de cifrado simétrico ampliamente utilizado y seguro.",
-    "url": "https://www.nist.gov/publications/advanced-encryption-standard-aes"
+    "url": "https://www.nist.gov/publications/advanced-encryption-standard-aes",
+    "aliases": [
+      "Advanced Encryption Standard"
+    ]
   },
   {
     "term": "Algorithm",
     "description": "Conjunto de instrucciones definidas y ordenadas para resolver un problema o realizar una tarea.",
-    "url": "https://en.wikipedia.org/wiki/Algorithm"
+    "url": "https://en.wikipedia.org/wiki/Algorithm",
+    "aliases": [
+      "Algoritmo"
+    ]
   },
   {
     "term": "AlwaysInstallElevated",
     "description": "Configuración insegura de Windows Installer que permite ejecutar paquetes MSI con privilegios elevados.",
-    "url": "https://learn.microsoft.com/en-us/windows/win32/msi/alwaysinstallelevated"
+    "url": "https://learn.microsoft.com/en-us/windows/win32/msi/alwaysinstallelevated",
+    "aliases": [
+      "MSI Elevation"
+    ]
   },
   {
     "term": "API",
     "description": "Interfaz que permite que dos aplicaciones se comuniquen entre sí.",
-    "url": "https://aws.amazon.com/what-is/api/"
+    "url": "https://aws.amazon.com/what-is/api/",
+    "aliases": [
+      "Application Programming Interface"
+    ]
   },
   {
     "term": "ARP",
     "description": "Address Resolution Protocol, mapea direcciones IP a direcciones MAC físicas en una red local.",
-    "url": "https://www.cloudflare.com/learning/network-layer/what-is-arp/"
+    "url": "https://www.cloudflare.com/learning/network-layer/what-is-arp/",
+    "aliases": [
+      "Address Resolution Protocol"
+    ]
   },
   {
     "term": "AS-REP Roasting",
     "description": "Técnica que explota cuentas Kerberos sin preautenticación para extraer hashes cifrados.",
-    "url": "https://attack.mitre.org/techniques/T1558/004/"
+    "url": "https://attack.mitre.org/techniques/T1558/004/",
+    "aliases": [
+      "AS-REP"
+    ]
   },
   {
     "term": "Asymmetric Key",
     "description": "Esquema que usa un par de claves (pública y privada) para cifrar y descifrar.",
-    "url": "https://www.cloudflare.com/learning/ssl/how-does-public-key-encryption-work/"
+    "url": "https://www.cloudflare.com/learning/ssl/how-does-public-key-encryption-work/",
+    "aliases": [
+      "Public Key Cryptography",
+      "PKC"
+    ]
   },
   {
     "term": "AWS",
     "description": "Amazon Web Services, plataforma de servicios en la nube líder en el mercado.",
-    "url": "https://aws.amazon.com/what-is-aws/"
+    "url": "https://aws.amazon.com/what-is-aws/",
+    "aliases": [
+      "Amazon Web Services"
+    ]
   },
   {
     "term": "Backdoor",
     "description": "Mecanismo oculto que permite el acceso no autorizado a un sistema evitando controles de seguridad.",
-    "url": "https://attack.mitre.org/techniques/T1133/"
+    "url": "https://attack.mitre.org/techniques/T1133/",
+    "aliases": [
+      "Puerta trasera"
+    ]
   },
   {
     "term": "Bandwidth",
     "description": "Capacidad máxima de transferencia de datos de una red en un momento dado.",
-    "url": "https://www.cloudflare.com/learning/network-layer/what-is-bandwidth/"
+    "url": "https://www.cloudflare.com/learning/network-layer/what-is-bandwidth/",
+    "aliases": [
+      "Ancho de banda"
+    ]
   },
   {
     "term": "BloodHound",
     "description": "Aplicación web de una sola página que utiliza teoría de grafos para revelar relaciones ocultas en entornos Active Directory.",
-    "url": "https://github.com/SpecterOps/BloodHound"
+    "url": "https://github.com/SpecterOps/BloodHound",
+    "aliases": [
+      "Sharphound"
+    ]
   },
   {
     "term": "Blue Team",
     "description": "Equipo defensivo encargado de detectar, responder y mitigar incidentes de seguridad.",
-    "url": "https://www.cisa.gov/blue-team"
+    "url": "https://www.cisa.gov/blue-team",
+    "aliases": [
+      "Equipo Azul",
+      "Defensive Security"
+    ]
   },
   {
     "term": "Botnet",
     "description": "Red de dispositivos comprometidos controlados remotamente para ejecutar acciones maliciosas coordinadas.",
-    "url": "https://www.cisa.gov/botnets"
+    "url": "https://www.cisa.gov/botnets",
+    "aliases": [
+      "Red de bots"
+    ]
   },
   {
     "term": "Brute Force",
     "description": "Método de ataque que consiste en probar todas las combinaciones posibles de contraseñas hasta encontrar la correcta.",
-    "url": "https://attack.mitre.org/techniques/T1110/"
+    "url": "https://attack.mitre.org/techniques/T1110/",
+    "aliases": [
+      "Fuerza bruta"
+    ]
   },
   {
     "term": "Buffer Overflow",
     "description": "Anomalía donde un programa escribe datos más allá de los límites del búfer asignado, sobrescribiendo memoria adyacente.",
-    "url": "https://capec.mitre.org/data/definitions/100.html"
+    "url": "https://capec.mitre.org/data/definitions/100.html",
+    "aliases": [
+      "Desbordamiento de búfer",
+      "BOF"
+    ]
   },
   {
     "term": "Burp Suite",
     "description": "Plataforma de pruebas de seguridad para aplicaciones web.",
-    "url": "https://portswigger.net/burp"
+    "url": "https://portswigger.net/burp",
+    "aliases": [
+      "Burp"
+    ]
   },
   {
     "term": "Chisel",
@@ -92,7 +147,10 @@
   {
     "term": "CI/CD",
     "description": "Práctica de automatizar la integración y despliegue de cambios de código.",
-    "url": "https://www.redhat.com/en/topics/devops/what-is-ci-cd"
+    "url": "https://www.redhat.com/en/topics/devops/what-is-ci-cd",
+    "aliases": [
+      "Continuous Integration/Continuous Deployment"
+    ]
   },
   {
     "term": "Ciberseguridad",
@@ -106,42 +164,69 @@
   {
     "term": "Command And Control",
     "description": "Infraestructura utilizada para comunicarse y controlar sistemas comprometidos.",
-    "url": "https://attack.mitre.org/tactics/TA0011/"
+    "url": "https://attack.mitre.org/tactics/TA0011/",
+    "aliases": [
+      "C&C",
+      "C2"
+    ]
   },
   {
     "term": "Compiler",
     "description": "Programa que traduce código fuente escrito en un lenguaje de alto nivel a código máquina.",
-    "url": "https://www.briesoft.com/blog/compiler-vs-interpreter/"
+    "url": "https://www.briesoft.com/blog/compiler-vs-interpreter/",
+    "aliases": [
+      "Compilador"
+    ]
   },
   {
     "term": "Cron Job Injection",
     "description": "Técnica que aprovecha tareas programadas mal configuradas para ejecutar código con mayores privilegios.",
-    "url": "https://man7.org/linux/man-pages/man5/crontab.5.html"
+    "url": "https://man7.org/linux/man-pages/man5/crontab.5.html",
+    "aliases": [
+      "Cron Abuse"
+    ]
   },
   {
     "term": "Csrf",
     "description": "Ataque que fuerza a un usuario autenticado a ejecutar acciones no deseadas.",
-    "url": "https://owasp.org/www-community/attacks/csrf"
+    "url": "https://owasp.org/www-community/attacks/csrf",
+    "aliases": [
+      "CSRF",
+      "Cross-Site Request Forgery"
+    ]
   },
   {
     "term": "Cve",
     "description": "Identificador estándar para vulnerabilidades públicas mantenido por MITRE.",
-    "url": "https://cve.mitre.org/"
+    "url": "https://cve.mitre.org/",
+    "aliases": [
+      "Common Vulnerabilities and Exposures"
+    ]
   },
   {
     "term": "Cwe",
     "description": "Sistema de clasificación de debilidades de software que pueden conducir a vulnerabilidades.",
-    "url": "https://cwe.mitre.org/"
+    "url": "https://cwe.mitre.org/",
+    "aliases": [
+      "Common Weakness Enumeration"
+    ]
   },
   {
     "term": "Daemon",
     "description": "Proceso en segundo plano que no está bajo el control directo de un usuario interactivo.",
-    "url": "https://en.wikipedia.org/wiki/Daemon_(computing)"
+    "url": "https://en.wikipedia.org/wiki/Daemon_(computing)",
+    "aliases": [
+      "Servicio",
+      "Demonio"
+    ]
   },
   {
     "term": "Data Structure",
     "description": "Forma de organizar y almacenar datos para que puedan ser accedidos y modificados eficientemente.",
-    "url": "https://en.wikipedia.org/wiki/Data_structure"
+    "url": "https://en.wikipedia.org/wiki/Data_structure",
+    "aliases": [
+      "Estructura de Datos"
+    ]
   },
   {
     "term": "DDoS",
@@ -151,32 +236,51 @@
   {
     "term": "DHCP",
     "description": "Protocolo que asigna dinámicamente direcciones IP y configuraciones de red a dispositivos.",
-    "url": "https://www.cloudflare.com/learning/network-layer/what-is-dhcp/"
+    "url": "https://www.cloudflare.com/learning/network-layer/what-is-dhcp/",
+    "aliases": [
+      "Dynamic Host Configuration Protocol"
+    ]
   },
   {
     "term": "Digital Signature",
     "description": "Mecanismo matemático para verificar la autenticidad e integridad de un mensaje o documento digital.",
-    "url": "https://www.cisa.gov/news-events/news/understanding-digital-signatures"
+    "url": "https://www.cisa.gov/news-events/news/understanding-digital-signatures",
+    "aliases": [
+      "Firma Digital"
+    ]
   },
   {
     "term": "Directory Traversal",
     "description": "Vulnerabilidad HTTP que permite a los atacantes acceder a directorios restringidos y ejecutar comandos fuera del directorio raíz web.",
-    "url": "https://owasp.org/www-community/attacks/Path_Traversal"
+    "url": "https://owasp.org/www-community/attacks/Path_Traversal",
+    "aliases": [
+      "Dot Dot Slash",
+      "Path Traversal"
+    ]
   },
   {
     "term": "Dirty COW",
     "description": "Fallo de condición de carrera en el kernel de Linux que permite modificar archivos de solo lectura.",
-    "url": "https://dirtycow.ninja/"
+    "url": "https://dirtycow.ninja/",
+    "aliases": [
+      "CVE-2016-5195"
+    ]
   },
   {
     "term": "Dirty Pipe",
     "description": "Vulnerabilidad del kernel de Linux que permite escalada de privilegios mediante escritura arbitraria en memoria.",
-    "url": "https://dirtypipe.cm4all.com/"
+    "url": "https://dirtypipe.cm4all.com/",
+    "aliases": [
+      "CVE-2022-0847"
+    ]
   },
   {
     "term": "DLL Search Order Hijacking",
     "description": "Técnica que explota el orden de carga de DLLs en Windows para ejecutar código malicioso.",
-    "url": "https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order"
+    "url": "https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order",
+    "aliases": [
+      "DLL Hijacking"
+    ]
   },
   {
     "term": "DNS Spoofing",
@@ -191,27 +295,43 @@
   {
     "term": "Encryption",
     "description": "Proceso de codificar información para que solo las partes autorizadas puedan acceder a ella.",
-    "url": "https://www.cloudflare.com/learning/ssl/what-is-encryption/"
+    "url": "https://www.cloudflare.com/learning/ssl/what-is-encryption/",
+    "aliases": [
+      "Encriptación",
+      "Cifrado"
+    ]
   },
   {
     "term": "Environment Variable Hijacking",
     "description": "Abuso de variables de entorno para redirigir la ejecución de binarios o bibliotecas.",
-    "url": "https://attack.mitre.org/techniques/T1574/"
+    "url": "https://attack.mitre.org/techniques/T1574/",
+    "aliases": [
+      "Env Var Hijacking"
+    ]
   },
   {
     "term": "Exploit",
     "description": "Código o técnica que aprovecha una vulnerabilidad para ejecutar acciones no autorizadas.",
-    "url": "https://www.exploit-db.com/"
+    "url": "https://www.exploit-db.com/",
+    "aliases": [
+      "Explotación"
+    ]
   },
   {
     "term": "File System",
     "description": "Método y estructura de datos que el sistema operativo utiliza para controlar cómo se almacenan y recuperan los datos.",
-    "url": "https://www.howtogeek.com/134494/htg-explains-what-is-a-file-system-and-why-are-there-so-many/"
+    "url": "https://www.howtogeek.com/134494/htg-explains-what-is-a-file-system-and-why-are-there-so-many/",
+    "aliases": [
+      "Sistema de archivos"
+    ]
   },
   {
     "term": "Firewall",
     "description": "Dispositivo de seguridad de red que monitorea y filtra el tráfico entrante y saliente basándose en políticas de seguridad.",
-    "url": "https://www.cisa.gov/news-events/news/understanding-firewalls-home-and-small-office-use"
+    "url": "https://www.cisa.gov/news-events/news/understanding-firewalls-home-and-small-office-use",
+    "aliases": [
+      "Cortafuegos"
+    ]
   },
   {
     "term": "Gateway",
@@ -221,7 +341,10 @@
   {
     "term": "Git",
     "description": "Sistema de control de versiones distribuido para rastrear cambios en el código fuente.",
-    "url": "https://git-scm.com/"
+    "url": "https://git-scm.com/",
+    "aliases": [
+      "Version Control"
+    ]
   },
   {
     "term": "Gobuster",
@@ -231,12 +354,18 @@
   {
     "term": "GTFOBins",
     "description": "Base de datos que documenta cómo binarios legítimos de Unix pueden ser abusados para escalada de privilegios o evasión.",
-    "url": "https://gtfobins.github.io/"
+    "url": "https://gtfobins.github.io/",
+    "aliases": [
+      "Unix Binaries Abuse"
+    ]
   },
   {
     "term": "Hashcat",
     "description": "Herramienta avanzada de recuperación de contraseñas (cracking) que utiliza la potencia de la CPU o GPU.",
-    "url": "https://hashcat.net/hashcat/"
+    "url": "https://hashcat.net/hashcat/",
+    "aliases": [
+      "Password Cracker"
+    ]
   },
   {
     "term": "Hashing",
@@ -251,62 +380,100 @@
   {
     "term": "Hypervisor",
     "description": "Software que crea y ejecuta máquinas virtuales.",
-    "url": "https://www.vmware.com/topics/glossary/content/hypervisor.html"
+    "url": "https://www.vmware.com/topics/glossary/content/hypervisor.html",
+    "aliases": [
+      "VMM",
+      "Hipervisor"
+    ]
   },
   {
     "term": "IaaS",
     "description": "Infrastructure as a Service, modelo donde se alquila infraestructura TI (servidores, VM) en la nube.",
-    "url": "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-iaas/"
+    "url": "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-iaas/",
+    "aliases": [
+      "Infrastructure as a Service"
+    ]
   },
   {
     "term": "ICMP",
     "description": "Protocolo utilizado por dispositivos de red para enviar mensajes de error e información operativa (ej. ping).",
-    "url": "https://www.cloudflare.com/learning/ddos/glossary/internet-control-message-protocol-icmp/"
+    "url": "https://www.cloudflare.com/learning/ddos/glossary/internet-control-message-protocol-icmp/",
+    "aliases": [
+      "Internet Control Message Protocol"
+    ]
   },
   {
     "term": "IDE",
     "description": "Entorno de Desarrollo Integrado, software que proporciona herramientas completas para programadores.",
-    "url": "https://aws.amazon.com/what-is/ide/"
+    "url": "https://aws.amazon.com/what-is/ide/",
+    "aliases": [
+      "Integrated Development Environment"
+    ]
   },
   {
     "term": "Idor",
     "description": "Fallo de control de acceso que permite acceder a recursos de otros usuarios.",
-    "url": "https://owasp.org/www-community/attacks/Insecure_Direct_Object_Reference"
+    "url": "https://owasp.org/www-community/attacks/Insecure_Direct_Object_Reference",
+    "aliases": [
+      "Insecure Direct Object Reference",
+      "IDOR"
+    ]
   },
   {
     "term": "Interpreter",
     "description": "Programa que ejecuta instrucciones escritas en un lenguaje de programación o scripting directamente.",
-    "url": "https://www.briesoft.com/blog/compiler-vs-interpreter/"
+    "url": "https://www.briesoft.com/blog/compiler-vs-interpreter/",
+    "aliases": [
+      "Intérprete"
+    ]
   },
   {
     "term": "John the Ripper",
     "description": "Herramienta de craqueo de contraseñas rápida y flexible, útil para detectar contraseñas débiles.",
-    "url": "https://www.openwall.com/john/"
+    "url": "https://www.openwall.com/john/",
+    "aliases": [
+      "JtR"
+    ]
   },
   {
     "term": "Juicy Potato",
     "description": "Herramienta que explota configuraciones DCOM en Windows para obtener privilegios SYSTEM.",
-    "url": "https://github.com/ohpe/juicy-potato"
+    "url": "https://github.com/ohpe/juicy-potato",
+    "aliases": [
+      "Rotten Potato variant"
+    ]
   },
   {
     "term": "JWT",
     "description": "JSON Web Token, estándar abierto para transmitir información de forma segura entre partes como un objeto JSON.",
-    "url": "https://jwt.io/introduction"
+    "url": "https://jwt.io/introduction",
+    "aliases": [
+      "JSON Web Token"
+    ]
   },
   {
     "term": "Kerberoasting",
     "description": "Ataque que permite obtener hashes de cuentas de servicio Kerberos para su posterior crackeo offline.",
-    "url": "https://attack.mitre.org/techniques/T1558/003/"
+    "url": "https://attack.mitre.org/techniques/T1558/003/",
+    "aliases": [
+      "Kerberos Abuse"
+    ]
   },
   {
     "term": "Kernel",
     "description": "Núcleo del sistema operativo que gestiona los recursos del hardware y permite la interacción con el software.",
-    "url": "https://www.redhat.com/en/topics/linux/what-is-the-linux-kernel"
+    "url": "https://www.redhat.com/en/topics/linux/what-is-the-linux-kernel",
+    "aliases": [
+      "Núcleo"
+    ]
   },
   {
     "term": "Keylogger",
     "description": "Herramienta que registra las pulsaciones de teclado para capturar credenciales u otra información sensible.",
-    "url": "https://attack.mitre.org/techniques/T1056/001/"
+    "url": "https://attack.mitre.org/techniques/T1056/001/",
+    "aliases": [
+      "Registrador de teclas"
+    ]
   },
   {
     "term": "Kubernetes",
@@ -316,17 +483,26 @@
   {
     "term": "Lateral Movement",
     "description": "Movimiento de un atacante entre sistemas comprometidos dentro de una red.",
-    "url": "https://attack.mitre.org/tactics/TA0008/"
+    "url": "https://attack.mitre.org/tactics/TA0008/",
+    "aliases": [
+      "Movimiento lateral"
+    ]
   },
   {
     "term": "LD_PRELOAD Abuse",
     "description": "Abuso de la variable LD_PRELOAD para cargar bibliotecas maliciosas antes de otras durante la ejecución de programas.",
-    "url": "https://man7.org/linux/man-pages/man8/ld.so.8.html"
+    "url": "https://man7.org/linux/man-pages/man8/ld.so.8.html",
+    "aliases": [
+      "LD_PRELOAD"
+    ]
   },
   {
     "term": "LFI",
     "description": "Local File Inclusion, vulnerabilidad que permite a un atacante incluir archivos presentes en el servidor a través del navegador.",
-    "url": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion"
+    "url": "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion",
+    "aliases": [
+      "Local File Inclusion"
+    ]
   },
   {
     "term": "LinEnum",
@@ -336,7 +512,10 @@
   {
     "term": "LinPEAS",
     "description": "Herramienta automatizada para la enumeración de vectores de escalada de privilegios en sistemas Linux.",
-    "url": "https://github.com/peass-ng/PEASS-ng"
+    "url": "https://github.com/peass-ng/PEASS-ng",
+    "aliases": [
+      "PEASS-ng Linux"
+    ]
   },
   {
     "term": "Linux",
@@ -346,7 +525,10 @@
   {
     "term": "Linux Capabilities",
     "description": "Mecanismo del kernel de Linux que divide privilegios de root y que puede ser abusado para escalada si está mal configurado.",
-    "url": "https://man7.org/linux/man-pages/man7/capabilities.7.html"
+    "url": "https://man7.org/linux/man-pages/man7/capabilities.7.html",
+    "aliases": [
+      "Capabilities"
+    ]
   },
   {
     "term": "Linux Smart Enumeration",
@@ -356,22 +538,37 @@
   {
     "term": "Living Off The Land",
     "description": "Enfoque ofensivo que utiliza herramientas legítimas del sistema para evitar detección durante un ataque.",
-    "url": "https://attack.mitre.org/"
+    "url": "https://attack.mitre.org/",
+    "aliases": [
+      "LOLBins",
+      "LotL"
+    ]
   },
   {
     "term": "LOLBAS",
     "description": "Listado de binarios legítimos de Windows que pueden ser utilizados para ejecución, persistencia o evasión defensiva.",
-    "url": "https://lolbas-project.github.io/"
+    "url": "https://lolbas-project.github.io/",
+    "aliases": [
+      "Windows Binaries Abuse"
+    ]
   },
   {
     "term": "Malware",
     "description": "Software malicioso diseñado para dañar, interrumpir o tomar control de sistemas sin el consentimiento del usuario.",
-    "url": "https://www.cisa.gov/malware"
+    "url": "https://www.cisa.gov/malware",
+    "aliases": [
+      "Software malicioso",
+      "Código malicioso"
+    ]
   },
   {
     "term": "Man-in-the-Middle",
     "description": "Ataque donde el perpetrador se interpone secretamente en la comunicación entre dos partes para interceptar o alterar datos.",
-    "url": "https://attack.mitre.org/techniques/T1557/"
+    "url": "https://attack.mitre.org/techniques/T1557/",
+    "aliases": [
+      "MitM",
+      "On-path attack"
+    ]
   },
   {
     "term": "Metasploit",
@@ -381,22 +578,34 @@
   {
     "term": "Mimikatz",
     "description": "Herramienta post-explotación famosa por extraer contraseñas, hashes, PINs y tickets Kerberos de la memoria de Windows.",
-    "url": "https://github.com/gentilkiwi/mimikatz"
+    "url": "https://github.com/gentilkiwi/mimikatz",
+    "aliases": [
+      "Kiwi"
+    ]
   },
   {
     "term": "NAT",
     "description": "Network Address Translation, técnica que reescribe direcciones IP para permitir que múltiples dispositivos compartan una IP pública.",
-    "url": "https://www.cisco.com/c/en/us/support/docs/ip/network-address-translation-nat/26704-nat-faq-00.html"
+    "url": "https://www.cisco.com/c/en/us/support/docs/ip/network-address-translation-nat/26704-nat-faq-00.html",
+    "aliases": [
+      "Network Address Translation"
+    ]
   },
   {
     "term": "Netcat",
     "description": "Utilidad de red versátil para leer y escribir datos a través de conexiones de red TCP o UDP, conocida como la navaja suiza.",
-    "url": "https://nmap.org/ncat/"
+    "url": "https://nmap.org/ncat/",
+    "aliases": [
+      "nc"
+    ]
   },
   {
     "term": "Nmap",
     "description": "Herramienta de escaneo de redes utilizada para descubrimiento y enumeración de servicios.",
-    "url": "https://nmap.org/"
+    "url": "https://nmap.org/",
+    "aliases": [
+      "Network Mapper"
+    ]
   },
   {
     "term": "OSI Model",
@@ -406,67 +615,108 @@
   {
     "term": "OSINT",
     "description": "Inteligencia de Fuentes Abiertas, recopilación y análisis de información obtenida de fuentes públicas.",
-    "url": "https://www.cisa.gov/open-source-intelligence-osint"
+    "url": "https://www.cisa.gov/open-source-intelligence-osint",
+    "aliases": [
+      "Open Source Intelligence"
+    ]
   },
   {
     "term": "Owasp",
     "description": "Organización sin ánimo de lucro enfocada en mejorar la seguridad del software.",
-    "url": "https://owasp.org/"
+    "url": "https://owasp.org/",
+    "aliases": [
+      "Open Web Application Security Project"
+    ]
   },
   {
     "term": "Owasp Top 10",
     "description": "Listado de los riesgos más críticos en aplicaciones web según OWASP.",
-    "url": "https://owasp.org/www-project-top-ten/"
+    "url": "https://owasp.org/www-project-top-ten/",
+    "aliases": [
+      "OWASP Top 10"
+    ]
   },
   {
     "term": "PaaS",
     "description": "Platform as a Service, entorno de desarrollo y despliegue en la nube sin gestionar la infraestructura subyacente.",
-    "url": "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-paas/"
+    "url": "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-paas/",
+    "aliases": [
+      "Platform as a Service"
+    ]
   },
   {
     "term": "Payload",
     "description": "Componente del exploit que ejecuta la acción maliciosa final tras la explotación.",
-    "url": "https://www.offsec.com/metasploit-unleashed/payloads/"
+    "url": "https://www.offsec.com/metasploit-unleashed/payloads/",
+    "aliases": [
+      "Carga útil"
+    ]
   },
   {
     "term": "Persistence",
     "description": "Técnicas utilizadas para mantener acceso a largo plazo a un sistema comprometido.",
-    "url": "https://attack.mitre.org/tactics/TA0003/"
+    "url": "https://attack.mitre.org/tactics/TA0003/",
+    "aliases": [
+      "Persistencia"
+    ]
   },
   {
     "term": "Phishing",
     "description": "Técnica de ingeniería social que suplanta entidades legítimas para robar información sensible.",
-    "url": "https://owasp.org/www-community/attacks/Phishing"
+    "url": "https://owasp.org/www-community/attacks/Phishing",
+    "aliases": [
+      "Suplantación de identidad"
+    ]
   },
   {
     "term": "PKI",
     "description": "Public Key Infrastructure, conjunto de roles y políticas para crear, gestionar y revocar certificados digitales.",
-    "url": "https://www.cloudflare.com/learning/ssl/what-is-pki/"
+    "url": "https://www.cloudflare.com/learning/ssl/what-is-pki/",
+    "aliases": [
+      "Public Key Infrastructure"
+    ]
   },
   {
     "term": "Polkit Exploit",
     "description": "Explotación de vulnerabilidades en Polkit para obtener privilegios elevados en sistemas Linux.",
-    "url": "https://access.redhat.com/security/vulnerabilities/RHSB-2022-001"
+    "url": "https://access.redhat.com/security/vulnerabilities/RHSB-2022-001",
+    "aliases": [
+      "PwnKit",
+      "CVE-2021-4034"
+    ]
   },
   {
     "term": "PowerUp",
     "description": "Script de PowerShell diseñado para identificar configuraciones inseguras que permiten escalada de privilegios.",
-    "url": "https://github.com/PowerShellMafia/PowerSploit"
+    "url": "https://github.com/PowerShellMafia/PowerSploit",
+    "aliases": [
+      "PowerSploit PowerUp"
+    ]
   },
   {
     "term": "PrintSpoofer",
     "description": "Explotación del servicio de impresión de Windows para abusar de privilegios de suplantación.",
-    "url": "https://github.com/itm4n/PrintSpoofer"
+    "url": "https://github.com/itm4n/PrintSpoofer",
+    "aliases": [
+      "Print Spooler Exploit"
+    ]
   },
   {
     "term": "Privilege Escalation",
     "description": "Técnica utilizada para obtener permisos más elevados de los inicialmente asignados.",
-    "url": "https://attack.mitre.org/tactics/TA0004/"
+    "url": "https://attack.mitre.org/tactics/TA0004/",
+    "aliases": [
+      "PrivEsc",
+      "Escalada de privilegios"
+    ]
   },
   {
     "term": "Process",
     "description": "Instancia de un programa en ejecución.",
-    "url": "https://en.wikipedia.org/wiki/Process_(computing)"
+    "url": "https://en.wikipedia.org/wiki/Process_(computing)",
+    "aliases": [
+      "Proceso"
+    ]
   },
   {
     "term": "ProxyChains",
@@ -486,17 +736,27 @@
   {
     "term": "Ransomware",
     "description": "Tipo de malware que cifra datos o bloquea sistemas para exigir un rescate económico.",
-    "url": "https://www.cisa.gov/ransomware"
+    "url": "https://www.cisa.gov/ransomware",
+    "aliases": [
+      "Secuestro de datos"
+    ]
   },
   {
     "term": "RCE",
     "description": "Remote Code Execution, vulnerabilidad que permite a un atacante ejecutar código arbitrario en una máquina objetivo.",
-    "url": "https://cwe.mitre.org/data/definitions/94.html"
+    "url": "https://cwe.mitre.org/data/definitions/94.html",
+    "aliases": [
+      "Remote Code Execution"
+    ]
   },
   {
     "term": "Red Team",
     "description": "Equipo ofensivo que simula ataques reales para evaluar la seguridad de una organización.",
-    "url": "https://www.cisa.gov/red-team"
+    "url": "https://www.cisa.gov/red-team",
+    "aliases": [
+      "Equipo Rojo",
+      "Offensive Security"
+    ]
   },
   {
     "term": "REST",
@@ -506,52 +766,86 @@
   {
     "term": "Reverse Shell",
     "description": "Técnica donde la máquina objetivo inicia una conexión de vuelta a la máquina del atacante para proveer acceso de línea de comandos.",
-    "url": "https://attack.mitre.org/techniques/T1059/"
+    "url": "https://attack.mitre.org/techniques/T1059/",
+    "aliases": [
+      "Shell inversa",
+      "RevShell"
+    ]
   },
   {
     "term": "Rogue Service",
     "description": "Técnica que aprovecha servicios mal configurados para reemplazar binarios y ejecutar código privilegiado.",
-    "url": "https://attack.mitre.org/techniques/T1543/"
+    "url": "https://attack.mitre.org/techniques/T1543/",
+    "aliases": [
+      "Malicious Service"
+    ]
   },
   {
     "term": "Rootkit",
     "description": "Conjunto de herramientas diseñadas para ocultar la presencia de malware y mantener acceso privilegiado.",
-    "url": "https://attack.mitre.org/software/S0028/"
+    "url": "https://attack.mitre.org/software/S0028/",
+    "aliases": [
+      "Kit de root"
+    ]
   },
   {
     "term": "RSA",
     "description": "Algoritmo de criptografía asimétrica utilizado para transmisión segura de datos.",
-    "url": "https://www.cloudflare.com/learning/ssl/what-is-encryption/"
+    "url": "https://www.cloudflare.com/learning/ssl/what-is-encryption/",
+    "aliases": [
+      "Rivest-Shamir-Adleman"
+    ]
   },
   {
     "term": "SaaS",
     "description": "Software as a Service, aplicaciones entregadas a través de internet como servicio.",
-    "url": "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-saas/"
+    "url": "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-saas/",
+    "aliases": [
+      "Software as a Service"
+    ]
   },
   {
     "term": "Seatbelt",
     "description": "Herramienta de enumeración de seguridad para Windows orientada a auditorías post-explotación.",
-    "url": "https://github.com/GhostPack/Seatbelt"
+    "url": "https://github.com/GhostPack/Seatbelt",
+    "aliases": [
+      "GhostPack Seatbelt"
+    ]
   },
   {
     "term": "SeImpersonatePrivilege",
     "description": "Privilegio de Windows que permite suplantar tokens y que puede derivar en escalada de privilegios.",
-    "url": "https://learn.microsoft.com/en-us/windows/win32/secauthz/privilege-constants"
+    "url": "https://learn.microsoft.com/en-us/windows/win32/secauthz/privilege-constants",
+    "aliases": [
+      "Impersonation"
+    ]
   },
   {
     "term": "Serverless",
     "description": "Modelo de ejecución donde el proveedor de nube gestiona dinámicamente la asignación de recursos del servidor.",
-    "url": "https://aws.amazon.com/serverless/"
+    "url": "https://aws.amazon.com/serverless/",
+    "aliases": [
+      "Sin servidor",
+      "FaaS"
+    ]
   },
   {
     "term": "SharpUp",
     "description": "Herramienta de enumeración para escalada de privilegios en Windows desarrollada en C#.",
-    "url": "https://github.com/GhostPack/SharpUp"
+    "url": "https://github.com/GhostPack/SharpUp",
+    "aliases": [
+      "GhostPack SharpUp"
+    ]
   },
   {
     "term": "Shell",
     "description": "Programa que interpreta comandos y actúa como interfaz entre el usuario y el sistema operativo.",
-    "url": "https://www.redhat.com/en/topics/linux/what-is-bash-shell"
+    "url": "https://www.redhat.com/en/topics/linux/what-is-bash-shell",
+    "aliases": [
+      "Terminal",
+      "Consola",
+      "Línea de comandos"
+    ]
   },
   {
     "term": "Shellcode",
@@ -561,7 +855,10 @@
   {
     "term": "SIEM",
     "description": "Gestión de Eventos e Información de Seguridad, solución que agrega y analiza datos de actividad de múltiples recursos.",
-    "url": "https://csrc.nist.gov/glossary/term/security_information_and_event_management"
+    "url": "https://csrc.nist.gov/glossary/term/security_information_and_event_management",
+    "aliases": [
+      "Security Information and Event Management"
+    ]
   },
   {
     "term": "Smishing",
@@ -571,51 +868,82 @@
   {
     "term": "SOC",
     "description": "Centro de Operaciones de Seguridad, equipo centralizado que monitorea, detecta, analiza y responde a incidentes de ciberseguridad.",
-    "url": "https://www.cisa.gov/cyber-defense-forensics-and-malware-analysis"
+    "url": "https://www.cisa.gov/cyber-defense-forensics-and-malware-analysis",
+    "aliases": [
+      "Security Operations Center"
+    ]
   },
   {
     "term": "Social Engineering",
     "description": "Manipulación psicológica de las personas para que realicen acciones o divulguen información confidencial.",
-    "url": "https://www.cisa.gov/news-events/news/avoiding-social-engineering-and-phishing-attacks"
+    "url": "https://www.cisa.gov/news-events/news/avoiding-social-engineering-and-phishing-attacks",
+    "aliases": [
+      "Ingeniería Social"
+    ]
   },
   {
     "term": "Spear Phishing",
     "description": "Variante de phishing altamente dirigida que utiliza información específica de la víctima.",
-    "url": "https://attack.mitre.org/techniques/T1566/002/"
+    "url": "https://attack.mitre.org/techniques/T1566/002/",
+    "aliases": [
+      "Phishing dirigido"
+    ]
   },
   {
     "term": "Spyware",
     "description": "Malware que recopila información de forma encubierta, como credenciales o actividad del usuario.",
-    "url": "https://attack.mitre.org/software/S0012/"
+    "url": "https://attack.mitre.org/software/S0012/",
+    "aliases": [
+      "Software espía"
+    ]
   },
   {
     "term": "Sql Injection",
     "description": "Vulnerabilidad que permite manipular consultas SQL mediante entradas no validadas.",
-    "url": "https://owasp.org/www-community/attacks/SQL_Injection"
+    "url": "https://owasp.org/www-community/attacks/SQL_Injection",
+    "aliases": [
+      "SQLi"
+    ]
   },
   {
     "term": "SSL/TLS",
     "description": "Protocolos criptográficos diseñados para proporcionar comunicaciones seguras a través de una red.",
-    "url": "https://www.cloudflare.com/learning/ssl/transport-layer-security-tls/"
+    "url": "https://www.cloudflare.com/learning/ssl/transport-layer-security-tls/",
+    "aliases": [
+      "SSL",
+      "TLS",
+      "HTTPS"
+    ]
   },
   {
     "term": "Ssrf",
     "description": "Vulnerabilidad que permite a un atacante forzar al servidor a realizar peticiones internas.",
-    "url": "https://owasp.org/www-community/attacks/Server_Side_Request_Forgery"
+    "url": "https://owasp.org/www-community/attacks/Server_Side_Request_Forgery",
+    "aliases": [
+      "Server-Side Request Forgery",
+      "SSRF"
+    ]
   },
   {
     "term": "Subnet Mask",
     "description": "Número que define qué parte de una dirección IP corresponde a la red y qué parte al host.",
-    "url": "https://www.cloudflare.com/learning/network-layer/what-is-a-subnet/"
+    "url": "https://www.cloudflare.com/learning/network-layer/what-is-a-subnet/",
+    "aliases": [
+      "Máscara de subred"
+    ]
   },
   {
     "term": "SUID",
     "description": "Bit especial en el campo de permisos de archivos que permite a un usuario ejecutar un archivo con los privilegios del propietario del archivo, no del usuario que lo ejecuta.",
-    "url": "https://en.wikipedia.org/wiki/Setuid"
+    "url": "https://en.wikipedia.org/wiki/Setuid",
+    "aliases": [
+      "SetUID"
+    ]
   },
   {
     "term": "Sudoers Misconfiguration",
     "aliases": [
+      "Sudo Abuse",
       "sudo"
     ],
     "description": "Configuración insegura del archivo sudoers que permite ejecutar comandos privilegiados sin control adecuado.",
@@ -624,12 +952,18 @@
   {
     "term": "Symmetric Key",
     "description": "Esquema de cifrado donde la misma clave se usa tanto para cifrar como para descifrar.",
-    "url": "https://www.cloudflare.com/learning/ssl/what-is-symmetric-encryption/"
+    "url": "https://www.cloudflare.com/learning/ssl/what-is-symmetric-encryption/",
+    "aliases": [
+      "Secret Key Cryptography"
+    ]
   },
   {
     "term": "TCP/IP",
     "description": "Conjunto de protocolos de comunicación base de Internet y redes privadas.",
-    "url": "https://www.cloudflare.com/learning/ddos/glossary/tcp-ip/"
+    "url": "https://www.cloudflare.com/learning/ddos/glossary/tcp-ip/",
+    "aliases": [
+      "Transmission Control Protocol/Internet Protocol"
+    ]
   },
   {
     "term": "Terraform",
@@ -639,17 +973,27 @@
   {
     "term": "Thread",
     "description": "La unidad más pequeña de procesamiento que puede ser programada por un sistema operativo.",
-    "url": "https://en.wikipedia.org/wiki/Thread_(computing)"
+    "url": "https://en.wikipedia.org/wiki/Thread_(computing)",
+    "aliases": [
+      "Hilo",
+      "Subproceso"
+    ]
   },
   {
     "term": "Trojan",
     "description": "Malware que se presenta como software legítimo para engañar al usuario y ejecutarse.",
-    "url": "https://attack.mitre.org/techniques/T1204/"
+    "url": "https://attack.mitre.org/techniques/T1204/",
+    "aliases": [
+      "Troyano"
+    ]
   },
   {
     "term": "Unquoted Service Path",
     "description": "Vulnerabilidad en Windows donde rutas de servicios sin comillas permiten la ejecución de binarios no previstos.",
-    "url": "https://learn.microsoft.com/en-us/windows/win32/services/service-security-and-access-rights"
+    "url": "https://learn.microsoft.com/en-us/windows/win32/services/service-security-and-access-rights",
+    "aliases": [
+      "Unquoted Path"
+    ]
   },
   {
     "term": "Vishing",
@@ -659,61 +1003,101 @@
   {
     "term": "VLAN",
     "description": "Virtual Local Area Network, subred lógica que agrupa dispositivos independientemente de su ubicación física.",
-    "url": "https://www.cisco.com/c/en/us/products/switches/what-is-a-vlan-virtual-local-area-network.html"
+    "url": "https://www.cisco.com/c/en/us/products/switches/what-is-a-vlan-virtual-local-area-network.html",
+    "aliases": [
+      "Virtual Local Area Network"
+    ]
   },
   {
     "term": "VPN",
     "description": "Red Privada Virtual que cifra la conexión a internet para proteger la privacidad y permitir acceso remoto seguro.",
-    "url": "https://csrc.nist.gov/glossary/term/virtual_private_network"
+    "url": "https://csrc.nist.gov/glossary/term/virtual_private_network",
+    "aliases": [
+      "Virtual Private Network"
+    ]
   },
   {
     "term": "Vulnerability",
     "description": "Debilidad en un sistema que puede ser explotada para comprometer su seguridad.",
-    "url": "https://www.nist.gov/vulnerability"
+    "url": "https://www.nist.gov/vulnerability",
+    "aliases": [
+      "Vulnerabilidad",
+      "Fallo de seguridad"
+    ]
   },
   {
     "term": "WAF",
     "description": "Web Application Firewall, protege aplicaciones web filtrando y monitoreando el tráfico HTTP entre la aplicación e Internet.",
-    "url": "https://owasp.org/www-community/Web_Application_Firewall"
+    "url": "https://owasp.org/www-community/Web_Application_Firewall",
+    "aliases": [
+      "Web Application Firewall"
+    ]
   },
   {
     "term": "Whaling",
     "description": "Ataque de phishing dirigido a altos cargos o ejecutivos para cometer fraude o robo de información.",
-    "url": "https://www.cisa.gov/phishing"
+    "url": "https://www.cisa.gov/phishing",
+    "aliases": [
+      "Fraude del CEO"
+    ]
   },
   {
     "term": "Windows Token Privileges",
     "description": "Conjunto de privilegios asociados a tokens de acceso que pueden ser abusados para elevar permisos.",
-    "url": "https://learn.microsoft.com/en-us/windows/win32/secauthz/access-tokens"
+    "url": "https://learn.microsoft.com/en-us/windows/win32/secauthz/access-tokens",
+    "aliases": [
+      "Token Abuse"
+    ]
   },
   {
     "term": "WinPEAS",
     "description": "Utilidad de enumeración para identificar configuraciones inseguras y vectores de escalada de privilegios en Windows.",
-    "url": "https://github.com/peass-ng/PEASS-ng"
+    "url": "https://github.com/peass-ng/PEASS-ng",
+    "aliases": [
+      "PEASS-ng Windows"
+    ]
   },
   {
     "term": "Wireshark",
     "description": "Analizador de protocolos de red más utilizado del mundo, permite ver lo que está sucediendo en la red a nivel microscópico.",
-    "url": "https://www.wireshark.org/"
+    "url": "https://www.wireshark.org/",
+    "aliases": [
+      "Sniffer",
+      "Packet Analyzer"
+    ]
   },
   {
     "term": "Writable Systemd Service",
     "description": "Servicio de systemd con permisos de escritura que permite modificar su ejecución para obtener privilegios elevados.",
-    "url": "https://www.freedesktop.org/software/systemd/man/systemd.service.html"
+    "url": "https://www.freedesktop.org/software/systemd/man/systemd.service.html",
+    "aliases": [
+      "Systemd Abuse"
+    ]
   },
   {
     "term": "Xss",
     "description": "Vulnerabilidad que permite ejecutar código JavaScript malicioso en el navegador de la víctima.",
-    "url": "https://owasp.org/www-community/attacks/xss/"
+    "url": "https://owasp.org/www-community/attacks/xss/",
+    "aliases": [
+      "XSS",
+      "Cross-Site Scripting"
+    ]
   },
   {
     "term": "Zero Day",
     "description": "Vulnerabilidad desconocida públicamente y sin parche disponible en el momento de su explotación.",
-    "url": "https://www.cisa.gov/zero-day"
+    "url": "https://www.cisa.gov/zero-day",
+    "aliases": [
+      "0-day",
+      "0day"
+    ]
   },
   {
     "term": "Zero Trust",
     "description": "Modelo de seguridad que requiere verificación estricta de identidad para cada persona y dispositivo que intente acceder a recursos.",
-    "url": "https://www.cisa.gov/zero-trust-maturity-model"
+    "url": "https://www.cisa.gov/zero-trust-maturity-model",
+    "aliases": [
+      "Confianza Cero"
+    ]
   }
 ]
