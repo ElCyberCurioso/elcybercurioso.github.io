@@ -1,23 +1,542 @@
 ---
 layout: page
-# The layout for Tag page
+# All the Tags of posts — Multi-select filtering with dropdown
 ---
 
 {% include lang.html %}
 
-<div id="page-tag">
-  <h1 class="ps-lg-2">
-    <i class="fa fa-tag fa-fw text-muted"></i>
-    {{ page.title }}
-    <span class="lead text-muted ps-2">{{ page.posts | size }}</span>
-  </h1>
-  <ul class="content ps-0">
-    {% for post in page.posts %}
-      <li class="d-flex justify-content-between px-md-3">
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        <span class="dash flex-grow-1"></span>
-        {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=lang %}
+{% assign df_strftime = site.data.locales[lang].df.post.strftime | default: '%d/%m/%Y' %}
+
+<style>
+  /* ── Dropdown Selector ── */
+  .tag-selector {
+    position: relative;
+    max-width: 480px;
+    margin-bottom: 1rem;
+  }
+
+  .tag-selector .search-input {
+    width: 100%;
+    padding: 0.55rem 0.85rem;
+    padding-right: 2.2rem;
+    border: 1px solid var(--btn-border-color, #dee2e6);
+    border-radius: 0.5rem;
+    background: var(--card-bg, #fff);
+    color: var(--text-color, #333);
+    font-size: 0.92rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .tag-selector .search-input::placeholder {
+    color: var(--text-muted-color, #868e96);
+  }
+
+  .tag-selector .search-input:focus {
+    border-color: var(--link-color, #2a408e);
+    box-shadow: 0 0 0 3px rgba(42, 64, 142, 0.12);
+  }
+
+  .tag-selector .search-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted-color, #868e96);
+    font-size: 0.85rem;
+    pointer-events: none;
+  }
+
+  /* ── Dropdown List ── */
+  .tag-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 260px;
+    overflow-y: auto;
+    background: var(--card-bg, #fff);
+    border: 1px solid var(--btn-border-color, #dee2e6);
+    border-radius: 0.5rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    list-style: none;
+    margin: 0;
+    padding: 0.3rem 0;
+  }
+
+  .tag-dropdown.open {
+    display: block;
+    animation: dropdownIn 0.18s ease;
+  }
+
+  .tag-dropdown li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.48rem 0.85rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-color, #333);
+    transition: background 0.15s ease;
+  }
+
+  .tag-dropdown li:hover {
+    background: var(--tag-hover, rgba(42, 64, 142, 0.08));
+  }
+
+  .tag-dropdown li .tag-count {
+    font-size: 0.78rem;
+    color: var(--text-muted-color, #868e96);
+    margin-left: 0.5rem;
+  }
+
+  .tag-dropdown li.hidden {
+    display: none;
+  }
+
+  .tag-dropdown .no-match {
+    padding: 0.8rem;
+    text-align: center;
+    color: var(--text-muted-color, #868e96);
+    font-size: 0.85rem;
+    display: none;
+  }
+
+  /* ── Selected Tags (Chips) ── */
+  .selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.6rem;
+    min-height: 0;
+  }
+
+  .selected-tags:empty {
+    display: none;
+  }
+
+  .tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.55rem;
+    background: var(--link-color, #2a408e);
+    color: #fff;
+    border-radius: 2rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    animation: chipIn 0.2s ease;
+    line-height: 1.3;
+  }
+
+  .tag-chip .chip-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-size: 0.65rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    line-height: 1;
+    border: none;
+    padding: 0;
+  }
+
+  .tag-chip .chip-remove:hover {
+    background: rgba(255, 255, 255, 0.45);
+  }
+
+  /* ── Controls Bar ── */
+  .tags-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
+    flex-wrap: wrap;
+  }
+
+  .tags-controls .btn-clear {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--btn-border-color, #dee2e6);
+    border-radius: 0.375rem;
+    background: transparent;
+    color: var(--text-muted-color, #868e96);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .tags-controls .btn-clear:hover {
+    color: var(--link-color, #2a408e);
+    border-color: var(--link-color, #2a408e);
+  }
+
+  .tags-controls .selected-info {
+    font-size: 0.85rem;
+    color: var(--text-muted-color, #868e96);
+  }
+
+  /* ── Results Section ── */
+  #tag-results {
+    margin-top: 1.5rem;
+  }
+
+  #tag-results .results-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--main-border-color, #e9ecef);
+  }
+
+  #tag-results .results-header h2 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  #tag-results .results-header .count {
+    font-size: 0.9rem;
+    color: var(--text-muted-color, #868e96);
+  }
+
+  #tag-results .post-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    animation: fadeIn 0.25s ease;
+  }
+
+  #tag-results .post-item + .post-item {
+    border-top: 1px dashed var(--main-border-color, #e9ecef);
+  }
+
+  #tag-results .post-item a {
+    flex: 1;
+    min-width: 0;
+  }
+
+  #tag-results .post-item .post-date {
+    white-space: nowrap;
+    color: var(--text-muted-color, #868e96);
+    font-size: 0.85rem;
+  }
+
+  #tag-results .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.2rem;
+  }
+
+  #tag-results .post-tags .mini-tag {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+    background: var(--tag-bg, rgba(0, 0, 0, 0.05));
+    color: var(--text-muted-color, #868e96);
+  }
+
+  #tag-results .post-tags .mini-tag.highlight {
+    background: var(--link-color, #2a408e);
+    color: #fff;
+  }
+
+  #tag-results .no-results {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text-muted-color, #868e96);
+    font-size: 0.95rem;
+  }
+
+  .prompt-message {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text-muted-color, #868e96);
+    font-size: 0.95rem;
+  }
+
+  .prompt-message i {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes dropdownIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes chipIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+</style>
+
+<!-- ── Tag Dropdown Selector ── -->
+<div class="tag-selector" id="tag-selector">
+  <input
+    type="text"
+    class="search-input"
+    id="tag-search-input"
+    placeholder="Buscar etiquetas..."
+    autocomplete="off"
+    onclick="openDropdown()"
+    oninput="filterTagList()"
+  />
+  <i class="fas fa-chevron-down search-icon"></i>
+
+  <ul class="tag-dropdown" id="tag-dropdown">
+    {% assign tags = '' | split: '' %}
+    {% for t in site.tags %}
+      {% assign tags = tags | push: t[0] %}
+    {% endfor %}
+    {% assign sorted_tags = tags | sort_natural %}
+
+    {% for t in sorted_tags %}
+      <li data-tag-name="{{ t }}" onclick="selectTag('{{ t }}')">
+        <span>{{ t }}</span>
+        <span class="tag-count">{{ site.tags[t].size }}</span>
       </li>
     {% endfor %}
+    <li class="no-match" id="no-match-msg">
+      <span>No se encontraron etiquetas</span>
+    </li>
   </ul>
 </div>
+
+<!-- ── Selected Tags (Chips) ── -->
+<div class="selected-tags" id="selected-chips"></div>
+
+<!-- ── Controls ── -->
+<div class="tags-controls" id="tags-controls" style="display: none;">
+  <button class="btn-clear" onclick="clearAllTags()">
+    <i class="fas fa-times me-1"></i>Limpiar filtros
+  </button>
+  <span class="selected-info" id="selected-info"></span>
+</div>
+
+<!-- ── Prompt ── -->
+<div class="prompt-message" id="prompt-message">
+  <i class="fas fa-hand-pointer"></i>
+  Selecciona una o más etiquetas para filtrar los posts
+</div>
+
+<!-- ── Results ── -->
+<div id="tag-results" style="display: none;">
+  <div class="results-header">
+    <h2><i class="fas fa-search me-1"></i>Resultados</h2>
+    <span class="count" id="results-count"></span>
+  </div>
+  <div id="results-list"></div>
+  <div class="no-results" id="no-results" style="display: none;">
+    <i class="fas fa-exclamation-circle" style="font-size:1.5rem; display:block; margin-bottom:0.5rem;"></i>
+    No se encontraron posts con todas las etiquetas seleccionadas
+  </div>
+</div>
+
+<!-- ── Posts Data (generated by Jekyll) ── -->
+<script>
+  var ALL_POSTS = [
+    {% for post in site.posts %}
+    {
+      title: {{ post.title | jsonify }},
+      url: {{ post.url | relative_url | jsonify }},
+      date: {{ post.date | date: df_strftime | jsonify }},
+      tags: {{ post.tags | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+</script>
+
+<!-- ── Dropdown & Filtering Logic ── -->
+<script>
+  var selectedTags = new Set();
+
+  /* ── Dropdown ── */
+  function openDropdown() {
+    document.getElementById('tag-dropdown').classList.add('open');
+  }
+
+  function closeDropdown() {
+    document.getElementById('tag-dropdown').classList.remove('open');
+    document.getElementById('tag-search-input').value = '';
+    // Reset visibility of all items
+    document.querySelectorAll('#tag-dropdown li[data-tag-name]').forEach(function(li) {
+      if (!li.classList.contains('chip-hidden')) {
+        li.classList.remove('hidden');
+      }
+    });
+    document.getElementById('no-match-msg').style.display = 'none';
+  }
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(e) {
+    var selector = document.getElementById('tag-selector');
+    if (!selector.contains(e.target)) {
+      closeDropdown();
+    }
+  });
+
+  /* ── Filter tag list by search input ── */
+  function filterTagList() {
+    var query = document.getElementById('tag-search-input').value.toLowerCase().trim();
+    var items = document.querySelectorAll('#tag-dropdown li[data-tag-name]');
+    var visibleCount = 0;
+
+    items.forEach(function(li) {
+      if (li.classList.contains('chip-hidden')) return; // already selected
+      var name = li.getAttribute('data-tag-name').toLowerCase();
+      if (!query || name.indexOf(query) !== -1) {
+        li.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        li.classList.add('hidden');
+      }
+    });
+
+    document.getElementById('no-match-msg').style.display = visibleCount === 0 ? '' : 'none';
+    openDropdown();
+  }
+
+  /* ── Select a tag ── */
+  function selectTag(tagName) {
+    if (selectedTags.has(tagName)) return;
+    selectedTags.add(tagName);
+
+    // Hide from dropdown
+    var item = document.querySelector('#tag-dropdown li[data-tag-name="' + tagName + '"]');
+    if (item) {
+      item.classList.add('chip-hidden');
+      item.style.display = 'none';
+    }
+
+    // Add chip
+    renderChips();
+    filterPosts();
+    closeDropdown();
+  }
+
+  /* ── Remove a tag ── */
+  function removeTag(tagName) {
+    selectedTags.delete(tagName);
+
+    // Show again in dropdown
+    var item = document.querySelector('#tag-dropdown li[data-tag-name="' + tagName + '"]');
+    if (item) {
+      item.classList.remove('chip-hidden');
+      item.style.display = '';
+    }
+
+    renderChips();
+    filterPosts();
+  }
+
+  /* ── Render selected chips ── */
+  function renderChips() {
+    var container = document.getElementById('selected-chips');
+    if (selectedTags.size === 0) {
+      container.innerHTML = '';
+      return;
+    }
+
+    var html = '';
+    selectedTags.forEach(function(tag) {
+      html += '<span class="tag-chip">' +
+                tag +
+                '<button class="chip-remove" onclick="removeTag(\'' + tag.replace(/'/g, "\\'") + '\')" title="Quitar etiqueta" aria-label="Quitar ' + tag + '">' +
+                  '✕' +
+                '</button>' +
+              '</span>';
+    });
+    container.innerHTML = html;
+  }
+
+  /* ── Clear all ── */
+  function clearAllTags() {
+    selectedTags.clear();
+
+    // Show all items in dropdown again
+    document.querySelectorAll('#tag-dropdown li[data-tag-name]').forEach(function(li) {
+      li.classList.remove('chip-hidden', 'hidden');
+      li.style.display = '';
+    });
+
+    renderChips();
+    filterPosts();
+  }
+
+  /* ── Filter posts (AND logic) ── */
+  function filterPosts() {
+    var controls = document.getElementById('tags-controls');
+    var prompt = document.getElementById('prompt-message');
+    var results = document.getElementById('tag-results');
+    var resultsList = document.getElementById('results-list');
+    var noResults = document.getElementById('no-results');
+    var resultsCount = document.getElementById('results-count');
+    var selectedInfo = document.getElementById('selected-info');
+
+    if (selectedTags.size === 0) {
+      controls.style.display = 'none';
+      prompt.style.display = '';
+      results.style.display = 'none';
+      return;
+    }
+
+    controls.style.display = '';
+    prompt.style.display = 'none';
+    results.style.display = '';
+
+    var tagsArr = Array.from(selectedTags);
+    selectedInfo.textContent = tagsArr.length + (tagsArr.length === 1 ? ' etiqueta seleccionada' : ' etiquetas seleccionadas');
+
+    // Filter posts (AND logic)
+    var filtered = ALL_POSTS.filter(function(post) {
+      return tagsArr.every(function(tag) {
+        return post.tags.indexOf(tag) !== -1;
+      });
+    });
+
+    resultsCount.textContent = filtered.length + (filtered.length === 1 ? ' post' : ' posts');
+
+    if (filtered.length === 0) {
+      resultsList.innerHTML = '';
+      noResults.style.display = '';
+      return;
+    }
+
+    noResults.style.display = 'none';
+
+    var html = '';
+    filtered.forEach(function(post) {
+      var tagsHtml = '';
+      post.tags.forEach(function(t) {
+        var cls = selectedTags.has(t) ? 'mini-tag highlight' : 'mini-tag';
+        tagsHtml += '<span class="' + cls + '">' + t + '</span>';
+      });
+      html += '<div class="post-item">' +
+                '<div>' +
+                  '<a href="' + post.url + '">' + post.title + '</a>' +
+                  '<div class="post-tags">' + tagsHtml + '</div>' +
+                '</div>' +
+                '<span class="post-date">' + post.date + '</span>' +
+              '</div>';
+    });
+    resultsList.innerHTML = html;
+  }
+</script>
